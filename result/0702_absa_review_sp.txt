@@ -1,0 +1,637 @@
+=======
+text: 酸辣湯是酸甜口感
+ws: ['酸辣湯', '是', '酸甜', '口感']
+aspect(s): {'idx': [1], 'token': ['酸辣湯']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 牛肉湯麵的湯有點太鹹了
+ws: ['牛肉湯麵', '的', '湯', '有點', '太', '鹹', '了']
+aspect(s): {'idx': [1, 3], 'token': ['牛肉湯麵', '湯']}
+opinion(s): {'idx': [6], 'token': ['鹹']}
+Path from 牛肉湯麵_1 to 鹹_6:
+	[(6, 1, 'nn')],
+	['1 - 牛肉湯麵 Na --> 6 - 鹹 VH']
+Path from 湯_3 to 鹹_6:
+	[(6, 3, 'nsubj')],
+	['3 - 湯 Na --> 6 - 鹹 VH']
+=======
+text: 整體吃起來感覺普普
+ws: ['整體', '吃起來', '感覺', '普普']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [4], 'token': ['普普']}
+=======
+text: 喜歡吃帶筋的牛肉的話會是一個好選擇
+ws: ['喜歡', '吃', '帶', '筋', '的', '牛肉', '的話', '會', '是', '一', '個', '好', '選擇']
+aspect(s): {'idx': [6], 'token': ['牛肉']}
+opinion(s): {'idx': [1, 12], 'token': ['喜歡', '好']}
+Path from 牛肉_6 to 喜歡_1:
+	[(2, 6, 'dobj'), (1, 2, 'ccomp')],
+	['6 - 牛肉 Na --> 2 - 吃 VC', '2 - 吃 VC --> 1 - 喜歡 VK']
+Path from 牛肉_6 to 好_12:
+	[(2, 6, 'dobj'), (1, 2, 'ccomp'), (9, 1, 'dep'), (9, 13, 'attr'), (13, 12, 'amod')],
+	['6 - 牛肉 Na --> 2 - 吃 VC', '2 - 吃 VC --> 1 - 喜歡 VK', '1 - 喜歡 VK --> 9 - 是 SHI', '9 - 是 SHI --> 13 - 選擇 VC', '13 - 選擇 VC --> 12 - 好 VH']
+=======
+text: 牛肉湯滿清的但口味比較偏鹹一些
+ws: ['牛肉湯', '滿清', '的', '但', '口味', '比較', '偏', '鹹', '一些']
+aspect(s): {'idx': [1], 'token': ['牛肉湯']}
+opinion(s): {'idx': [8], 'token': ['鹹']}
+Path from 牛肉湯_1 to 鹹_8:
+	[(2, 1, 'nn'), (2, 8, 'conj')],
+	['1 - 牛肉湯 Na --> 2 - 滿清 Nb', '2 - 滿清 Nb --> 8 - 鹹 VH']
+=======
+text: 130元的牛肉麵
+ws: ['130', '元', '的', '牛肉麵']
+aspect(s): {'idx': [4], 'token': ['牛肉麵']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 只能說CP值太差
+ws: ['只', '能', '說', 'CP值', '太', '差']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [6], 'token': ['差']}
+=======
+text: 原本期待中位於中研院週圍老住宅區巷弄的麵館應該具有傳統外省老麵館的懷念美味
+ws: ['原本', '期待', '中', '位於', '中研院', '週圍', '老', '住宅區', '巷弄', '的', '麵館', '應該', '具有', '傳統', '外省', '老麵館', '的', '懷念', '美味']
+aspect(s): {'idx': [19], 'token': ['美味']}
+opinion(s): {'idx': [2, 18, 19], 'token': ['期待', '懷念', '美味']}
+Path from 美味_19 to 期待_2:
+	[(13, 19, 'dobj'), (13, 3, 'loc'), (3, 2, 'lobj')],
+	['19 - 美味 VH --> 13 - 具有 VJ', '13 - 具有 VJ --> 3 - 中 Ng', '3 - 中 Ng --> 2 - 期待 VK']
+Path from 美味_19 to 懷念_18:
+	[(19, 18, 'nn')],
+	['19 - 美味 VH --> 18 - 懷念 VJ']
+Path from 美味_19 to 美味_19:
+	[],
+	[]
+=======
+text: 經營母子倆服務熱誠與親切甚佳我才總體給3星
+ws: ['經營', '母子倆', '服務', '熱誠', '與', '親切', '甚', '佳', '我', '才', '總體', '給', '3', '星']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [1, 4, 6, 8], 'token': ['經營', '熱誠', '親切', '佳']}
+=======
+text: 而單就食物性價而言1-2星
+ws: ['而', '單', '就', '食物性價', '而言', '1-2', '星']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 牛肉麵130元麵條是麵廠中筋麵粉機器製麵
+ws: ['牛肉麵', '130', '元', '麵條', '是', '麵廠', '中筋', '麵粉', '機器', '製麵']
+aspect(s): {'idx': [1, 4, 8], 'token': ['牛肉麵', '麵條', '麵粉']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 牛肉湯頭並非傳統牛骨熬煮骨髓及油香
+ws: ['牛肉', '湯頭', '並非', '傳統', '牛骨', '熬煮', '骨髓', '及', '油香']
+aspect(s): {'idx': [1, 2, 9], 'token': ['牛肉', '湯頭', '油香']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 帶筋塊狀牛肉乏善可陳
+ws: ['帶', '筋塊狀', '牛肉', '乏善可陳']
+aspect(s): {'idx': [3], 'token': ['牛肉']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 不見青菜
+ws: ['不', '見', '青菜']
+aspect(s): {'idx': [3], 'token': ['青菜']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 酸菜辣油也無自製特別
+ws: ['酸菜', '辣油', '也', '無', '自製', '特別']
+aspect(s): {'idx': [1], 'token': ['酸菜']}
+opinion(s): {'idx': [6], 'token': ['特別']}
+Path from 酸菜_1 to 特別_6:
+	[(2, 1, 'nn'), (4, 2, 'nsubj'), (4, 6, 'dobj')],
+	['1 - 酸菜 Na --> 2 - 辣油 Na', '2 - 辣油 Na --> 4 - 無 VJ', '4 - 無 VJ --> 6 - 特別 VH']
+=======
+text: 滷味豆干滷蛋時間不長很淺味
+ws: ['滷味', '豆乾', '滷蛋', '時間', '不', '長', '很', '淺味']
+aspect(s): {'idx': [1, 2, 3], 'token': ['滷味', '豆乾', '滷蛋']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 燴飯不錯
+ws: ['燴飯', '不錯']
+aspect(s): {'idx': [1], 'token': ['燴飯']}
+opinion(s): {'idx': [2], 'token': ['不錯']}
+Path from 燴飯_1 to 不錯_2:
+	[(2, 1, 'nsubj')],
+	['1 - 燴飯 Na --> 2 - 不錯 VH']
+=======
+text: 燴汁下飯
+ws: ['燴汁', '下飯']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 份量也滿大的
+ws: ['份量', '也', '滿', '大', '的']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 酸辣湯也是料好實在
+ws: ['酸辣湯', '也', '是', '料好', '實在']
+aspect(s): {'idx': [1], 'token': ['酸辣湯']}
+opinion(s): {'idx': [5], 'token': ['實在']}
+Path from 酸辣湯_1 to 實在_5:
+	[(3, 1, 'amod'), (3, 5, 'comod')],
+	['1 - 酸辣湯 Na --> 3 - 是 SHI', '3 - 是 SHI --> 5 - 實在 VH']
+=======
+text: 每一口都是滿滿的料
+ws: ['每', '一', '口', '都', '是', '滿滿', '的', '料']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 環境乾淨
+ws: ['環境', '乾淨']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [2], 'token': ['乾淨']}
+=======
+text: 老闆娘也親切熱情
+ws: ['老闆娘', '也', '親切', '熱情']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [3, 4], 'token': ['親切', '熱情']}
+=======
+text: 是間可以舒服吃飯的巷弄小店
+ws: ['是', '間', '可以', '舒服', '吃飯', '的', '巷弄', '小店']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [4], 'token': ['舒服']}
+=======
+text: 下次還會再來
+ws: ['下', '次', '還', '會', '再', '來']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 份量偏少
+ws: ['份量', '偏', '少']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [3], 'token': ['少']}
+=======
+text: 清淡口味
+ws: ['清淡', '口味']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 還不錯
+ws: ['還', '不錯']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [2], 'token': ['不錯']}
+=======
+text: 個人覺得口味普通
+ws: ['個人', '覺得', '口味', '普通']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [4], 'token': ['普通']}
+=======
+text: 且CP值不夠
+ws: ['且', 'CP值', '不', '夠']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [4], 'token': ['夠']}
+=======
+text: 這絕對是我這輩子吃過最難吃的牛肉麵
+ws: ['這', '絕對', '是', '我', '這', '輩子', '吃', '過', '最', '難吃', '的', '牛肉麵']
+aspect(s): {'idx': [12], 'token': ['牛肉麵']}
+opinion(s): {'idx': [2, 10], 'token': ['絕對', '難吃']}
+Path from 牛肉麵_12 to 絕對_2:
+	[(3, 12, 'attr'), (3, 2, 'advmod')],
+	['12 - 牛肉麵 Na --> 3 - 是 SHI', '3 - 是 SHI --> 2 - 絕對 D']
+Path from 牛肉麵_12 to 難吃_10:
+	[(12, 10, 'advmod')],
+	['12 - 牛肉麵 Na --> 10 - 難吃 VH']
+=======
+text: 難吃到我願意刻意登入來負評
+ws: ['難吃', '到', '我', '願意', '刻意', '登入', '來', '負評']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [1, 4], 'token': ['難吃', '願意']}
+=======
+text: 你們的雖然偏清燉
+ws: ['你們', '的', '雖然', '偏清', '燉']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 但也太不用心了吧
+ws: ['但', '也', '太', '不', '用心', '了', '吧']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [5], 'token': ['用心']}
+=======
+text: 既然都叫松園*牛肉麵*
+ws: ['既然', '都', '叫', '松園', '*', '牛肉麵', '*']
+aspect(s): {'idx': [6], 'token': ['牛肉麵']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 好好燉個牛肉湯很難嗎
+ws: ['好好', '燉', '個', '牛肉湯', '很', '難', '嗎']
+aspect(s): {'idx': [4], 'token': ['牛肉湯']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 整碗湯滿滿的味精味
+ws: ['整', '碗', '湯', '滿滿', '的', '味精味']
+aspect(s): {'idx': [3], 'token': ['湯']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 不會適度搭配點甘草
+ws: ['不會', '適度', '搭配', '點', '甘草']
+aspect(s): {'idx': [5], 'token': ['甘草']}
+opinion(s): {'idx': [1, 2], 'token': ['不會', '適度']}
+Path from 甘草_5 to 不會_1:
+	[(3, 5, 'dobj'), (3, 1, 'neg')],
+	['5 - 甘草 Na --> 3 - 搭配 VC', '3 - 搭配 VC --> 1 - 不會 D']
+Path from 甘草_5 to 適度_2:
+	[(3, 5, 'dobj'), (3, 2, 'advmod')],
+	['5 - 甘草 Na --> 3 - 搭配 VC', '3 - 搭配 VC --> 2 - 適度 D']
+=======
+text: 荳蔻
+ws: ['荳蔻']
+aspect(s): {'idx': [1], 'token': ['荳蔻']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 花椒
+ws: ['花椒']
+aspect(s): {'idx': [1], 'token': ['花椒']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 桂枝
+ws: ['桂枝']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 當歸尾之類的東西提香
+ws: ['當', '歸尾', '之類', '的', '東西', '提香']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [5], 'token': ['東西']}
+=======
+text: 這間店的老闆
+ws: ['這', '間', '店', '的', '老闆']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 要嘛舌頭真的有問題
+ws: ['要', '嘛', '舌頭', '真的', '有', '問題']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [6], 'token': ['問題']}
+=======
+text: 不然就是黔驢技窮
+ws: ['不然', '就', '是', '黔驢', '技窮']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 排骨麵
+ws: ['排骨麵']
+aspect(s): {'idx': [1], 'token': ['排骨麵']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 排骨好吃很特別
+ws: ['排骨', '好吃', '很', '特別']
+aspect(s): {'idx': [1], 'token': ['排骨']}
+opinion(s): {'idx': [2, 4], 'token': ['好吃', '特別']}
+Path from 排骨_1 to 好吃_2:
+	[(2, 1, 'nsubj')],
+	['1 - 排骨 Na --> 2 - 好吃 VH']
+Path from 排骨_1 to 特別_4:
+	[(2, 1, 'nsubj'), (2, 4, 'dep')],
+	['1 - 排骨 Na --> 2 - 好吃 VH', '2 - 好吃 VH --> 4 - 特別 VH']
+=======
+text: 朋友吃酸辣湯餃
+ws: ['朋友', '吃', '酸辣湯餃']
+aspect(s): {'idx': [3], 'token': ['酸辣湯餃']}
+opinion(s): {'idx': [1], 'token': ['朋友']}
+Path from 酸辣湯餃_3 to 朋友_1:
+	[(2, 3, 'amod'), (2, 1, 'nsubj')],
+	['3 - 酸辣湯餃 Na --> 2 - 吃 VC', '2 - 吃 VC --> 1 - 朋友 Na']
+=======
+text: 也很棒
+ws: ['也', '很', '棒']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [3], 'token': ['棒']}
+=======
+text: 喜歡酸酸的
+ws: ['喜歡', '酸酸', '的']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [1], 'token': ['喜歡']}
+=======
+text: 下次來也要吃酸辣湯餃
+ws: ['下', '次', '來', '也', '要', '吃', '酸辣湯餃']
+aspect(s): {'idx': [7], 'token': ['酸辣湯餃']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 中午下大雨
+ws: ['中午', '下', '大雨']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [3], 'token': ['大雨']}
+=======
+text: 沒有傘
+ws: ['沒有', '傘']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [1], 'token': ['沒有']}
+=======
+text: 老闆還借我們傘
+ws: ['老闆', '還', '借', '我們', '傘']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 很親切的店家
+ws: ['很', '親切', '的', '店家']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [2], 'token': ['親切']}
+=======
+text: 喜歡牛肉細粉以及牛肉燴飯
+ws: ['喜歡', '牛肉', '細粉', '以及', '牛肉', '燴飯']
+aspect(s): {'idx': [2, 5, 6], 'token': ['牛肉', '牛肉', '燴飯']}
+opinion(s): {'idx': [1], 'token': ['喜歡']}
+Path from 牛肉_2 to 喜歡_1:
+	[(3, 2, 'nn'), (6, 3, 'conj'), (1, 6, 'dobj')],
+	['2 - 牛肉 Na --> 3 - 細粉 Na', '3 - 細粉 Na --> 6 - 燴飯 Na', '6 - 燴飯 Na --> 1 - 喜歡 VK']
+Path from 牛肉_5 to 喜歡_1:
+	[(6, 5, 'nn'), (1, 6, 'dobj')],
+	['5 - 牛肉 Na --> 6 - 燴飯 Na', '6 - 燴飯 Na --> 1 - 喜歡 VK']
+Path from 燴飯_6 to 喜歡_1:
+	[(1, 6, 'dobj')],
+	['6 - 燴飯 Na --> 1 - 喜歡 VK']
+=======
+text: 覺得味道挺不錯的
+ws: ['覺得', '味道', '挺', '不錯', '的']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [4], 'token': ['不錯']}
+=======
+text: 是會讓人想再去的好吃餐廳
+ws: ['是', '會', '讓', '人', '想', '再', '去', '的', '好吃', '餐廳']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [5, 9], 'token': ['想', '好吃']}
+=======
+text: 有些人覺得分量太小
+ws: ['有', '些', '人', '覺得', '分量', '太', '小']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 可以跟老闆要求加飯或加麵
+ws: ['可以', '跟', '老闆', '要求', '加', '飯', '或', '加', '麵']
+aspect(s): {'idx': [6, 9], 'token': ['飯', '麵']}
+opinion(s): {'idx': [4], 'token': ['要求']}
+Path from 飯_6 to 要求_4:
+	[(4, 6, 'ccomp')],
+	['6 - 飯 Na --> 4 - 要求 VF']
+Path from 麵_9 to 要求_4:
+	[(5, 9, 'conj'), (4, 5, 'ccomp')],
+	['9 - 麵 Na --> 5 - 加 VC', '5 - 加 VC --> 4 - 要求 VF']
+=======
+text: 外帶湯麵不給碗是
+ws: ['外帶', '湯麵', '不', '給', '碗', '是']
+aspect(s): {'idx': [2], 'token': ['湯麵']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 要別人怎麼吃
+ws: ['要', '別人', '怎麼', '吃']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 一碗麵一百多
+ws: ['一', '碗', '麵', '一百多']
+aspect(s): {'idx': [3], 'token': ['麵']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 這點成本也要省
+ws: ['這', '點', '成本', '也', '要', '省']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 排骨麵跟炸醬麵都還不錯
+ws: ['排骨麵', '跟', '炸醬麵', '都', '還', '不錯']
+aspect(s): {'idx': [1, 3], 'token': ['排骨麵', '炸醬麵']}
+opinion(s): {'idx': [6], 'token': ['不錯']}
+Path from 排骨麵_1 to 不錯_6:
+	[(3, 1, 'conj'), (6, 3, 'nsubj')],
+	['1 - 排骨麵 Na --> 3 - 炸醬麵 Na', '3 - 炸醬麵 Na --> 6 - 不錯 VH']
+Path from 炸醬麵_3 to 不錯_6:
+	[(6, 3, 'nsubj')],
+	['3 - 炸醬麵 Na --> 6 - 不錯 VH']
+=======
+text: 水餃也不錯
+ws: ['水餃', '也', '不錯']
+aspect(s): {'idx': [1], 'token': ['水餃']}
+opinion(s): {'idx': [3], 'token': ['不錯']}
+Path from 水餃_1 to 不錯_3:
+	[(3, 1, 'nsubj')],
+	['1 - 水餃 Na --> 3 - 不錯 VH']
+=======
+text: 湯麵湯底稍淡偏油
+ws: ['湯麵', '湯底', '稍', '淡', '偏', '油']
+aspect(s): {'idx': [1], 'token': ['湯麵']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 小菜普通
+ws: ['小菜', '普通']
+aspect(s): {'idx': [1], 'token': ['小菜']}
+opinion(s): {'idx': [2], 'token': ['普通']}
+Path from 小菜_1 to 普通_2:
+	[(2, 1, 'amod')],
+	['1 - 小菜 Na --> 2 - 普通 VH']
+=======
+text: 其他餐點沒嚐過
+ws: ['其他', '餐點', '沒', '嚐', '過']
+aspect(s): {'idx': [2], 'token': ['餐點']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 暫不予置評
+ws: ['暫不予置', '評']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 家常
+ws: ['家常']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 方便
+ws: ['方便']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [1], 'token': ['方便']}
+=======
+text: 水餃和排骨麵超級好吃
+ws: ['水餃', '和', '排骨麵', '超級', '好吃']
+aspect(s): {'idx': [1, 3], 'token': ['水餃', '排骨麵']}
+opinion(s): {'idx': [5], 'token': ['好吃']}
+Path from 水餃_1 to 好吃_5:
+	[(3, 1, 'conj'), (5, 3, 'nsubj')],
+	['1 - 水餃 Na --> 3 - 排骨麵 Na', '3 - 排骨麵 Na --> 5 - 好吃 VH']
+Path from 排骨麵_3 to 好吃_5:
+	[(5, 3, 'nsubj')],
+	['3 - 排骨麵 Na --> 5 - 好吃 VH']
+=======
+text: 懷念以前禮拜六和家人一起吃的日子
+ws: ['懷念', '以前', '禮拜六', '和', '家人', '一起', '吃', '的', '日子']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [1], 'token': ['懷念']}
+=======
+text: 麵條Q彈好吃
+ws: ['麵條', 'Q', '彈', '好吃']
+aspect(s): {'idx': [1], 'token': ['麵條']}
+opinion(s): {'idx': [4], 'token': ['好吃']}
+Path from 麵條_1 to 好吃_4:
+	[(4, 1, 'nsubj')],
+	['1 - 麵條 Na --> 4 - 好吃 VH']
+=======
+text: 湯餃好吃
+ws: ['湯餃', '好吃']
+aspect(s): {'idx': [1], 'token': ['湯餃']}
+opinion(s): {'idx': [2], 'token': ['好吃']}
+Path from 湯餃_1 to 好吃_2:
+	[(2, 1, 'nsubj')],
+	['1 - 湯餃 Na --> 2 - 好吃 VH']
+=======
+text: 小菜也好吃
+ws: ['小菜', '也', '好吃']
+aspect(s): {'idx': [1], 'token': ['小菜']}
+opinion(s): {'idx': [3], 'token': ['好吃']}
+Path from 小菜_1 to 好吃_3:
+	[(3, 1, 'amod')],
+	['1 - 小菜 Na --> 3 - 好吃 VH']
+=======
+text: 生意很好
+ws: ['生意', '很', '好']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [3], 'token': ['好']}
+=======
+text: 值得再訪的店
+ws: ['值得', '再', '訪', '的', '店']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [1], 'token': ['值得']}
+=======
+text: 以前的巷弄美食之一
+ws: ['以前', '的', '巷弄', '美食', '之', '一']
+aspect(s): {'idx': [4], 'token': ['美食']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 尤其喜歡炸排骨
+ws: ['尤其', '喜歡', '炸', '排骨']
+aspect(s): {'idx': [4], 'token': ['排骨']}
+opinion(s): {'idx': [2], 'token': ['喜歡']}
+Path from 排骨_4 to 喜歡_2:
+	[(3, 4, 'dobj'), (2, 3, 'ccomp')],
+	['4 - 排骨 Na --> 3 - 炸 VC', '3 - 炸 VC --> 2 - 喜歡 VK']
+=======
+text: 只是現在南港選擇性多
+ws: ['只是', '現在', '南港', '選擇性', '多']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [5], 'token': ['多']}
+=======
+text: 松園相對的比較沒有特色
+ws: ['松園', '相對的', '比較', '沒有', '特色']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [4, 5], 'token': ['沒有', '特色']}
+=======
+text: 肉少湯酸麵糊
+ws: ['肉', '少', '湯酸', '麵糊']
+aspect(s): {'idx': [4], 'token': ['麵糊']}
+opinion(s): {'idx': [2], 'token': ['少']}
+Path from 麵糊_4 to 少_2:
+	[(2, 4, 'root')],
+	['4 - 麵糊 Na --> 2 - 少 VH']
+=======
+text: 價位跟餐食水準對不上
+ws: ['價位', '跟', '餐食', '水準', '對不上']
+aspect(s): {'idx': [3], 'token': ['餐食']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 令人遺憾的一餐
+ws: ['令', '人', '遺憾', '的', '一', '餐']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [3], 'token': ['遺憾']}
+=======
+text: 東西好吃便宜
+ws: ['東西', '好吃', '便宜']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [1, 2, 3], 'token': ['東西', '好吃', '便宜']}
+=======
+text: 1992開店到現在
+ws: ['1992', '開店', '到', '現在']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 是中研院員工的吃飯好選項
+ws: ['是', '中研院', '員工', '的', '吃飯', '好', '選項']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [6], 'token': ['好']}
+=======
+text: 最喜歡榨菜肉絲麵好吃湯頭優
+ws: ['最', '喜歡', '榨', '菜', '肉絲麵', '好吃', '湯頭', '優']
+aspect(s): {'idx': [4, 7], 'token': ['菜', '湯頭']}
+opinion(s): {'idx': [2, 6, 8], 'token': ['喜歡', '好吃', '優']}
+Path from 菜_4 to 喜歡_2:
+	[(5, 4, 'nn'), (6, 5, 'dobj'), (7, 6, 'ccomp'), (8, 7, 'nsubj'), (2, 8, 'dep')],
+	['4 - 菜 Na --> 5 - 肉絲麵 Na', '5 - 肉絲麵 Na --> 6 - 好吃 VH', '6 - 好吃 VH --> 7 - 湯頭 Na', '7 - 湯頭 Na --> 8 - 優 VH', '8 - 優 VH --> 2 - 喜歡 VK']
+Path from 菜_4 to 好吃_6:
+	[(5, 4, 'nn'), (6, 5, 'dobj')],
+	['4 - 菜 Na --> 5 - 肉絲麵 Na', '5 - 肉絲麵 Na --> 6 - 好吃 VH']
+Path from 菜_4 to 優_8:
+	[(5, 4, 'nn'), (6, 5, 'dobj'), (7, 6, 'ccomp'), (8, 7, 'nsubj')],
+	['4 - 菜 Na --> 5 - 肉絲麵 Na', '5 - 肉絲麵 Na --> 6 - 好吃 VH', '6 - 好吃 VH --> 7 - 湯頭 Na', '7 - 湯頭 Na --> 8 - 優 VH']
+Path from 湯頭_7 to 喜歡_2:
+	[(8, 7, 'nsubj'), (2, 8, 'dep')],
+	['7 - 湯頭 Na --> 8 - 優 VH', '8 - 優 VH --> 2 - 喜歡 VK']
+Path from 湯頭_7 to 好吃_6:
+	[(7, 6, 'ccomp')],
+	['7 - 湯頭 Na --> 6 - 好吃 VH']
+Path from 湯頭_7 to 優_8:
+	[(8, 7, 'nsubj')],
+	['7 - 湯頭 Na --> 8 - 優 VH']
+=======
+text: 價格漲到太誇張
+ws: ['價格', '漲到', '太', '誇張']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [4], 'token': ['誇張']}
+=======
+text: 麵也不是太好的麵
+ws: ['麵', '也', '不', '是', '太', '好', '的', '麵']
+aspect(s): {'idx': [1, 8], 'token': ['麵', '麵']}
+opinion(s): {'idx': [6], 'token': ['好']}
+Path from 麵_1 to 好_6:
+	[(4, 1, 'nsubj'), (4, 8, 'attr'), (8, 6, 'rcmod')],
+	['1 - 麵 Na --> 4 - 是 SHI', '4 - 是 SHI --> 8 - 麵 Na', '8 - 麵 Na --> 6 - 好 VH']
+Path from 麵_8 to 好_6:
+	[(8, 6, 'rcmod')],
+	['8 - 麵 Na --> 6 - 好 VH']
+=======
+text: 口味也還好
+ws: ['口味', '也', '還好']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 幾乎沒青菜
+ws: ['幾乎', '沒', '青菜']
+aspect(s): {'idx': [3], 'token': ['青菜']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 現在幾乎都不去了
+ws: ['現在', '幾乎', '都', '不', '去', '了']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 從小吃到大的牛肉麵
+ws: ['從小', '吃到', '大', '的', '牛肉麵']
+aspect(s): {'idx': [5], 'token': ['牛肉麵']}
+opinion(s): {'idx': [], 'token': []}
+=======
+text: 味道蠻喜歡的
+ws: ['味道', '蠻', '喜歡', '的']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [3], 'token': ['喜歡']}
+=======
+text: 份量算少大食量的人可能吃不飽
+ws: ['份量', '算', '少', '大', '食量', '的', '人', '可能', '吃', '不', '飽']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [3], 'token': ['少']}
+=======
+text: 算不錯
+ws: ['算', '不錯']
+aspect(s): {'idx': [], 'token': []}
+opinion(s): {'idx': [2], 'token': ['不錯']}
+=======
+text: 但是不知是辣椒醬太鹹
+ws: ['但是', '不', '知', '是', '辣椒醬', '太', '鹹']
+aspect(s): {'idx': [5], 'token': ['辣椒醬']}
+opinion(s): {'idx': [7], 'token': ['鹹']}
+Path from 辣椒醬_5 to 鹹_7:
+	[(7, 5, 'nsubj')],
+	['5 - 辣椒醬 Na --> 7 - 鹹 VH']
+=======
+text: 還是湯頭太鹹
+ws: ['還是', '湯頭', '太', '鹹']
+aspect(s): {'idx': [2], 'token': ['湯頭']}
+opinion(s): {'idx': [4], 'token': ['鹹']}
+Path from 湯頭_2 to 鹹_4:
+	[(4, 2, 'nsubj')],
+	['2 - 湯頭 Na --> 4 - 鹹 VH']
