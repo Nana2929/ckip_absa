@@ -76,7 +76,7 @@ r = {'sentence': test_sent,
      'word_seg': ws,
      'pos': pos, 
      'dependency_parse': deptree}
-tree = DepTree(r)
+tree = DepTree(r, outdir = output_path)
 aspectdict, opiniondict = DepTree.detect(pos, food_lexicon = food_lexicon, 
                                          senti_lexicon = opinion_lexicon)
 '''output (to revise later)'''

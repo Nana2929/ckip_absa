@@ -8,13 +8,14 @@ import requests
 
 class DepTree:
     
-    def __init__(self, row):
+    def __init__(self, row, outdir):
         '''a dictionary or a pandas row'''
         self.row = row
         self.pos = row['pos']
         self.ws = row['word_seg']
         self.depparse = row['dependency_parse']
         self.dG, self.undG = self.build_graph()
+        self.outdir = outdir
         
     @classmethod
     def detect(cls, sentpos, food_lexicon, senti_lexicon):
@@ -76,7 +77,8 @@ class DepTree:
             viewpath.append(f'{ustring} --> {vstring}')
         return dirpath, viewpath
     
-    def get_all_sp(self, aspd, opd, filename = '../testdata/dep_tree_sp.json'):
+    def get_all_sp(self, aspd, opd):
+        filename = f'{self.outdir}/dep_tree_sp.json'
         undG = self.undG
         spD = defaultdict(list)
         for asp, asptok in zip(aspd['idx'], aspd['token']):
@@ -92,8 +94,8 @@ class DepTree:
         return spD
     
     
-    def to_image(self, filename = '../testdata/dep_tree.png'):
-        
+    def to_image(self):
+        filename = f'{self.outdir}/dep_tree.png'
         p = nx.drawing.nx_pydot.to_pydot(self.dG)
         r = requests.post(
             "https://quickchart.io/graphviz",
