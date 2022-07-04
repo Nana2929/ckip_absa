@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <title>評論分析系統</title>
+    <link rel="stylesheet" type="text/css" href="https://ckip.iis.sinica.edu.tw/service/comment-analysis/static/css/style.css " /> 
+</head>
+
+<body>
+    <header id='title_bar' >
+        <div class="connect_option" style="display:inline; margin-left: 7%;">
+            <div class="row1" style="display: inline;">
+                <a href="https://ckip.iis.sinica.edu.tw/demo"  style="text-decoration:none; color: black; font-size:larger; font-weight:bold;">CKIP  評論分析系統&emsp;</a>
+            </div>
+            <div class="row2" style="display: inline; float: right; margin-right: 15%;">
+                <a href="https://ckip.iis.sinica.edu.tw/"  style="text-decoration:none; color: gray;font-size: medium; "onmouseover="javascript:this.style.color='black'"
+                onmouseout="javascript:this.style.color='gray'">CKIP  LAB&emsp;</a>
+                
+                <a href="https://www.iis.sinica.edu.tw/zh/index.html"  style="text-decoration:none; color: gray;font-size: medium;"onmouseover="javascript:this.style.color='black'"
+                onmouseout="javascript:this.style.color='gray'">資訊所&emsp;</a>
+                <a href="https://www.sinica.edu.tw/ch"  style="text-decoration:none; color: gray; font-size: medium; "onmouseover="javascript:this.style.color='black'"
+                onmouseout="javascript:this.style.color='gray'">中央研究院&emsp;&emsp;</a>
+            </div>
+            
+        </div>
+        
+    </header>
+    <hr color="darkblue">
+    <div class="page_body" tyle="margin-bottom: 50% ;">
+        <br>
+        
+        <div class="main_text" >
+            <p>  &emsp;請輸入欲處理的文字（限繁體中文）：</p>
+            
+	    <form action="{{url_pre}}/forward/" method="post"> 
+                <div class="text"  style="margin-bottom: 1% ;margin-left: 5%;margin-right: 5%">
+                    <div style="width: 756px; height: 100px; border:1px solid black;">
+                        {% if sent == "" %}
+                        <textarea  id="textin"cols="97" rows="6"class="textbox" name="text" style="float:left; border:0px" ></textarea>
+                        <input type="submit" id="clear" name="clear" value="x"  style="float:left;background:transparent;border:none" />
+                        {% else %}
+                        <textarea  id="textin"cols="97" rows="6"class="textbox" name="text" style="float:left; border:0px" >{{sent}}</textarea>
+                        <input type="submit" id="clear" name="clear" value="x"  style="float:left;background:transparent;border:none" />
+                        {% endif %}
+                    </div>
+                <br>    
+                </div>
+                <button name="submit" type="submit" class="submit" style="height: 30pt ;width: 7%; background-color: blue;">送出</button>
+                <div class=ra_button>
+                    <input required type="radio" id="food" name="classify" value="food">
+                    <label for="food">飲食類&emsp;</label>
+                    <input required type="radio" id="clothes" name="classify" value="clothes">
+                    <label for="clothes">服裝類&emsp;</label>
+                    <input required type="radio" id="cosmetics" name="classify" value="cosmetics">
+                    <label for="cosmetics">美妝類 &emsp; </label>
+                    <input required type="radio" id="3c" name="classify" value="3c">
+                    <label for="cosmetics">3C家用品&emsp;</label>
+                    <input required type="radio" id="default" name="classify" value="default" checked>
+                    <label for="default">不分類&emsp;</label>
+                </div> 
+            </form> 
+            
+            <br>   
+            {% if sent != "" %}
+            <p>&emsp;處理過程</p>
+            <div class="text"  style="margin-bottom: 1% ;margin-left: 5%;margin-right: 5%;">
+                <textarea cols="100" rows="4" class="textbox" name="text"style="line-height: 1.5;">{{process}}</textarea>
+            </div>
+            <p>&emsp;判斷結果</p>
+            <div class="text"  style="margin-bottom: 1% ;margin-left: 5%;margin-right: 5%;">
+                <textarea cols="100" rows="2" class="textbox" name="text">{{result}}</textarea>
+            </div>
+            {% endif %}    
+           <br>
+            
+            
+        </div>
+        <br>
+        
+    </div>
+    <div class="foot_bar" style="margin-top: 5%;margin-bottom: 1%;" >
+        <br>
+        <div class="f_ckip" style="display: inline; margin-left: 7%;">
+            ©
+            <a  href="//ckip.iis.sinica.edu.tw" rel="noopener" target="_blank" class="">CKIP Lab</a>
+            | Web Design: Vicky Cheng
+        </div>
+        <div class="f_d" style="display: inline;  float: right; margin-right: 15%;">
+            <a data-v-334cd658="" href="https://github.com/ckiplab" target="_blank" title="GitHub" class="mx-1"><svg data-v-334cd658="" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width= "15"  heigh= "15" class="svg-inline--fa fa-github fa-w-16"><path data-v-334cd658="" fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" class=""></path></svg></a>
+            <a data-v-334cd658="" href="https://github.com/ckiplab/issue/issues" target="_blank" title="Bug Report" class="mx-1"><svg data-v-334cd658="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bug" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width= "15"  heigh= "15" class="svg-inline--fa fa-bug fa-w-16"><path data-v-334cd658="" fill="currentColor" d="M511.988 288.9c-.478 17.43-15.217 31.1-32.653 31.1H424v16c0 21.864-4.882 42.584-13.6 61.145l60.228 60.228c12.496 12.497 12.496 32.758 0 45.255-12.498 12.497-32.759 12.496-45.256 0l-54.736-54.736C345.886 467.965 314.351 480 280 480V236c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v244c-34.351 0-65.886-12.035-90.636-32.108l-54.736 54.736c-12.498 12.497-32.759 12.496-45.256 0-12.496-12.497-12.496-32.758 0-45.255l60.228-60.228C92.882 378.584 88 357.864 88 336v-16H32.666C15.23 320 .491 306.33.013 288.9-.484 270.816 14.028 256 32 256h56v-58.745l-46.628-46.628c-12.496-12.497-12.496-32.758 0-45.255 12.498-12.497 32.758-12.497 45.256 0L141.255 160h229.489l54.627-54.627c12.498-12.497 32.758-12.497 45.256 0 12.496 12.497 12.496 32.758 0 45.255L424 197.255V256h56c17.972 0 32.484 14.816 31.988 32.9zM257 0c-61.856 0-112 50.144-112 112h224C369 50.144 318.856 0 257 0z" class=""></path></svg></a>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById("clear").onclick = function() {clear()};
+    function clear() {
+      document.getElementById("textin").innerHTML = "";
+    }
+</script>
+
+</html>
