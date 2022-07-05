@@ -9,6 +9,7 @@ from opencc import OpenCC
 from tqdm import tqdm
 import pandas as pd
 import sys
+import re
 
 depp_path = '/share/home/nana2929/chyiin_ch_parser'
 if depp_path not in sys.path:
@@ -36,11 +37,10 @@ def batch_io(input_path, output_path):
         parses.append(depparse)
 
     df = df.assign(word_seg = wses, pos = poses, dependency_parse = parses)
-    df.to_csv(output_path, index= False)
+    df.to_pickle(output_path)
 
 
-
-
+    
 class chinese_parser():
 
     def __init__(self, port):
@@ -51,6 +51,19 @@ class chinese_parser():
         self.conn.execute('pos = POS("./data")')
         self.ids_to_labels = {0: 'root', 1: 'nn', 2: 'conj', 3: 'cc', 4: 'nsubj', 5: 'dep', 6: 'punct', 7: 'lobj', 8: 'loc', 9: 'comod', 10: 'asp', 11: 'rcmod', 12: 'etc', 13: 'dobj', 14: 'cpm', 15: 'nummod', 16: 'clf', 17: 'assmod', 18: 'assm', 19: 'amod', 20: 'top', 21: 'attr', 22: 'advmod', 23: 'tmod', 24: 'neg', 25: 'prep', 26: 'pobj', 27: 'cop', 28: 'dvpmod', 29: 'dvpm', 30: 'lccomp', 31: 'plmod', 32: 'det', 33: 'pass', 34: 'ordmod', 35: 'pccomp', 36: 'range', 37: 'ccomp', 38: 'xsubj', 39: 'mmod', 40: 'prnmod', 41: 'rcomp', 42: 'vmod', 43: 'prtmod', 44: 'ba', 45: 'nsubjpass'}
         self.tokenizer = BertTokenizer.from_pretrained("bert-base-chinese")
+        # recommend_dictionary = dictionary1, # words in this dictionary are encouraged
+        # coerce_dictionary = dictionary2,   # words in this dictionary are forced
+        # word_to_weight = {
+        #     "土地公": 1,
+        #     "土地婆": 1,
+        #     "公有": 2,
+        #     "": 1,
+        #     "來亂的": "啦",
+        #     "緯來體育台": 1,
+        # }
+        # d = construct_dictionary(word_to_weight)
+        # word_sentence_list = ws(input, recommend_dictionary = d)
+        
         
         #####
         from transformers import logging
@@ -78,12 +91,27 @@ class chinese_parser():
             idx = idx + 1
 
         return tokenized_sentence, torch.tensor(labels_idx), seq[:-1]
-
+    @staticmethod
+    def get_recommended_seg():
+        aspect_path = '../repo/src/lexicon/aspect_lexicon.csv'
+        df = pd.read_csv(aspect_path)
+        const = 20; d = {}
+        for rowid, r in df.iterrows():
+            w, src = r['Word'], r['source']
+            d[w] = 10
+            if not src.startswith('eHowNet'):
+                d[w] = 20 # self-defined, CookBook-KG, 松園...
+        return d
+    
+    
     def output(self, input_text):
 
         input_text = s2t.convert(input_text)
-        input_sent = self.conn.eval(f'ws(["{input_text}"])')[0]
+        d = chinese_parser.get_recommended_seg()
+        input_sent = self.conn.eval(f'ws(["{input_text}"], \
+                                    coerce_dictionary = construct_dictionary({d}))')[0]
         pos_sent = ['root'] + list(self.conn.eval(f'pos([{input_sent}])')[0])
+        # print('pos, ws successfully obtained.')
         input_sentence = []
         for i in input_sent:
             input_sentence.append(t2s.convert(i))
@@ -148,17 +176,18 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser(prog='Chinese Dependency Parser') 
     argparser.add_argument('--port', '-p', default = 2022, type = int, required = False, 
                            help = 'At which port you wish to run your dependent ckip tagger')
-    argparser.add_argument('--input_file', '-i', default = '../data/test_sentences.csv', type = str, 
+    argparser.add_argument('--input_file', '-i', default = '../data/0705-dep-testdata.csv', type = str, 
                            required = False, help = 'input file (csv with a `text` column)')
-    argparser.add_argument('--output_name', '-o', default = '../data/test_sentences_parsed.pkl', type = str, 
+    argparser.add_argument('--output_name', '-o', type = str, 
                            required = False, help = 'output file name (pickle)')
     args = argparser.parse_args()
     port = args.port
     infile = args.input_file
     outfile = args.output_name
-    filesuffix = '.csv'
+    
+    filesuffix = re.search('(.\w+)$', infile).group() # get file suffix 
     if not outfile: 
-        outfile = infile.rstrip(filesuffix) + '_parsed' + filesuffix
+        outfile = infile.rstrip(filesuffix) + '_parsed.pkl'
     print(' === ckip dependency parser === ')
     print(f'input file : {infile}')
     print(f'output file: {outfile}')
