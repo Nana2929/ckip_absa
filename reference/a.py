@@ -183,13 +183,13 @@ def move_forward():
     return render_template('index.html',url_pre=url_pre)
 
 
-url_pre=""
+url_pre = ""
 if __name__ == '__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument("-port",default=9210,type=int)
     parser.add_argument("-url_pre",default='https://ckip.iis.sinica.edu.tw/service/comment-analysis',type=str)
-   # parser.add_argument("-url_pre",default='',type=str)
+    # parser.add_argument("-url_pre",default='',type=str)
     args=parser.parse_args()
     url_pre=args.url_pre
-    app.run(host='0.0.0.0',port=args.port,debug=False)
-    #app.run(port=args.port,debug=False)
+    app.run(host = '0.0.0.0', port = args.port, debug = False)
+    #app.run(port = args.port, debug = False)
