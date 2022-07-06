@@ -21,7 +21,6 @@ class DepTree:
         self.depparse = row['dependency_parse']
         self.dG, self.undG = self.build_graph()
         self.outdir = outdir
-        # lexdir = '../repo/src/lexicon'
         os.makedirs(self.outdir, exist_ok =True)
         
         logging.info('attrs:    \t .pos, .ws, .depparse, .dG, .undG')
@@ -29,7 +28,8 @@ class DepTree:
     
     @classmethod
     def get_lexicon(cls, lextype, directory = None):
-        directory ='../repo/src/lexicon' if directory is None else directory
+        filedir = os.path.join(os.path.dirname(__file__), './lexicons')
+        directory = filedir if directory is None else directory
         availables = ['aspect', 'opinion']
         if lextype not in availables:
             print(f'Action abort. Only options in {availables} are supported.')
@@ -62,7 +62,8 @@ class DepTree:
         sentiidx, sentitok, sentpol = [], [], []
         sentpos = self.pos
         aspectlist = aspect_lexicon['Word'].to_list() 
-        
+        aspectlist = set(aspectlist)
+        opnlexicon = {r['Word']:r['Valence_Mean'] for rid, r in opn_lexicon.iterrows()}
         rating = lambda x: 'positive' if x >= 6 else ('neutral' if 6 > x >= 4  else 'negative')
         for x in sentpos: 
             id, tokenpos = x
@@ -72,12 +73,12 @@ class DepTree:
                 foodidx.append(id)
                 foodtok.append(token)
             
-            for rid, r in opn_lexicon.iterrows():
-                if token == r['Word']:
-                    score = r['Valence_Mean']
-                    sentiidx.append(id)
-                    sentitok.append(token)
-                    sentpol.append(rating(score))
+            
+            if token in opnlexicon:
+                score = opnlexicon[token]
+                sentiidx.append(id)
+                sentitok.append(token)
+                sentpol.append(rating(score))
         
         food = {'idx': foodidx, 'token': foodtok}
         senti = {'idx': sentiidx, 'token': sentitok, 'polarity': sentpol}
