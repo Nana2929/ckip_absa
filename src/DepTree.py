@@ -63,11 +63,12 @@ class DepTree:
         
     def node2tok(self, node):
         res = self.dG.nodes[node]['label']
-        print(node, res)
         return res
     
     
-    def get_conjunction(self):
+    def get_conjunctions(self):
+        if getattr(self, 'conjunctions', None) is not None:
+            return self.conjunctions
         conj_edges = {}
         G = self.dG
         edges = G.edges
@@ -77,6 +78,7 @@ class DepTree:
             if depr == 'conj':
                 conj_edges[u] = v; conj_edges[v] = u
         self.conjunctions = conj_edges
+        return self.conjunctions
 
     def neg_detect(self, spD):
         '''
@@ -98,7 +100,7 @@ class DepTree:
                     
     def conj_detect(self, spD):
         D = defaultdict(list)
-        conjunctions = self.conjunctions
+        conjunctions = self.get_conjunctions()
         for opnkey, sps in spD.items(): 
             for sp in sps:
                 asp, opn = sp['pair']
@@ -114,12 +116,8 @@ class DepTree:
     
     def predict(self):
         spD = self.get_all_sp()
-        print(spD, end = '\n============\n')
         procD = self.neg_detect(spD) 
-        print(procD, end = '\n============\n')
         D = self.conj_detect(procD)
-        print(D)
-        
         return D
     
     
@@ -161,8 +159,6 @@ class DepTree:
         # res = True if (foodidx and sentiidx) else False
         logging.info(f'aspects:\t{food}')
         logging.info(f'opinions:\t{senti}')
-    
-        print('before:', food, senti)
         
         return food, senti  
     
@@ -220,7 +216,7 @@ class DepTree:
                       ensure_ascii = False)
         return spD
     
-    def to_image(self):
+    def to_image(self, verbose = True):
         p = nx.drawing.nx_pydot.to_pydot(self.dG)
         r = requests.post(
             "https://quickchart.io/graphviz",
@@ -235,7 +231,8 @@ class DepTree:
         filename = f'{self.outdir}/dep_tree.png'
         with open(filename, 'wb') as f:
             f.write(r.content)
-        display(Image(filename=filename))
+        if verbose:
+            display(Image(filename=filename))
         
     
             
