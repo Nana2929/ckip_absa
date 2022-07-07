@@ -7,9 +7,31 @@ import os
 from IPython.display import Image, display
 import logging
 import pandas as pd
+from utils import transition_list
+
+
+
+
 
 class DepTree:
     
+    def build_graph(self):
+        G = nx.DiGraph()
+        for x in self.pos:
+            id, tokenpos = x
+            token, pos = tokenpos.split()
+            G.add_node(id, label = token, pos = pos)
+        for dep in self.depparse:
+            u, v, deprel = dep 
+            u, v = u.split(' - '), v.split(' - ')
+            uid = u[0] = int(u[0])
+            vid = v[0] = int(v[0])
+            G.add_edge(uid, vid, label = deprel)
+        # nx.draw(G)
+        copyG = deepcopy(G)
+        copyG = copyG.to_undirected()
+        dG, undG = G, copyG
+        return dG, undG
     
     def __init__(self, row, outdir = './DepTree_out'):
         '''a dictionary or a pandas row'''
@@ -39,19 +61,73 @@ class DepTree:
         logging.info(f'finished loading {lextype} lexicon.')
         return df 
         
-    def detect(self, method = 'lexicon'):
-        if method == 'lexicon':
-            return self.lexicon_detect()
-        return self.dep_detect()
+    def node2tok(self, node):
+        res = self.dG.nodes[node]['label']
+        print(node, res)
+        return res
     
     
-    def dep_detect(self):
-        # get tree 
-        
-        pass
+    def get_conjunction(self):
+        conj_edges = {}
+        G = self.dG
+        edges = G.edges
+        for u, v in edges:
+            depr = G[u][v]['label']
+            # if an conjunction edge is present 
+            if depr == 'conj':
+                conj_edges[u] = v; conj_edges[v] = u
+        self.conjunctions = conj_edges
 
+    def neg_detect(self, spD):
+        '''
+        if a detected opinion is negated,
+            reverse its polarity
+        '''
+        dG = self.dG
+        for opnkey in spD.keys(): 
+            for j in range(len(spD[opnkey])):
+                asp, opn = spD[opnkey][j]['pair']
+                outs = dG.out_edges(opn)
+                for opn, v in outs:
+                    if dG[opn][v]['label'] == 'neg':
+                        neg_token = v 
+                        spD[opnkey][j]['pair'] = asp, [neg_token, opn]
+                        break
+            
+        return spD
+                    
+    def conj_detect(self, spD):
+        D = defaultdict(list)
+        conjunctions = self.conjunctions
+        for opnkey, sps in spD.items(): 
+            for sp in sps:
+                asp, opn = sp['pair']
+                # dG.nodes[sp[-1]]['label']
+                opn = self.node2tok(opn) if not isinstance(opn, list) else ''.join(self.node2tok(x) for x in opn)
+                if asp in conjunctions:
+                    partner = conjunctions[asp]
+                    partner = self.node2tok(partner)
+                    D[partner].append(opn)
+                asp = self.node2tok(asp)
+                D[asp].append(opn)
+        return D
     
-    def lexicon_detect(self, food_lexicon = None, senti_lexicon = None):
+    def predict(self):
+        spD = self.get_all_sp()
+        print(spD, end = '\n============\n')
+        procD = self.neg_detect(spD) 
+        print(procD, end = '\n============\n')
+        D = self.conj_detect(procD)
+        print(D)
+        
+        return D
+    
+    
+    def detect(self, food_lexicon = None, senti_lexicon = None):
+        '''
+        1. detecting aspect and opinion appearing in the lexicons
+        2. lexicon-based 
+        '''
         if not food_lexicon:
             aspect_lexicon = DepTree.get_lexicon('aspect')
             
@@ -73,7 +149,6 @@ class DepTree:
                 foodidx.append(id)
                 foodtok.append(token)
             
-            
             if token in opnlexicon:
                 score = opnlexicon[token]
                 sentiidx.append(id)
@@ -86,25 +161,11 @@ class DepTree:
         # res = True if (foodidx and sentiidx) else False
         logging.info(f'aspects:\t{food}')
         logging.info(f'opinions:\t{senti}')
+    
+        print('before:', food, senti)
+        
         return food, senti  
     
-    def build_graph(self):
-        G = nx.DiGraph()
-        for x in self.pos:
-            id, tokenpos = x
-            token, pos = tokenpos.split()
-            G.add_node(id, label = token, pos = pos)
-        for dep in self.depparse:
-            u, v, deprel = dep 
-            u, v = u.split(' - '), v.split(' - ')
-            uid = u[0] = int(u[0])
-            vid = v[0] = int(v[0])
-            G.add_edge(uid, vid, label = deprel)
-        # nx.draw(G)
-        copyG = deepcopy(G)
-        copyG = copyG.to_undirected()
-        dG, undG = G, copyG
-        return dG, undG
     
     def process_raw_sp(self, sp):
         dG, undG = self.dG, self.undG
@@ -120,13 +181,15 @@ class DepTree:
                 dirpath.append((v, u, deprel))
 
         viewpath = []
+        aspect = sp[0]
+        opinion = sp[-1]
         for i in range(1, len(sp)):
             edge = u, v = sp[i-1], sp[i]
-            # G.nodes(data="time")
             ustring = f'{u} - {dG.nodes[u]["label"]} {dG.nodes[u]["pos"]}'
             vstring = f'{v} - {dG.nodes[v]["label"]} {dG.nodes[v]["pos"]}'
             viewpath.append(f'{ustring} --> {vstring}')
-        return dirpath, viewpath
+        return dirpath, viewpath, (aspect, opinion)
+            
     
     def get_all_sp(self):
         '''string-match by lexicons'''
@@ -141,8 +204,8 @@ class DepTree:
             for asp, asptok in zip(aspd['idx'], aspd['token']):
                 sp = nx.shortest_path(undG, asp, opn)
                 # Supported options: ‘dijkstra’ (default), ‘bellman-ford’.
-                directed_path, viewpath = self.process_raw_sp(sp)
-                currpathdict = {'diPath': directed_path,
+                directed_path, viewpath, pair = self.process_raw_sp(sp)
+                currpathdict = {'pair': pair, 'diPath': directed_path,
                             'treePath': viewpath}
                 currdist = len(directed_path)
                 if currdist < mindist:
