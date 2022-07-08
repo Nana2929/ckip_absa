@@ -7,7 +7,7 @@ import os
 from IPython.display import Image, display
 import logging
 import pandas as pd
-from utils import transition_list
+from utils import DepRelation
 
 
 
@@ -75,7 +75,7 @@ class DepTree:
         for u, v in edges:
             depr = G[u][v]['label']
             # if an conjunction edge is present 
-            if depr == 'conj':
+            if depr == DepRelation.CONJ:
                 conj_edges[u] = v; conj_edges[v] = u
         self.conjunctions = conj_edges
         return self.conjunctions
@@ -91,7 +91,7 @@ class DepTree:
                 asp, opn = spD[opnkey][j]['pair']
                 outs = dG.out_edges(opn)
                 for opn, v in outs:
-                    if dG[opn][v]['label'] == 'neg':
+                    if dG[opn][v]['label'] == DepRelation.NEG:
                         neg_token = v 
                         spD[opnkey][j]['pair'] = asp, [neg_token, opn]
                         break
