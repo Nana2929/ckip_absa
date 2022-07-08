@@ -11,8 +11,6 @@ from utils import DepRelation
 
 
 
-
-
 class DepTree:
     
     def build_graph(self):
@@ -48,24 +46,79 @@ class DepTree:
         logging.info('attrs:    \t .pos, .ws, .depparse, .dG, .undG')
         logging.info('functions:\t detect(), get_all_sp(), to_image()')
     
+    def predict(self):
+        spD = self.get_all_sp()
+        procD = self.neg_detect(spD) 
+        D = self.conj_detect(procD)
+        tokenD, span_marking = self.final_output(D)
+        return tokenD, span_marking
+    
+    def final_output(self, D):
+        # match to its token label 
+        tokenD = defaultdict(list)
+        pos = self.pos
+        # list of token id
+        aspspan = set(D.keys())
+        opnspan = set()
+        for asp, inventory in D.items():
+            asplabel = self.node2tok(asp)
+            for entry in inventory:
+                opn, oppol = entry 
+                opnspan.update(opn)   #['不', '好吃']
+                opnlabel = ''.join(self.node2tok(x) for x in opn)
+                tokenD[asplabel].append((opnlabel, oppol))
+        logging.info('marking: [] for aspect; <> for opinion')
+        spanned_ws = ''
+        for id in range(self.dG.number_of_nodes()):
+            token = pos[id][-1].split()[0]
+            if id in aspspan:
+                token = f'[{token}]'
+            if id in opnspan:
+                token = f'<{token}>'
+            if token != 'root':
+                spanned_ws += token 
+        
+        return tokenD, spanned_ws
+            
+        
     @classmethod
     def get_lexicon(cls, lextype, directory = None):
         filedir = os.path.join(os.path.dirname(__file__), './lexicons')
         directory = filedir if directory is None else directory
         availables = ['aspect', 'opinion']
         if lextype not in availables:
-            print(f'Action abort. Only options in {availables} are supported.')
+            logging.info(f'Action abort. Only options in {availables} are supported.')
             return 
         filepath = os.path.join(directory, lextype+'_lexicon.csv')
         df = pd.read_csv(filepath)
         logging.info(f'finished loading {lextype} lexicon.')
         return df 
-        
+    
+    
+    
     def node2tok(self, node):
         res = self.dG.nodes[node]['label']
         return res
     
-    
+    def neg_detect(self, spD):
+        '''
+        if a detected opinion is negated,
+            reverse its polarity
+        '''
+        dG = self.dG
+        for opnkey in spD.keys(): 
+            for j in range(len(spD[opnkey])):
+                pol = spD[opnkey][j]['polarity']
+                asp, opn = spD[opnkey][j]['pair']
+                outs = dG.out_edges(opn)
+                for opn, v in outs:
+                    if dG[opn][v]['label'] == DepRelation.NEG:
+                        neg_token = v 
+                        spD[opnkey][j]['pair'] = asp, [neg_token, opn]
+                        spD[opnkey][j]['polarity'] = 'positive' if pol == 'negative' else 'negative'
+        
+        return spD
+                    
     def get_conjunctions(self):
         if getattr(self, 'conjunctions', None) is not None:
             return self.conjunctions
@@ -80,44 +133,21 @@ class DepTree:
         self.conjunctions = conj_edges
         return self.conjunctions
 
-    def neg_detect(self, spD):
-        '''
-        if a detected opinion is negated,
-            reverse its polarity
-        '''
-        dG = self.dG
-        for opnkey in spD.keys(): 
-            for j in range(len(spD[opnkey])):
-                asp, opn = spD[opnkey][j]['pair']
-                outs = dG.out_edges(opn)
-                for opn, v in outs:
-                    if dG[opn][v]['label'] == DepRelation.NEG:
-                        neg_token = v 
-                        spD[opnkey][j]['pair'] = asp, [neg_token, opn]
-                        break
-            
-        return spD
-                    
     def conj_detect(self, spD):
         D = defaultdict(list)
         conjunctions = self.get_conjunctions()
         for opnkey, sps in spD.items(): 
             for sp in sps:
                 asp, opn = sp['pair']
+                oppol = sp['polarity']
                 # dG.nodes[sp[-1]]['label']
-                opn = self.node2tok(opn) if not isinstance(opn, list) else ''.join(self.node2tok(x) for x in opn)
+                # opn = self.node2tok(opn) if not isinstance(opn, list) else ''.join(self.node2tok(x) for x in opn)
                 if asp in conjunctions:
                     partner = conjunctions[asp]
-                    partner = self.node2tok(partner)
-                    D[partner].append(opn)
-                asp = self.node2tok(asp)
-                D[asp].append(opn)
-        return D
-    
-    def predict(self):
-        spD = self.get_all_sp()
-        procD = self.neg_detect(spD) 
-        D = self.conj_detect(procD)
+                    # partner = self.node2tok(partner)
+                    D[partner].append((opn, oppol))
+                # asp = self.node2tok(asp)
+                D[asp].append((opn, oppol))
         return D
     
     
@@ -184,7 +214,7 @@ class DepTree:
             ustring = f'{u} - {dG.nodes[u]["label"]} {dG.nodes[u]["pos"]}'
             vstring = f'{v} - {dG.nodes[v]["label"]} {dG.nodes[v]["pos"]}'
             viewpath.append(f'{ustring} --> {vstring}')
-        return dirpath, viewpath, (aspect, opinion)
+        return dirpath, viewpath, (aspect, [opinion])
             
     
     def get_all_sp(self):
@@ -194,7 +224,7 @@ class DepTree:
         undG = self.undG
         spD = defaultdict(list)
         
-        for opn, opntok in zip(opd['idx'], opd['token']):
+        for opn, opntok, oppol in zip(opd['idx'], opd['token'], opd['polarity']):
             opnkey = f'{opntok}_{opn}'
             mindist = float('inf')
             for asp, asptok in zip(aspd['idx'], aspd['token']):
@@ -202,7 +232,7 @@ class DepTree:
                 # Supported options: ‘dijkstra’ (default), ‘bellman-ford’.
                 directed_path, viewpath, pair = self.process_raw_sp(sp)
                 currpathdict = {'pair': pair, 'diPath': directed_path,
-                            'treePath': viewpath}
+                            'treePath': viewpath, 'polarity': oppol}
                 currdist = len(directed_path)
                 if currdist < mindist:
                     spD[opnkey] = [currpathdict]

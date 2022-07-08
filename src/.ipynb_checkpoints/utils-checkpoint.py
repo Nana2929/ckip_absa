@@ -1,5 +1,4 @@
-
-class DepRelation(Enum):
+class DepRelation():
     # https://universaldependencies.org/u/dep/ 
     CONJ = 'conj' 
     CC = 'cc' # coordinating conjunction 
