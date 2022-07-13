@@ -9,6 +9,11 @@
     z-index: -1;
 }
 
+img.logo{
+    display: inline-block;
+    vertical-align: middle;
+}
+
 #link_demo{
     text-decoration:none;
     color: black;
@@ -40,11 +45,12 @@ textarea.textin{
     resize: none;
 }
 
-div.result_display{
+/* div.result_display{
     margin-bottom: 1%;
     margin-left: 5%;
     margin-right: 5%;
-}
+} */
+
 textarea{
     background:transparent;
 }
