@@ -31,12 +31,10 @@ div.showblock{
     border-radius: 25px;
     margin: 0 auto;
 }
-
 textarea.textin{
-    float:left;
+    float: left;
     width: 70%;
-    height: 70%;
-    margin-bottom: 5%;
+    height: 60%;
     margin-left: 5%;
     border-radius:10px;
     resize: none;
@@ -50,7 +48,21 @@ div.result_display{
 textarea{
     background:transparent;
 }
-#submit_btn{
+
+p{
+    color:#003072;
+    font-family: "LiGothic", "FangSong", 'Times New Roman', serif;
+}
+
+button{
+    margin-left: 5%;
+    font-size: 14pt;
+    color:white;
+    display: inline-block;
+    border-radius: 5px;
+    border: none
+}
+button#submit_btn{
     height: 25pt;
     width: 7%;
     background-color: blue;
@@ -65,15 +77,7 @@ p{
     margin: left;
     margin-top:5%;
 }
-button{
-    margin-left: 5%;
-    font-size: 14pt;
-    color:white;
-    display: inline-block;
-    border-radius: 5px;
-    border: none
 
-}
 div.f_d{
     display: inline;
     float: right;
@@ -116,12 +120,6 @@ div.outer_ground{
     margin-right: 5%;
 }
 
-
-div.take_input{
-    margin-left: 5%;
-    margin-right: 5%;
-    border:1px solid black;
-}
 
 div.f_ckip{
     display: inline;
