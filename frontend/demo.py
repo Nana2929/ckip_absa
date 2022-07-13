@@ -50,9 +50,9 @@ args = argparser.parse_args()
 logging.basicConfig(level=logging.INFO)
 # this line takes too long
 logging.info('Inititalizing Dependency Parser...')
-# logging.info('Bypassing parser.')
-ch_parser = init_parser()
-logging.info('Successfully initialized.')
+logging.info('Bypassing parser.')
+# ch_parser = init_parser()
+# logging.info('Successfully initialized.')
 
 
 def text_process (test_sent):
@@ -107,8 +107,8 @@ def move_forward():
     text_message = request.values['text']
 
     if request.method=='POST':
-        process_output, result_output = text_process(text_message)
-        # process_output, result_output = 0,0
+        # process_output, result_output = text_process(text_message)
+        process_output, result_output = 0,0
         result = [text_message, process_output, result_output]
         return render_template('index.html', sent = result[0], process = result[1], result = result[2], url_pre=url_pre)
 

@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>餐廳評論分析系統</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}" />
-    <script href="{{url_for('static', filename='functions.js')}}"></script>
-</head>
+    </head>
 <body>
     <header id='title_bar' >
         <div class="connect_option">
@@ -15,6 +14,18 @@
                     <span>CKIP 餐廳評論分析系統&emsp;</span></a>
             </div>
             <div class="row2">
+                <!-- <script type="text/javascript" href="{{url_for('static', filename='js/functions.js')}}"></script> -->
+                <script>
+                    function turnGray(x){
+                        x.style.color = 'gray'
+                    }
+                    function turnBlack(x){
+                        x.style.color = 'black'
+                    }
+                    function clear(id) {
+                        document.getElementById(id).innerHTML = "";
+                    }
+                </script>
                 <a href="https://ckip.iis.sinica.edu.tw/" onmouseover='turnBlack(this)'
                 onmouseout='turnGray(this)'>CKIP  LAB&emsp;</a>
                 <a href="https://www.iis.sinica.edu.tw/zh/index.html" onmouseover='turnBlack(this)'
@@ -28,22 +39,32 @@
     <div class="page_body">
         <br>
         <div class="showblock" >
-            <p>  &emsp;🥨 請輸入欲處理的文字（限繁體中文）：</p>
+            <p> 🥨 請輸入欲處理的文字（限繁體中文）：</p>
             <form action="{{url_pre}}/forward/" method="post" id="take-input">
                 <!-- <input type="text" id="take-input" placeholder="牛肉麵很好吃"> -->
         </form>
         <textarea class="textin" name="text" form="take-input" placeholder="輸入欲分析的餐廳評論，例如：牛肉麵很好吃"></textarea>
         <button type="submit" id="submit_btn" form="take-input" onclick="clear()">送出</button>
         </div>
+        <!-- sentence -->
+        <div class="showtext" >
+            <p>&emsp;🥨 輸入評論：<br><br>
+                <span style="color:black;font-weight:bold">{{sent}}</span>
+            <p>
+        </div>
+
+
         <!-- 評價pairs -->
         <div class="showblock" >
             <p>&emsp;🥨 評價對象與評價內容（Aspect and Opinion Pairs）</p>
+            <!-- <div class="showtext" ><p>{{process}}</p></div> -->
         <textarea class="textin">{{process}}</textarea>
 
         </div>
         <!-- 情緒極度判斷 -->
         <div class="showblock" >
             <p>&emsp;🥨 情緒極度判斷（Sentiment Polarity）</p>
+            <!-- <div class="showtext" ><p>{{result}}</p></div> -->
             <textarea class="textin">{{result}}</textarea>
         </div>
         <div class="foot_bar" >

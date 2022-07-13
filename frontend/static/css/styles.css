@@ -35,7 +35,28 @@ div.showblock{
     margin-bottom: 10%;
     border-radius: 25px;
     margin: 0 auto;
+
 }
+
+div.showtext{
+    block-size: fit-content;
+    text-align: left;
+    background-color:white;
+    position: relative;
+    width: 900px;
+    border-radius: 25px;
+    margin: 0 auto;
+}
+
+p{
+    color:#003072;
+    font-family: "LiGothic", "FangSong", 'Times New Roman', serif;
+    font-size:18px;
+    padding:1px;
+
+}
+
+
 textarea.textin{
     float: left;
     width: 70%;
@@ -55,13 +76,10 @@ textarea{
     background:transparent;
 }
 
-p{
-    color:#003072;
-    font-family: "LiGothic", "FangSong", 'Times New Roman', serif;
-}
-
 button{
     margin-left: 5%;
+    position: absolute;
+    bottom:   10%;
     font-size: 14pt;
     color:white;
     display: inline-block;
@@ -100,11 +118,7 @@ div.connect_option{
     display:inline;
     margin-left: 7%;
 }
-div.ra_button{
-    margin-left: 3%;
-    display: inline-block;
-    text-align: justfy
-}
+
 div.row1{
     font-weight:bold;
     display:inline;
@@ -119,13 +133,6 @@ div.row2 a{
     color: gray;
     font-size: medium;
 }
-
-div.outer_ground{
-    margin-bottom: 1%;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
 
 div.f_ckip{
     display: inline;
