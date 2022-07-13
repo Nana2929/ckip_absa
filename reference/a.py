@@ -149,7 +149,7 @@ def index():
     return render_template("index.html",sent=sent,url_pre=url_pre)
 @app.route("/forward/", methods=['POST','GET'])
 def move_forward():
-    #Moving forward code
+    # Moving forward code
     global url_pre
     text_message=request.values['text']
     classify=request.values['classify']
@@ -176,10 +176,8 @@ def move_forward():
         result=text_senti(class_list,text_message)
 
 
-
     if request.method=='POST':
-        return render_template('index.html',sent=result[0],process=result[1],result=result[2],url_pre=url_pre);
-
+        return render_template('index.html',sent=result[0],process=result[1],result=result[2],url_pre=url_pre)
     return render_template('index.html',url_pre=url_pre)
 
 

@@ -1,0 +1,133 @@
+.page_body{
+    background-color:rgb(224, 232, 247);
+    background-size: 100% 100%;
+    height: fit-content;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 100px;
+    z-index: -1;
+}
+
+#link_demo{
+    text-decoration:none;
+    color: black;
+    font-size:larger;
+    font-weight:bold;
+    font-family: "LiGothic", "FangSong", 'Times New Roman', serif;
+}
+.row{
+    width: 80%;
+    margin: 0 auto;
+}
+div.showblock{
+    text-align: left;
+    background-color:white;
+    position:relative;
+    width: 900px;
+    height: 150px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    border-radius: 25px;
+    margin: 0 auto;
+}
+
+textarea.textin{
+    float:left;
+    width: 70%;
+    height: 70%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    border-radius:10px;
+    resize: none;
+}
+
+div.result_display{
+    margin-bottom: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+textarea{
+    background:transparent;
+}
+#submit_btn{
+    height: 25pt;
+    width: 7%;
+    background-color: blue;
+}
+
+header#title_bar{
+    background-color:white;
+    height: 70%;
+    font-size:30px;
+}
+p{
+    margin: left;
+    margin-top:5%;
+}
+button{
+    margin-left: 5%;
+    font-size: 14pt;
+    color:white;
+    display: inline-block;
+    border-radius: 5px;
+    border: none
+
+}
+div.f_d{
+    display: inline;
+    float: right;
+    margin-right: 15%;
+}
+div.foot_bar{
+    display:inline;
+    background-color:rgb(224, 232, 247);
+    margin-top: 5%;
+    margin-bottom: 1%;
+}
+
+div.connect_option{
+    display:inline;
+    margin-left: 7%;
+}
+div.ra_button{
+    margin-left: 3%;
+    display: inline-block;
+    text-align: justfy
+}
+div.row1{
+    font-weight:bold;
+    display:inline;
+}
+div.row2{
+    display:inline;
+    float:right;
+    margin-right: 15%;
+}
+div.row2 a{
+    text-decoration:none;
+    color: gray;
+    font-size: medium;
+}
+
+div.outer_ground{
+    margin-bottom: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+div.take_input{
+    margin-left: 5%;
+    margin-right: 5%;
+    border:1px solid black;
+}
+
+div.f_ckip{
+    display: inline;
+    margin-left: 7%;
+}
+
+
+
+

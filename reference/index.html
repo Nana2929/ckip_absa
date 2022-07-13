@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>評論分析系統</title>
-    <link rel="stylesheet" type="text/css" href="https://ckip.iis.sinica.edu.tw/service/comment-analysis/static/css/style.css " /> 
+    <link rel="stylesheet" type="text/css" href="https://ckip.iis.sinica.edu.tw/service/comment-analysis/static/css/style.css " />
 </head>
 
 <body>
@@ -15,35 +15,35 @@
             <div class="row2" style="display: inline; float: right; margin-right: 15%;">
                 <a href="https://ckip.iis.sinica.edu.tw/"  style="text-decoration:none; color: gray;font-size: medium; "onmouseover="javascript:this.style.color='black'"
                 onmouseout="javascript:this.style.color='gray'">CKIP  LAB&emsp;</a>
-                
+
                 <a href="https://www.iis.sinica.edu.tw/zh/index.html"  style="text-decoration:none; color: gray;font-size: medium;"onmouseover="javascript:this.style.color='black'"
                 onmouseout="javascript:this.style.color='gray'">資訊所&emsp;</a>
                 <a href="https://www.sinica.edu.tw/ch"  style="text-decoration:none; color: gray; font-size: medium; "onmouseover="javascript:this.style.color='black'"
                 onmouseout="javascript:this.style.color='gray'">中央研究院&emsp;&emsp;</a>
             </div>
-            
+
         </div>
-        
+
     </header>
     <hr color="darkblue">
     <div class="page_body" tyle="margin-bottom: 50% ;">
         <br>
-        
+
         <div class="main_text" >
             <p>  &emsp;請輸入欲處理的文字（限繁體中文）：</p>
-            
-	    <form action="{{url_pre}}/forward/" method="post"> 
+
+	    <form action="{{url_pre}}/forward/" method="post">
                 <div class="text"  style="margin-bottom: 1% ;margin-left: 5%;margin-right: 5%">
                     <div style="width: 756px; height: 100px; border:1px solid black;">
                         {% if sent == "" %}
-                        <textarea  id="textin"cols="97" rows="6"class="textbox" name="text" style="float:left; border:0px" ></textarea>
+                        <textarea  clas="textin"cols="97" rows="6"class="textbox" name="text" style="float:left; border:0px" ></textarea>
                         <input type="submit" id="clear" name="clear" value="x"  style="float:left;background:transparent;border:none" />
                         {% else %}
                         <textarea  id="textin"cols="97" rows="6"class="textbox" name="text" style="float:left; border:0px" >{{sent}}</textarea>
                         <input type="submit" id="clear" name="clear" value="x"  style="float:left;background:transparent;border:none" />
                         {% endif %}
                     </div>
-                <br>    
+                <br>
                 </div>
                 <button name="submit" type="submit" class="submit" style="height: 30pt ;width: 7%; background-color: blue;">送出</button>
                 <div class=ra_button>
@@ -57,10 +57,10 @@
                     <label for="cosmetics">3C家用品&emsp;</label>
                     <input required type="radio" id="default" name="classify" value="default" checked>
                     <label for="default">不分類&emsp;</label>
-                </div> 
-            </form> 
-            
-            <br>   
+                </div>
+            </form>
+
+            <br>
             {% if sent != "" %}
             <p>&emsp;處理過程</p>
             <div class="text"  style="margin-bottom: 1% ;margin-left: 5%;margin-right: 5%;">
@@ -70,13 +70,13 @@
             <div class="text"  style="margin-bottom: 1% ;margin-left: 5%;margin-right: 5%;">
                 <textarea cols="100" rows="2" class="textbox" name="text">{{result}}</textarea>
             </div>
-            {% endif %}    
+            {% endif %}
            <br>
-            
-            
+
+
         </div>
         <br>
-        
+
     </div>
     <div class="foot_bar" style="margin-top: 5%;margin-bottom: 1%;" >
         <br>
