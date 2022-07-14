@@ -33,7 +33,7 @@ from DepTree import DepTree
 def init_parser():
     # avoid loading model every time with Flask
     # https://stackoverflow.com/questions/61049310/how-to-avoid-reloading-ml-model-every-time-when-i-call-python-script
-    port = args.port 
+    port = args.port
     ch_parser = dependency_parser.chinese_parser(port)
     return ch_parser
 
@@ -41,8 +41,6 @@ def init_parser():
 argparser = argparse.ArgumentParser(prog='') 
 argparser.add_argument('--port', '-p', default = 2022, type = int, required = False, 
                     help = 'At which port you wish to run your dependency parser\'s associated ckip tagger')
-# argparser.add_argument('--input', '-i', default = f'{root_path}/test_sent.txt', type = str, required = False, 
-#                       help = 'The file to read the test sentence from')
 argparser.add_argument('--output', '-o', default = f'./testdata/', type = str, required = False, 
                     help = 'The file to output the results to')
 
@@ -62,12 +60,6 @@ def text_process (test_sent):
     test_sent = test_sent.replace(' ', '').replace('\n','').replace('\r','')
 
     '''ws & parsing & post-processing'''
-    # test_sent_path = args.input
-
-    # with open(test_sent_path) as f:
-    #     lines = f.readlines()
-    # test_sent = lines[0].strip('\n').strip()
-
     # check input
     print(test_sent) 
 
@@ -104,8 +96,8 @@ def text_process (test_sent):
 @app.route('/', methods=['POST','GET'])
 def index():
     global url_pre
-    sent=""
-    return render_template("index.html",sent=sent,url_pre=url_pre)
+    sent = ""
+    return render_template("index.html", sent = sent, url_pre = url_pre)
 
 @app.route("/forward/", methods=['POST','GET'])
 def move_forward():
@@ -117,13 +109,12 @@ def move_forward():
         process_output, result_output = text_process(text_message)
         # process_output, result_output = 0,0
         result = [text_message, process_output, result_output]
-        return render_template('index.html', sent = result[0], process = result[1], result = result[2], url_pre=url_pre)
+        return render_template('index.html', sent = result[0], process = result[1], result = result[2], url_pre = url_pre)
 
-    return render_template('index.html',url_pre=url_pre)
+    return render_template('index.html', url_pre = url_pre)
 
 
 url_pre = ""
 if __name__ == '__main__':
-    app.debug = True
-    # app.run(port=7777, host='0.0.0.0')
-    app.run()
+    url_pre=args.url_pre
+    app.run(host='0.0.0.0', port=7777, debug = False)   
