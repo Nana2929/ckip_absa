@@ -26,6 +26,7 @@ img.logo{
     margin: 0 auto;
 }
 div.showblock{
+    height: fit-content;
     text-align: left;
     background-color:white;
     position:relative;
@@ -106,7 +107,6 @@ textarea.textout{
     height: 30%;
     margin-left: 5%;
     border-radius:10px;
-    resize: none;
 }
 
 

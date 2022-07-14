@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>餐廳評論分析系統</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" />
     </head>
 <body>
     <header id='title_bar' >
@@ -54,7 +54,8 @@
             </div>
         <!-- 評價pairs -->
         <div class="showblock" >
-            <p class="output">&emsp;🥨 評價對象與評價內容（Aspect and Opinion Pairs）</p>
+            <p class="output">&emsp;🥨 評價對象與評價內容（Aspect and Opinion Pairs）
+                <br>&emsp;&emsp;<span style="color:gray; font-size:12pt">[評價對象], &lt評價內容></span></p>
             <!-- <div class="showtext" ><p>{{process}}</p></div> -->
             <textarea class="textout">{{process}}</textarea></div>
         <div class="showblock" >
