@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>餐廳評論分析系統</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='/css/styles.css')}}" />
+    <link rel="stylesheet" href="https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/styles.css " />
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" /> -->
     </head>
 <body>
     <header id='title_bar' >
         <div class="connect_option">
             <div class="row1">
                 <a id="link_demo" href="https://ckip.iis.sinica.edu.tw/demo">
-                    <img src="{{url_for('static', filename='ckip_logo.svg')}}" class="logo" width="50pt" height="50pt">
+                    <!-- <img src="{{url_for('static', filename='ckip_logo.svg')}}" class="logo" width="50pt" height="50pt"> -->
+                    <img src="https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/ckip_logo.svg" class="logo" width="50pt" height="50pt">
                     <span>CKIP 餐廳評論分析系統&emsp;</span></a>
             </div>
             <div class="row2">
@@ -39,7 +41,7 @@
     <div class="page_body">
         <br>
         <div class="showblock" >
-            <p>&emsp;🥨 請輸入欲分析的餐廳評論（限繁體中文）：</p>
+            <p class="output_2">&emsp;🥨 請輸入欲分析的餐廳評論（限繁體中文）：</p>
             <form action="{{url_pre}}/forward/" method="post" id="take-input">
                 <!-- <input type="text" id="take-input" placeholder="牛肉麵很好吃"> -->
         </form>
@@ -48,20 +50,18 @@
         </div>
         <!-- sentence -->
         <div class="showtext">
-            <p class="output">&emsp;🥨 輸入評論：
+            <p class="output output_2">&emsp;🥨 輸入評論：
                 <span style="color:black;font-weight:bold">{{sent}}</span>
             </p>
             </div>
         <!-- 評價pairs -->
         <div class="showblock" >
-            <p class="output">&emsp;🥨 評價對象與評價內容（Aspect and Opinion Pairs）
+            <p class="output output_2">&emsp;🥨 評價對象與評價內容（Aspect and Opinion Pairs）
                 <br>&emsp;&emsp;<span style="color:gray; font-size:12pt">[評價對象], &lt評價內容></span></p>
-            <!-- <div class="showtext" ><p>{{process}}</p></div> -->
-            <textarea class="textout">{{process}}</textarea></div>
+            <textarea class="textout" readonly>{{process}}</textarea></div>
         <div class="showblock" >
-            <p class="output">&emsp;🥨 情緒極度判斷（Sentiment Polarity）</p>
-            <!-- <div class="showtext" ><p>{{result}}</p></div> -->
-            <textarea class="textout">{{result}}</textarea>
+            <p class="output output_2">&emsp;🥨 情緒極度判斷（Sentiment Polarity）</p>
+            <textarea class="textout" readonly>{{result}}</textarea>
         </div>
 
         <!-- 情緒極度判斷 -->
