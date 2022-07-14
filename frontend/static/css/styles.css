@@ -26,12 +26,12 @@ img.logo{
     margin: 0 auto;
 }
 div.showblock{
-    height: fit-content;
+    /* height: fit-content; */
     text-align: left;
     background-color:white;
     position:relative;
     width: 900px;
-    height: 150px;
+    /* height: 200px; */
     margin-top: 10%;
     margin-bottom: 10%;
     border-radius: 25px;
@@ -89,24 +89,27 @@ p.output{
     padding:1px;
     text-align:justify;
 }
+p.output_2{
+    margin-bottom: 0;
+}
 
 
 textarea.textin{
-    float: left;
+    /* float: left; */
     width: 70%;
     height: 60%;
     margin-left: 5%;
     border-radius:10px;
-    resize: none;
 }
 
 textarea.textout{
     block-size: fit-content;
-    float: left;
+    /* float: left; */
     width: 70%;
-    height: 30%;
+    height: 60%;
     margin-left: 5%;
     border-radius:10px;
+    /* resize:none; */
 }
 
 
