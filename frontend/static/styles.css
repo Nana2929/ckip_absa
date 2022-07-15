@@ -26,30 +26,15 @@ img.logo{
     margin: 0 auto;
 }
 div.showblock{
-    /* height: fit-content; */
     text-align: left;
     background-color:white;
     position:relative;
     width: 900px;
-    /* height: 200px; */
     margin-top: 10%;
     margin-bottom: 10%;
     border-radius: 25px;
     margin: 0 auto;
 }
-
-/* div.showoutput{
-    text-align: left;
-    background-color:white;
-    position:relative;
-    width: 900px;
-    height: 300px;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    border-radius: 25px;
-    margin: 0 auto;
-    flex-direction: column;
-} */
 
 div.showoutput{
     text-align: left;
@@ -95,9 +80,8 @@ p.output_2{
 
 
 textarea.textin{
-    /* float: left; */
-    width: 70%;
-    height: 60%;
+    width: 600px;
+    height: 100px;
     margin-left: 5%;
     border-radius:10px;
 }
@@ -105,8 +89,8 @@ textarea.textin{
 textarea.textout{
     block-size: fit-content;
     /* float: left; */
-    width: 70%;
-    height: 60%;
+    width: 600px;
+    height: 100px;
     margin-left: 5%;
     border-radius:10px;
     /* resize:none; */
@@ -180,7 +164,4 @@ div.f_ckip{
     margin-left: 7%;
     font-size: 15px;
 }
-
-
-
 
