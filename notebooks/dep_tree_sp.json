@@ -1,0 +1,23 @@
+{
+    "好吃_8": [
+        {
+            "pair": [
+                5,
+                [
+                    8
+                ]
+            ],
+            "diPath": [
+                [
+                    8,
+                    5,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "5 - 麵 Na --> 8 - 好吃 VH"
+            ],
+            "polarity": "positive"
+        }
+    ]
+}
