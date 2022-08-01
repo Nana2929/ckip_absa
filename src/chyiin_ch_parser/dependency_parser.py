@@ -93,14 +93,18 @@ class chinese_parser():
         return tokenized_sentence, torch.tensor(labels_idx), seq[:-1]
     @staticmethod
     def get_recommended_seg():
-        aspect_path = '../repo/src/lexicon/aspect_lexicon.csv'
+        aspect_path = '../repo/src/lexicon/aspect_lexicon-4.0.csv'
         df = pd.read_csv(aspect_path)
         const = 20; d = {}
         for rowid, r in df.iterrows():
             w, src = r['Word'], r['source']
             d[w] = 10
-            if not src.startswith('eHowNet'):
-                d[w] = 20 # self-defined, CookBook-KG, 松園...
+            if src.endswith('WS'): # 楊桃美食網WS
+                d[w] = 5
+            elif src.startswith('self'):  # self-defined
+                d[w] = 20
+            else:
+                d[w] = len(w)+10
         return d
     
     
