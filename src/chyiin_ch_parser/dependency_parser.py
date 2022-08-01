@@ -134,7 +134,7 @@ class chinese_parser():
         input_sampler = SequentialSampler(input_data)
         input_dataloader = DataLoader(input_data, sampler=input_sampler, batch_size=1, shuffle=False)
 
-        torch.cuda.set_device(2)
+        torch.cuda.set_device(2) # gpu setting
         self.model.eval()
 
         punct_predict, predict = [], []
