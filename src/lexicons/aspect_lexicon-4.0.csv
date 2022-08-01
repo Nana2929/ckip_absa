@@ -232,7 +232,6 @@ Word,type,source
 浮雲,WS,楊桃美食網WS
 涼飲,WS,楊桃美食網WS
 東京,WS,楊桃美食網WS
-文字,WS,楊桃美食網WS
 咖喱,WS,楊桃美食網WS
 米果,WS,楊桃美食網WS
 里肌豬,WS,楊桃美食網WS
@@ -314,9 +313,8 @@ Word,type,source
 車輪,WS,楊桃美食網WS
 油醬,WS,楊桃美食網WS
 黑醋醬,WS,楊桃美食網WS
-美奶,WS,楊桃美食網WS
-滋明,WS,楊桃美食網WS
-太子,WS,楊桃美食網WS
+美奶滋,WS,楊桃美食網WS
+明太子,WS,楊桃美食網WS
 抹醬,WS,楊桃美食網WS
 豚汁,WS,楊桃美食網WS
 高麗菜,WS,楊桃美食網WS
@@ -324,7 +322,6 @@ Word,type,source
 拌飯,WS,楊桃美食網WS
 茶碗,WS,楊桃美食網WS
 牛肉片,WS,楊桃美食網WS
-基本,WS,楊桃美食網WS
 蛋蛋汁,WS,楊桃美食網WS
 丸子鍋,WS,楊桃美食網WS
 雪梅娘,WS,楊桃美食網WS
@@ -474,7 +471,6 @@ Word,type,source
 芋香,WS,楊桃美食網WS
 蛋皮花,WS,楊桃美食網WS
 苦瓜魚,WS,楊桃美食網WS
-煮煮,WS,楊桃美食網WS
 和風蕎麥,WS,楊桃美食網WS
 滷汁,WS,楊桃美食網WS
 蔥花,WS,楊桃美食網WS
@@ -520,7 +516,6 @@ Word,type,source
 相撲,WS,楊桃美食網WS
 鮮菇串,WS,楊桃美食網WS
 米丸子,WS,楊桃美食網WS
-兄弟,WS,楊桃美食網WS
 蟹肉蕈,WS,楊桃美食網WS
 秋刀魚丼,WS,楊桃美食網WS
 紫山藥,WS,楊桃美食網WS
@@ -559,7 +554,6 @@ Word,type,source
 柿餅,WS,楊桃美食網WS
 酸奶,WS,楊桃美食網WS
 湯頭,WS,楊桃美食網WS
-超厚,WS,楊桃美食網WS
 杏鮑菇,WS,楊桃美食網WS
 胡麻醬,WS,楊桃美食網WS
 卷佐,WS,楊桃美食網WS
@@ -604,7 +598,6 @@ Word,type,source
 梅子,WS,楊桃美食網WS
 湯種,WS,楊桃美食網WS
 油麻菜,WS,楊桃美食網WS
-kitty,WS,楊桃美食網WS
 貓鬆餅,WS,楊桃美食網WS
 白川,WS,楊桃美食網WS
 鮮劍蝦,WS,楊桃美食網WS
@@ -1870,7 +1863,7 @@ Taco,WS,楊桃美食網WS
 黃金薯泥,WS,楊桃美食網WS
 土司卷,WS,楊桃美食網WS
 憂果,WS,楊桃美食網WS
-冰砂,WS,楊桃美食網WS
+冰沙,WS,楊桃美食網WS
 熱帶,WS,楊桃美食網WS
 風情,WS,楊桃美食網WS
 新加坡,WS,楊桃美食網WS
@@ -2684,7 +2677,6 @@ oreo,WS,楊桃美食網WS
 麥年斯多朗,WS,楊桃美食網WS
 北非,WS,楊桃美食網WS
 小米,WS,楊桃美食網WS
-下午,WS,楊桃美食網WS
 哈哈辣,WS,楊桃美食網WS
 蛋白酥,WS,楊桃美食網WS
 烤麵,WS,楊桃美食網WS
@@ -3160,7 +3152,6 @@ HOT,WS,楊桃美食網WS
 馬賽魚湯,WS,楊桃美食網WS
 蛋餅湯,WS,楊桃美食網WS
 蛤蜊麵,WS,楊桃美食網WS
-Passion-Trend,WS,楊桃美食網WS
 鱈斑魚,WS,楊桃美食網WS
 肉醬飯,WS,楊桃美食網WS
 瓜肉餅,WS,楊桃美食網WS
@@ -3448,7 +3439,6 @@ PIZZA,WS,楊桃美食網WS
 薯泥酥派,WS,楊桃美食網WS
 什錦哈辣,WS,楊桃美食網WS
 醬蛋,WS,楊桃美食網WS
-Martini,WS,楊桃美食網WS
 葡萄奶,WS,楊桃美食網WS
 酥餡,WS,楊桃美食網WS
 蛋燒餅,WS,楊桃美食網WS
@@ -3489,7 +3479,6 @@ Martini,WS,楊桃美食網WS
 卡拉辣雞,WS,楊桃美食網WS
 清醬,WS,楊桃美食網WS
 聖女,WS,楊桃美食網WS
-直接,WS,楊桃美食網WS
 麥片餅,WS,楊桃美食網WS
 有機,WS,楊桃美食網WS
 聖代杯,WS,楊桃美食網WS
@@ -3881,7 +3870,6 @@ Q綿,WS,楊桃美食網WS
 薑母鴨,WS,楊桃美食網WS
 佐餐,WS,楊桃美食網WS
 極品,WS,楊桃美食網WS
-Appetizer,WS,楊桃美食網WS
 無骨雞,WS,楊桃美食網WS
 葡萄肉,WS,楊桃美食網WS
 野菜麵,WS,楊桃美食網WS
@@ -4040,7 +4028,6 @@ Kahlua,WS,楊桃美食網WS
 黑裸,WS,楊桃美食網WS
 麥貝,WS,楊桃美食網WS
 糖漬,WS,楊桃美食網WS
-Affogart,WS,楊桃美食網WS
 清湯鍋,WS,楊桃美食網WS
 比爾蓋茲,WS,楊桃美食網WS
 精力湯,WS,楊桃美食網WS
@@ -4339,8 +4326,6 @@ DHA,WS,楊桃美食網WS
 鮭蔬菜,WS,楊桃美食網WS
 回憶,WS,楊桃美食網WS
 沾鍋,WS,楊桃美食網WS
-煎出,WS,楊桃美食網WS
-Bombay-Shapphire-Sour,WS,楊桃美食網WS
 車輪麵,WS,楊桃美食網WS
 基本塔皮,WS,楊桃美食網WS
 雪筍,WS,楊桃美食網WS
@@ -4436,7 +4421,6 @@ Bombay-Shapphire-Sour,WS,楊桃美食網WS
 奶油佐,WS,楊桃美食網WS
 牛排佐,WS,楊桃美食網WS
 艾波瓦塞,WS,楊桃美食網WS
-Royal-Kir,WS,楊桃美食網WS
 貝妮,WS,楊桃美食網WS
 盲腸炎,WS,楊桃美食網WS
 蜜桔,WS,楊桃美食網WS
@@ -4460,7 +4444,6 @@ Royal-Kir,WS,楊桃美食網WS
 牛肉盅,WS,楊桃美食網WS
 蜜棗卷,WS,楊桃美食網WS
 核桃花,WS,楊桃美食網WS
-Grand-Chocolate,WS,楊桃美食網WS
 冰綠,WS,楊桃美食網WS
 芝麻布丁,WS,楊桃美食網WS
 雞丁湯,WS,楊桃美食網WS
@@ -4535,14 +4518,12 @@ Grand-Chocolate,WS,楊桃美食網WS
 牛菌,WS,楊桃美食網WS
 凝露,WS,楊桃美食網WS
 丹波,WS,楊桃美食網WS
-Kiwi-Caipirinha,WS,楊桃美食網WS
 滷肉,WS,楊桃美食網WS
 杏桃,WS,楊桃美食網WS
 波士頓,WS,楊桃美食網WS
 洋梨乳酪塔,WS,楊桃美食網WS
 南義,WS,楊桃美食網WS
 茴香醬,WS,楊桃美食網WS
-N.Y,WS,楊桃美食網WS
 蜜蜂,WS,楊桃美食網WS
 蛋片,WS,楊桃美食網WS
 火車,WS,楊桃美食網WS
@@ -4564,7 +4545,6 @@ N.Y,WS,楊桃美食網WS
 晶凍,WS,楊桃美食網WS
 肉凍,WS,楊桃美食網WS
 土司堡,WS,楊桃美食網WS
-Source,WS,楊桃美食網WS
 煮法,WS,楊桃美食網WS
 匈牙利式,WS,楊桃美食網WS
 拌煎,WS,楊桃美食網WS
@@ -4767,7 +4747,6 @@ Source,WS,楊桃美食網WS
 滷羊肉,WS,楊桃美食網WS
 烏骨雞,WS,楊桃美食網WS
 紅滷,WS,楊桃美食網WS
-正宗,WS,楊桃美食網WS
 小籠湯,WS,楊桃美食網WS
 豆包卷,WS,楊桃美食網WS
 芋頭粿,WS,楊桃美食網WS
@@ -4780,7 +4759,7 @@ Source,WS,楊桃美食網WS
 脆圓,WS,楊桃美食網WS
 肉絲蛋,WS,楊桃美食網WS
 咾肉,WS,楊桃美食網WS
-羊肉	,WS,楊桃美食網WS
+羊肉,WS,楊桃美食網WS
 養生粽,WS,楊桃美食網WS
 鹹冬,WS,楊桃美食網WS
 喜餅,WS,楊桃美食網WS
@@ -5527,7 +5506,6 @@ Diy,WS,楊桃美食網WS
 排湯,WS,楊桃美食網WS
 蒜苗魚,WS,楊桃美食網WS
 麗珠,WS,楊桃美食網WS
-媽媽,WS,楊桃美食網WS
 雞米,WS,楊桃美食網WS
 乾炒,WS,楊桃美食網WS
 意粉,WS,楊桃美食網WS
@@ -7017,7 +6995,7 @@ Kitty,WS,楊桃美食網WS
 黑糯,WS,楊桃美食網WS
 果仁,WS,楊桃美食網WS
 花開,WS,楊桃美食網WS
-滷蛋	,WS,楊桃美食網WS
+滷蛋,WS,楊桃美食網WS
 涼拌汁,WS,楊桃美食網WS
 燥拌,WS,楊桃美食網WS
 枸杞茶,WS,楊桃美食網WS
@@ -7046,7 +7024,6 @@ Kitty,WS,楊桃美食網WS
 醬味,WS,楊桃美食網WS
 鴻圖,WS,楊桃美食網WS
 素窩麵,WS,楊桃美食網WS
-軟爛入味,WS,楊桃美食網WS
 胚芽飯,WS,楊桃美食網WS
 酸菜魚片,WS,楊桃美食網WS
 斑節,WS,楊桃美食網WS
@@ -7115,7 +7092,6 @@ Kitty,WS,楊桃美食網WS
 蔬菜鴨,WS,楊桃美食網WS
 銀耳粥,WS,楊桃美食網WS
 鮪魚滷,WS,楊桃美食網WS
-環球,WS,楊桃美食網WS
 冬瓜盒,WS,楊桃美食網WS
 紅糟蛋,WS,楊桃美食網WS
 魚骨,WS,楊桃美食網WS
@@ -7342,7 +7318,6 @@ Kitty,WS,楊桃美食網WS
 金錢菇,WS,楊桃美食網WS
 蠶豆酥,WS,楊桃美食網WS
 牲禮,WS,楊桃美食網WS
-挺直,WS,楊桃美食網WS
 白蝦,WS,楊桃美食網WS
 蛋滷包,WS,楊桃美食網WS
 塌雞片,WS,楊桃美食網WS
@@ -7491,7 +7466,6 @@ Kitty,WS,楊桃美食網WS
 蜜花豆,WS,楊桃美食網WS
 雜丸湯河,WS,楊桃美食網WS
 中東,WS,楊桃美食網WS
-25,WS,楊桃美食網WS
 雞肉盅,WS,楊桃美食網WS
 杏汁,WS,楊桃美食網WS
 仁粥,WS,楊桃美食網WS
@@ -7514,7 +7488,6 @@ Kitty,WS,楊桃美食網WS
 紅麴蛋,WS,楊桃美食網WS
 油皇,WS,楊桃美食網WS
 蔥捲餅,WS,楊桃美食網WS
-魷	,WS,楊桃美食網WS
 泡菜滷,WS,楊桃美食網WS
 蒸醬,WS,楊桃美食網WS
 蹄筋湯,WS,楊桃美食網WS
@@ -7735,7 +7708,6 @@ Xo,WS,楊桃美食網WS
 肉羹醬,WS,楊桃美食網WS
 鮮香,WS,楊桃美食網WS
 酸辣醬雞,WS,楊桃美食網WS
-（2）,WS,楊桃美食網WS
 冰盅,WS,楊桃美食網WS
 黃金翅,WS,楊桃美食網WS
 烘烤,WS,楊桃美食網WS
@@ -8350,7 +8322,6 @@ Q芋,WS,楊桃美食網WS
 茶醋,WS,楊桃美食網WS
 枸菊,WS,楊桃美食網WS
 參鬚茶,WS,楊桃美食網WS
-現代,WS,楊桃美食網WS
 白菜夾,WS,楊桃美食網WS
 蔥丸子,WS,楊桃美食網WS
 北玄,WS,楊桃美食網WS
@@ -8779,7 +8750,7 @@ Xo醬,WS,楊桃美食網WS
 穌羹,WS,楊桃美食網WS
 豆籤,WS,楊桃美食網WS
 八珍雞,WS,楊桃美食網WS
-草莓醬甜,WS,楊桃美食網WS
+草莓醬,WS,楊桃美食網WS
 塔香油膏,WS,楊桃美食網WS
 鵝肝冬,WS,楊桃美食網WS
 粉湯餃,WS,楊桃美食網WS
@@ -8798,7 +8769,6 @@ Xo醬,WS,楊桃美食網WS
 腐乳醬筍,WS,楊桃美食網WS
 小壽,WS,楊桃美食網WS
 話梅,WS,楊桃美食網WS
-香嫩,WS,楊桃美食網WS
 涼瓜山,WS,楊桃美食網WS
 猴尾仔,WS,楊桃美食網WS
 冰蔘,WS,楊桃美食網WS
@@ -8864,7 +8834,7 @@ Xo醬,WS,楊桃美食網WS
 雜菜飯,WS,楊桃美食網WS
 乾炸醬,WS,楊桃美食網WS
 杏蕈,WS,楊桃美食網WS
-辣椒	,WS,楊桃美食網WS
+辣椒,WS,楊桃美食網WS
 豬肉卷,WS,楊桃美食網WS
 雲吞煲,WS,楊桃美食網WS
 豆泡,WS,楊桃美食網WS
@@ -8963,7 +8933,6 @@ Xo醬,WS,楊桃美食網WS
 花生鍋餅,WS,楊桃美食網WS
 牛柳餡,WS,楊桃美食網WS
 陳紹釀,WS,楊桃美食網WS
-男人,WS,楊桃美食網WS
 坐月子雞,WS,楊桃美食網WS
 油蒜,WS,楊桃美食網WS
 塔香虱目魚,WS,楊桃美食網WS
@@ -9123,7 +9092,7 @@ X.O醬,WS,楊桃美食網WS
 提味,WS,楊桃美食網WS
 乾粉,WS,楊桃美食網WS
 雞翅鍋,WS,楊桃美食網WS
-煲	,WS,楊桃美食網WS
+煲,WS,楊桃美食網WS
 螺片,WS,楊桃美食網WS
 百合花,WS,楊桃美食網WS
 韭黃餡,WS,楊桃美食網WS
@@ -9164,7 +9133,7 @@ X.O醬,WS,楊桃美食網WS
 芽湯,WS,楊桃美食網WS
 滷茭,WS,楊桃美食網WS
 燴魚塊,WS,楊桃美食網WS
-湯	,WS,楊桃美食網WS
+湯,WS,楊桃美食網WS
 蔬果山,WS,楊桃美食網WS
 蘇捲,WS,楊桃美食網WS
 蛋煎,WS,楊桃美食網WS
@@ -9308,7 +9277,6 @@ X.O醬,WS,楊桃美食網WS
 芙花,WS,楊桃美食網WS
 碧井珍肉,WS,楊桃美食網WS
 薑蜜桔茶,WS,楊桃美食網WS
-方式,WS,楊桃美食網WS
 豬肉漿,WS,楊桃美食網WS
 柳丁醋,WS,楊桃美食網WS
 芽白,WS,楊桃美食網WS
