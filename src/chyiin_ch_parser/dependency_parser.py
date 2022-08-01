@@ -104,12 +104,8 @@ class chinese_parser():
         for rowid, r in df.iterrows():
             w, src = r['Word'], r['source']
             d[w] = const
-            # if src.endswith('WS'): # 楊桃美食網WS
-            #     d[w] = 15
             if src.startswith('self'):  # self-defined
                 d[w] = 20
-            # else: # 楊桃美食網, 松園, ehownet and CookBook
-            #     d[w] = 20
         return d
     
     

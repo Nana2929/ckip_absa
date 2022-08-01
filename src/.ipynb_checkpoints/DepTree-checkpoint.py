@@ -1,4 +1,3 @@
-import networkx as nx
 from collections import defaultdict
 from copy import deepcopy
 import json 
@@ -7,18 +6,23 @@ import os
 from IPython.display import Image, display
 import logging
 import pandas as pd
-from utils import DepRelation
-
+from utils import DepRelation, POS
+from utils import BOUNDDIST, CONJDIST
+import networkx as nx
+from networkx.algorithms.traversal.depth_first_search import dfs_tree
 
 
 class DepTree:
     
     def build_graph(self):
         G = nx.DiGraph()
+        self.nodes = []
         for x in self.pos:
             id, tokenpos = x
             token, pos = tokenpos.split()
             G.add_node(id, label = token, pos = pos)
+            self.nodes.append((id, token, pos))
+            
         for dep in self.depparse:
             u, v, deprel = dep 
             u, v = u.split(' - '), v.split(' - ')
@@ -43,18 +47,56 @@ class DepTree:
         self.outdir = outdir
         os.makedirs(self.outdir, exist_ok =True)
         
-        logging.info('attrs:    \t .pos, .ws, .depparse, .dG, .undG')
-        logging.info('functions:\t detect(), get_all_sp(), to_image()')
+        logging.info('attrs:    \t .pos, .ws, .depparse, .dG, .undG, .aspects, .opinions')
+        logging.info('functions:\t predict(), to_image()')
+    
+    @classmethod
+    def get_lexicon(cls, lextype, directory = None):
+        filedir = os.path.join(os.path.dirname(__file__), './lexicons')
+        directory = filedir if directory is None else directory
+        availables = ['aspect', 'opinion']
+        if lextype not in availables:
+            logging.info(f'Action abort. Only options in {availables} are supported.')
+            return 
+        filepath = os.path.join(directory, lextype+'_lexicon.csv')
+        df = pd.read_csv(filepath)
+        logging.info(f'finished loading {lextype} lexicon.')
+        return df 
+    
+    
+    def node2tok(self, node):
+        '''
+        Params:
+            node: the node id recorded in {NetworkX Object}.nodes
+        =======
+        Return: 
+            the label (token tag) of the node
+        '''
+        return self.dG.nodes[node]['label']
+    
+    def node2pos(self, node):
+        return self.dG.nodes[node]["pos"]
+    
     
     def predict(self):
-        spD = self.get_all_sp()
+        spD = self.get_pairing()
         procD = self.neg_detect(spD) 
         D = self.conj_detect(procD)
         tokenD, span_marking = self.final_output(D)
         return tokenD, span_marking
     
     def final_output(self, D):
-        # match to its token label 
+        '''
+        
+        Params:
+        
+        
+        =========
+        Return:
+        
+        
+        
+        '''
         tokenD = defaultdict(list)
         pos = self.pos
         # list of token id
@@ -80,25 +122,7 @@ class DepTree:
         
         return tokenD, spanned_ws
             
-        
-    @classmethod
-    def get_lexicon(cls, lextype, directory = None):
-        filedir = os.path.join(os.path.dirname(__file__), './lexicons')
-        directory = filedir if directory is None else directory
-        availables = ['aspect', 'opinion']
-        if lextype not in availables:
-            logging.info(f'Action abort. Only options in {availables} are supported.')
-            return 
-        filepath = os.path.join(directory, lextype+'_lexicon.csv')
-        df = pd.read_csv(filepath)
-        logging.info(f'finished loading {lextype} lexicon.')
-        return df 
     
-    
-    
-    def node2tok(self, node):
-        res = self.dG.nodes[node]['label']
-        return res
     
     def neg_detect(self, spD):
         '''
@@ -113,13 +137,20 @@ class DepTree:
                 outs = dG.out_edges(opn)
                 for opn, v in outs:
                     if dG[opn][v]['label'] == DepRelation.NEG:
+                        logging.info(
+                        f'[Rule 3] Detect negation on {self.node2tok(opn)}; polarity is reversed.')
                         neg_token = v 
                         spD[opnkey][j]['pair'] = asp, [neg_token, opn]
                         spD[opnkey][j]['polarity'] = 'positive' if pol == 'negative' else 'negative'
-        
         return spD
                     
     def get_conjunctions(self):
+        '''
+        get CLOSE conjunction
+        
+        
+        '''
+        
         if getattr(self, 'conjunctions', None) is not None:
             return self.conjunctions
         conj_edges = {}
@@ -127,9 +158,12 @@ class DepTree:
         edges = G.edges
         for u, v in edges:
             depr = G[u][v]['label']
-            # if an conjunction edge is present 
-            if depr == DepRelation.CONJ:
-                conj_edges[u] = v; conj_edges[v] = u
+            # A和B
+            if abs(u - v) <= CONJDIST:
+            # if an conjunction edge (u,v) is present 
+            # and u, v's linguistic distance <= 1 
+                if depr == DepRelation.CONJ:
+                    conj_edges[u] = v; conj_edges[v] = u
         self.conjunctions = conj_edges
         return self.conjunctions
 
@@ -144,17 +178,25 @@ class DepTree:
                 # opn = self.node2tok(opn) if not isinstance(opn, list) else ''.join(self.node2tok(x) for x in opn)
                 if asp in conjunctions:
                     partner = conjunctions[asp]
-                    # partner = self.node2tok(partner)
+                    partnertok = self.node2tok(partner)
+                    logging.info(
+                        f'[Rule 2] Detect conjunction beween existing aspect {self.node2tok(asp)} and node {partnertok}; new aspect {partnertok} is added.')
                     D[partner].append((opn, oppol))
-                # asp = self.node2tok(asp)
                 D[asp].append((opn, oppol))
         return D
     
     
     def detect(self, food_lexicon = None, senti_lexicon = None):
         '''
-        1. detecting aspect and opinion appearing in the lexicons
-        2. lexicon-based 
+        Params: 
+            food_lexicon := str: filepath to aspect lexicon (.csv)
+            senti_lexicon := str: filepath to opinion lexicon (.csv) 
+        =======
+        Return None
+        =======
+        Generate
+            self.aspects  := list of dict: the detected inventory of foods (with node id)
+            self.opinions := list of dict: the detected inventory of opinions (with node id and polarity)
         '''
         if not food_lexicon:
             aspect_lexicon = DepTree.get_lexicon('aspect')
@@ -162,38 +204,49 @@ class DepTree:
         if not senti_lexicon:
             opn_lexicon = DepTree.get_lexicon('opinion')
         
-        foodidx, foodtok = [], []
-        sentiidx, sentitok, sentpol = [], [], []
         sentpos = self.pos
         aspectlist = aspect_lexicon['Word'].to_list() 
         aspectlist = set(aspectlist)
         opnlexicon = {r['Word']:r['Valence_Mean'] for rid, r in opn_lexicon.iterrows()}
         rating = lambda x: 'positive' if x >= 6 else ('neutral' if 6 > x >= 4  else 'negative')
+        
+        if hasattr(DepTree, 'aspects') and hasattr(DepTree, 'opinions'):
+            logging.info('Aspect and opinion inventories are already detected.')
+            return 
+        
+        self.aspects = []
+        self.opinions = []
         for x in sentpos: 
             id, tokenpos = x
             token, pos = tokenpos.split()
 
             if token in aspectlist:
-                foodidx.append(id)
-                foodtok.append(token)
-            
-            if token in opnlexicon:
-                score = opnlexicon[token]
-                sentiidx.append(id)
-                sentitok.append(token)
-                sentpol.append(rating(score))
-        
-        food = {'idx': foodidx, 'token': foodtok}
-        senti = {'idx': sentiidx, 'token': sentitok, 'polarity': sentpol}
-        
-        # res = True if (foodidx and sentiidx) else False
-        logging.info(f'aspects:\t{food}')
-        logging.info(f'opinions:\t{senti}')
-        
-        return food, senti  
+                    foodinfo = {'id':id, 'token': token}
+                    self.aspects.append(foodinfo)
+            elif token in opnlexicon:
+                if not self.node2pos(id) in POS.Adverbs:
+                    score = opnlexicon[token]
+                    sentinfo = {'id': id, 'token': token, 'polarity': rating(score)}
+                    self.opinions.append(sentinfo)
+        logging.info(f'[lexicon-based] detected aspects: {self.aspects}')
+        logging.info(f'[lexicon-based] detected opinions: {self.opinions}')
     
     
     def process_raw_sp(self, sp):
+        '''
+        helper function of .get_all_sp()
+        Params:
+            sp:= a list of node id: nx.shortest_path(undG, asp, opn) 
+                given undirected tree, asp, opn as the node index
+                find the shortest path between the 2 nodes (usually the only path)     
+        =======
+        Return:
+            the processed shortest path information (collecting the information of node)  
+            including: 
+                diPath, 
+                treePath, 
+                aspect:opinion(s) pairing
+        '''
         dG, undG = self.dG, self.undG
         dirpath = []
         for i in range(1, len(sp)):
@@ -211,24 +264,61 @@ class DepTree:
         opinion = sp[-1]
         for i in range(1, len(sp)):
             edge = u, v = sp[i-1], sp[i]
-            ustring = f'{u} - {dG.nodes[u]["label"]} {dG.nodes[u]["pos"]}'
-            vstring = f'{v} - {dG.nodes[v]["label"]} {dG.nodes[v]["pos"]}'
+            ustring = f'{u} - {self.node2tok(u)} {self.node2pos(u)}'
+            vstring = f'{v} - {self.node2tok(v)} {self.node2pos(v)}'
             viewpath.append(f'{ustring} --> {vstring}')
         return dirpath, viewpath, (aspect, [opinion])
             
     
-    def get_all_sp(self):
-        '''string-match by lexicons'''
-        aspd, opd = self.detect()
-        
-        undG = self.undG
+    def get_pairing(self):
+        '''
+        Params:
+            None
+        =========
+        Return:
+            dictionary of k:v = opinion: currpathdict (to the nearest aspect)
+            key examples: {'好':.. ,'好吃':... ,'酸甜':...}
+            value: currpathdict: a dict of 
+                pair (opinion: matched aspect)
+                diPath: directed Path (path, but follows directed edge direction)
+                treePath: tree Path (path, edges are transformed to be tail-head connected)
+                polarity: the polarity recorded in the aspect lexicon 
+        '''
+        self.detect()
         spD = defaultdict(list)
         
-        for opn, opntok, oppol in zip(opd['idx'], opd['token'], opd['polarity']):
-            opnkey = f'{opntok}_{opn}'
-            mindist = float('inf')
-            for asp, asptok in zip(aspd['idx'], aspd['token']):
-                sp = nx.shortest_path(undG, asp, opn)
+        for opn_triplet in self.opinions:
+            opnid, opntok, oppol = opn_triplet['id'], opn_triplet['token'], opn_triplet['polarity']
+            opnkey = f'{opntok}_{opnid}'
+            
+            # if within the opinion's subtree, the opn directly (directionally) link to a Noun
+            opn_subT = dfs_tree(self.dG, opnid)
+            neighbors = opn_subT.neighbors(opnid)
+            
+            
+            # if within the opinion's neighbors (1-step away nodes)
+            # a `neighbor` POS is N && its node id is PRIOR to opnid
+            # then add this `neighbor` as aspect into self.aspect 
+            for neighborid in neighbors:
+                if self.node2pos(neighborid) in POS.Nouns and neighborid <= opnid:
+                    
+                    if neighborid not in [x['id'] for x in self.aspects]:
+                        self.aspects.append({'id':neighborid, 'token':self.node2tok(neighborid)})
+                    logging.info(
+                        f'[Rule 1] Detect NOUN neighbor in subtree; new aspect {self.node2tok(neighborid)} is added.')
+                    directed_path, viewpath, pair = self.process_raw_sp([neighborid, opnid])
+                    spD[opnkey].append({'pair': pair, 'diPath': directed_path,
+                            'treePath': viewpath, 'polarity': oppol})
+            
+            # otherwise 
+            mindist = float('inf') 
+            for asp_tuple in self.aspects:
+                aspid, asptok = asp_tuple['id'], asp_tuple['token']
+                ## linguistic distance 4 以內才加入
+                # if abs(aspid-opnid) > BOUNDDIST:
+                #     continue
+                
+                sp = nx.shortest_path(self.undG, aspid, opnid)
                 # Supported options: ‘dijkstra’ (default), ‘bellman-ford’.
                 directed_path, viewpath, pair = self.process_raw_sp(sp)
                 currpathdict = {'pair': pair, 'diPath': directed_path,
@@ -245,6 +335,10 @@ class DepTree:
             json.dump(spD, f, indent= 4, 
                       ensure_ascii = False)
         return spD
+    
+    
+    
+    
     
     def to_image(self, verbose = True):
         p = nx.drawing.nx_pydot.to_pydot(self.dG)
