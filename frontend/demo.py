@@ -14,10 +14,10 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 CORS(app)
 
 '''path of source codes'''
-# root_path = '/share/home/qwe9887476/'
-root_path = '/share/home/nana2929/'
-# DepTree_path = '/share/home/qwe9887476/absa/ckip_absa/src/'
-DepTree_path = '/share/home/nana2929/repo/src/'
+root_path = '/share/home/qwe9887476/'
+# root_path = '/share/home/nana2929/'
+DepTree_path = '/share/home/qwe9887476/absa/ckip_absa/src/'
+# DepTree_path = '/share/home/nana2929/repo/src/'
 for x in [root_path, DepTree_path]:
     if x not in sys.path:
         sys.path.append(x)
@@ -25,7 +25,7 @@ for x in [root_path, DepTree_path]:
 
 import chyiin_ch_parser
 from chyiin_ch_parser import dependency_parser
-# from chinese_parser import dependency_parser
+
 from DepTree import DepTree
 
 

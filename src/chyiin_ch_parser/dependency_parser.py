@@ -14,7 +14,7 @@ import re
 depp_path = '/share/home/nana2929/chyiin_ch_parser'
 if depp_path not in sys.path:
     sys.path.append(depp_path)
-root = depp_path  
+root = depp_path
 from BERT_encoder import BERT_Encoder1
 from BERT_punct import BERT_Punct
 from mst import fast_parse
@@ -23,7 +23,10 @@ s2t = OpenCC('s2tw') # 簡體 --> 繁體
 t2s = OpenCC('t2s') # 繁體 --> 簡體
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-n_gpu = torch.cuda.device_count()
+# n_gpu = torch.cuda.device_count()
+torch.cuda.set_device(2) # gpu setting
+# print(f'cuda now:{torch.cuda.current_device()}')
+
 
 def batch_io(input_path, output_path):
     df = pd.read_csv(input_path)
@@ -93,18 +96,20 @@ class chinese_parser():
         return tokenized_sentence, torch.tensor(labels_idx), seq[:-1]
     @staticmethod
     def get_recommended_seg():
-        aspect_path = '../repo/src/lexicon/aspect_lexicon-4.0.csv'
+        # import os
+        # print(os.getcwd())
+        aspect_path = '../src/lexicons/aspect_lexicon-4.0.csv'
         df = pd.read_csv(aspect_path)
-        const = 20; d = {}
+        const = 10; d = {}
         for rowid, r in df.iterrows():
             w, src = r['Word'], r['source']
-            d[w] = 10
-            if src.endswith('WS'): # 楊桃美食網WS
-                d[w] = 5
-            elif src.startswith('self'):  # self-defined
+            d[w] = const
+            # if src.endswith('WS'): # 楊桃美食網WS
+            #     d[w] = 15
+            if src.startswith('self'):  # self-defined
                 d[w] = 20
-            else:
-                d[w] = len(w)+10
+            # else: # 楊桃美食網, 松園, ehownet and CookBook
+            #     d[w] = 20
         return d
     
     
@@ -112,10 +117,9 @@ class chinese_parser():
 
         input_text = s2t.convert(input_text)
         d = chinese_parser.get_recommended_seg()
-        input_sent = self.conn.eval(f'ws(["{input_text}"], \
-                                    coerce_dictionary = construct_dictionary({d}))')[0]
+        input_sent = self.conn.eval(f'ws(["{input_text}"], coerce_dictionary = construct_dictionary({d}))')[0]
         pos_sent = ['root'] + list(self.conn.eval(f'pos([{input_sent}])')[0])
-        # print('pos, ws successfully obtained.')
+        # print(f'input_sent:{input_sent}')
         input_sentence = []
         for i in input_sent:
             input_sentence.append(t2s.convert(i))
@@ -134,6 +138,7 @@ class chinese_parser():
         input_sampler = SequentialSampler(input_data)
         input_dataloader = DataLoader(input_data, sampler=input_sampler, batch_size=1, shuffle=False)
 
+        torch.cuda.set_device(2)
         self.model.eval()
 
         punct_predict, predict = [], []
@@ -141,7 +146,7 @@ class chinese_parser():
             batch = tuple(t.to(device) for t in batch)
             b_input_ids, b_input_mask, b_idx = batch
             with torch.no_grad():
-
+                # print(f'cuda now:{torch.cuda.current_device()}')
                 output = self.model(input_ids=b_input_ids, token_type_ids=None, attention_mask=b_input_mask)
                 punct_output = self.punct_model(input_ids=b_input_ids, token_type_ids=None, attention_mask=b_input_mask)
 
