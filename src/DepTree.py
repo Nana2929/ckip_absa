@@ -159,11 +159,13 @@ class DepTree:
         for u, v in edges:
             depr = G[u][v]['label']
             # A和B
-            if abs(u - v) <= CONJDIST:
+            # if abs(u - v) <= CONJDIST:
             # if an conjunction edge (u,v) is present 
             # and u, v's linguistic distance <= 1 
-                if depr == DepRelation.CONJ:
-                    conj_edges[u] = v; conj_edges[v] = u
+            # if depr == DepRelation.CONJ:
+            #     conj_edges[u] = v; conj_edges[v] = u
+            if depr == DepRelation.CC: #（和）
+                conj_edges[u] = v-1; conj_edges[v-1] = u
         self.conjunctions = conj_edges
         return self.conjunctions
 

@@ -5,6 +5,7 @@ class DepRelation():
     # https://universaldependencies.org/u/dep/ 
     CONJ = 'conj' 
     CC = 'cc' # coordinating conjunction 
+    CONJUNCTIONS = [CONJ, CC]
     NEG = 'neg'
 
 class POS():

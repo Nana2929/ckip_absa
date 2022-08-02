@@ -1,21 +1,63 @@
 {
-    "好吃_8": [
+    "好吃_5": [
         {
             "pair": [
-                5,
+                3,
                 [
-                    8
+                    5
                 ]
             ],
             "diPath": [
                 [
-                    8,
                     5,
+                    3,
                     "nsubj"
                 ]
             ],
             "treePath": [
-                "5 - 麵 Na --> 8 - 好吃 VH"
+                "3 - 蘿蔔糕 Na --> 5 - 好吃 VH"
+            ],
+            "polarity": "positive"
+        }
+    ],
+    "新鮮_10": [
+        {
+            "pair": [
+                7,
+                [
+                    10
+                ]
+            ],
+            "diPath": [
+                [
+                    10,
+                    7,
+                    "amod"
+                ]
+            ],
+            "treePath": [
+                "7 - 清蒸鱸魚 Na --> 10 - 新鮮 VH"
+            ],
+            "polarity": "positive"
+        }
+    ],
+    "好_14": [
+        {
+            "pair": [
+                12,
+                [
+                    14
+                ]
+            ],
+            "diPath": [
+                [
+                    14,
+                    12,
+                    "nn"
+                ]
+            ],
+            "treePath": [
+                "12 - 老闆娘人 Na --> 14 - 好 VH"
             ],
             "polarity": "positive"
         }
