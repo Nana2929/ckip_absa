@@ -10,7 +10,7 @@ from utils import DepRelation, POS
 from utils import BOUNDDIST, CONJDIST
 import networkx as nx
 from networkx.algorithms.traversal.depth_first_search import dfs_tree
-
+import re
 
 class DepTree:
     
@@ -19,7 +19,8 @@ class DepTree:
         self.nodes = []
         for x in self.pos:
             id, tokenpos = x
-            token, pos = tokenpos.split()
+            token, pos = tokenpos.rsplit(' ', 1) # split by 1 WHITESPACE only
+            # print(f'token: {token}, pos: {pos}')
             G.add_node(id, label = token, pos = pos)
             self.nodes.append((id, token, pos))
             
@@ -47,8 +48,8 @@ class DepTree:
         self.outdir = outdir
         os.makedirs(self.outdir, exist_ok =True)
         
-        logging.info('attrs:    \t .pos, .ws, .depparse, .dG, .undG, .aspects, .opinions')
-        logging.info('functions:\t predict(), to_image()')
+        logging.debug('attrs:    \t .pos, .ws, .depparse, .dG, .undG, .aspects, .opinions')
+        logging.debug('functions:\t predict(), to_image()')
     
     @classmethod
     def get_lexicon(cls, lextype, directory = None):
@@ -56,11 +57,11 @@ class DepTree:
         directory = filedir if directory is None else directory
         availables = ['aspect', 'opinion']
         if lextype not in availables:
-            logging.info(f'Action abort. Only options in {availables} are supported.')
+            logging.warning(f'Action abort. Only options in {availables} are supported.')
             return 
         filepath = os.path.join(directory, lextype+'_lexicon.csv')
         df = pd.read_csv(filepath)
-        logging.info(f'finished loading {lextype} lexicon.')
+        logging.debug(f'finished loading {lextype} lexicon.')
         return df 
     
     
@@ -82,10 +83,11 @@ class DepTree:
         spD = self.get_pairing()
         procD = self.neg_detect(spD) 
         D = self.conj_detect(procD)
-        tokenD, span_marking = self.final_output(D)
+        tokenD, span_marking = self.markspan(D)
+        
         return tokenD, span_marking
     
-    def final_output(self, D):
+    def markspan(self, D):
         '''
         
         Params:
@@ -109,10 +111,10 @@ class DepTree:
                 opnspan.update(opn)   #['不', '好吃']
                 opnlabel = ''.join(self.node2tok(x) for x in opn)
                 tokenD[asplabel].append((opnlabel, oppol))
-        logging.info('marking: [] for aspect; <> for opinion')
+        logging.debug('marking: [] for aspect; <> for opinion')
         spanned_ws = ''
         for id in range(self.dG.number_of_nodes()):
-            token = pos[id][-1].split()[0]
+            token = pos[id][-1].rsplit(' ', 1)[0]
             if id in aspspan:
                 token = f'[{token}]'
             if id in opnspan:
@@ -220,16 +222,15 @@ class DepTree:
         self.opinions = []
         for x in sentpos: 
             id, tokenpos = x
-            token, pos = tokenpos.split()
-
-            if token in aspectlist:
-                    foodinfo = {'id':id, 'token': token}
-                    self.aspects.append(foodinfo)
-            elif token in opnlexicon:
+            token, pos = tokenpos.rsplit(' ', 1)
+            if token in opnlexicon:
                 if not self.node2pos(id) in POS.Adverbs:
                     score = opnlexicon[token]
                     sentinfo = {'id': id, 'token': token, 'polarity': rating(score)}
                     self.opinions.append(sentinfo)
+                elif token in aspectlist:
+                    foodinfo = {'id':id, 'token': token}
+                    self.aspects.append(foodinfo)
         logging.info(f'[lexicon-based] detected aspects: {self.aspects}')
         logging.info(f'[lexicon-based] detected opinions: {self.opinions}')
     
@@ -302,15 +303,15 @@ class DepTree:
             # a `neighbor` POS is N && its node id is PRIOR to opnid
             # then add this `neighbor` as aspect into self.aspect 
             for neighborid in neighbors:
-                if self.node2pos(neighborid) in POS.Nouns and neighborid <= opnid:
-                    
-                    if neighborid not in [x['id'] for x in self.aspects]:
+                # if self.node2pos(neighborid) in POS.Nouns and neighborid <= opnid:
+                if self.node2tok(neighborid).strip() != '':
+                    if self.dG[opnid][neighborid]['label'] == DepRelation.NSUBJ and neighborid <= opnid:
                         self.aspects.append({'id':neighborid, 'token':self.node2tok(neighborid)})
-                    logging.info(
-                        f'[Rule 1] Detect NOUN neighbor in subtree; new aspect {self.node2tok(neighborid)} is added.')
-                    directed_path, viewpath, pair = self.process_raw_sp([neighborid, opnid])
-                    spD[opnkey].append({'pair': pair, 'diPath': directed_path,
-                            'treePath': viewpath, 'polarity': oppol})
+                        logging.info(
+                            f'[Rule 1] Detect NOUN neighbor in subtree; new aspect {self.node2tok(neighborid)} is added.')
+                        directed_path, viewpath, pair = self.process_raw_sp([neighborid, opnid])
+                        spD[opnkey].append({'pair': pair, 'diPath': directed_path,
+                                'treePath': viewpath, 'polarity': oppol})
             
             # otherwise 
             mindist = float('inf') 
@@ -337,9 +338,6 @@ class DepTree:
             json.dump(spD, f, indent= 4, 
                       ensure_ascii = False)
         return spD
-    
-    
-    
     
     
     def to_image(self, verbose = True):
