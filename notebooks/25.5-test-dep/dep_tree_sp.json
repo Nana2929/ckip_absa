@@ -1,179 +1,23 @@
 {
-    "多_5": [
+    "多_4": [
         {
             "pair": [
                 3,
                 [
-                    5
+                    4
                 ]
             ],
             "diPath": [
                 [
-                    5,
+                    4,
                     3,
                     "nsubj"
                 ]
             ],
             "treePath": [
-                "3 - 位置 Na --> 5 - 多 VH"
+                "3 - 料 VE --> 4 - 多 VH"
             ],
             "polarity": "neutral"
-        }
-    ],
-    "親民_9": [
-        {
-            "pair": [
-                7,
-                [
-                    9
-                ]
-            ],
-            "diPath": [
-                [
-                    9,
-                    7,
-                    "nsubj"
-                ]
-            ],
-            "treePath": [
-                "7 - 價格 Na --> 9 - 親民 VH"
-            ],
-            "polarity": "positive"
-        }
-    ],
-    "特別_15": [
-        {
-            "pair": [
-                13,
-                [
-                    15
-                ]
-            ],
-            "diPath": [
-                [
-                    15,
-                    13,
-                    "nsubj"
-                ]
-            ],
-            "treePath": [
-                "13 - 味道 Na --> 15 - 特別 VH"
-            ],
-            "polarity": "neutral"
-        }
-    ],
-    "好吃_17": [
-        {
-            "pair": [
-                3,
-                [
-                    17
-                ]
-            ],
-            "diPath": [
-                [
-                    5,
-                    3,
-                    "nsubj"
-                ],
-                [
-                    5,
-                    25,
-                    "conj"
-                ],
-                [
-                    25,
-                    17,
-                    "rcmod"
-                ]
-            ],
-            "treePath": [
-                "3 - 位置 Na --> 5 - 多 VH",
-                "5 - 多 VH --> 25 - 好吃 VH",
-                "25 - 好吃 VH --> 17 - 好吃 VH"
-            ],
-            "polarity": "positive"
-        }
-    ],
-    "好吃_25": [
-        {
-            "pair": [
-                3,
-                [
-                    25
-                ]
-            ],
-            "diPath": [
-                [
-                    5,
-                    3,
-                    "nsubj"
-                ],
-                [
-                    5,
-                    25,
-                    "conj"
-                ]
-            ],
-            "treePath": [
-                "3 - 位置 Na --> 5 - 多 VH",
-                "5 - 多 VH --> 25 - 好吃 VH"
-            ],
-            "polarity": "positive"
-        }
-    ],
-    "好_31": [
-        {
-            "pair": [
-                29,
-                [
-                    31
-                ]
-            ],
-            "diPath": [
-                [
-                    31,
-                    29,
-                    "nsubj"
-                ]
-            ],
-            "treePath": [
-                "29 - 肉 Na --> 31 - 好 VH"
-            ],
-            "polarity": "positive"
-        }
-    ],
-    "推薦_43": [
-        {
-            "pair": [
-                3,
-                [
-                    43
-                ]
-            ],
-            "diPath": [
-                [
-                    5,
-                    3,
-                    "nsubj"
-                ],
-                [
-                    5,
-                    34,
-                    "conj"
-                ],
-                [
-                    34,
-                    43,
-                    "conj"
-                ]
-            ],
-            "treePath": [
-                "3 - 位置 Na --> 5 - 多 VH",
-                "5 - 多 VH --> 34 - 覺得 VK",
-                "34 - 覺得 VK --> 43 - 推薦 VC"
-            ],
-            "polarity": "positive"
         }
     ]
 }
