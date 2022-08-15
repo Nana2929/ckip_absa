@@ -15,7 +15,7 @@
 
 .content::after {
     content: "";
-    background-image:url('../images/Restaurant-Guy-Savoy.jpeg');
+    background-image:url('https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/Restaurant-Guy-Savoy.jpeg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     opacity: 0.3;
@@ -79,14 +79,14 @@ div.showblock{
     border-radius: 25px;
     margin: 0 auto;
 }
-div.showtext{
+/* div.showtext{
     text-align: left;
     background-color:rgb(242, 231, 231);
     position: relative;
     width: 900px;
     border-radius: 25px;
     margin: 0 auto;
-}
+} */
 
 div.showoutput{
     text-align: left;

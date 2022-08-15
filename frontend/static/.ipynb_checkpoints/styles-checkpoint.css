@@ -9,9 +9,38 @@
     z-index: -1;
 }
 
+.content {
+    position: relative;
+}
+
+.content::after {
+    content: "";
+    background-image:url('https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/Restaurant-Guy-Savoy.jpeg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    z-index: -1;
+}
+.content .box {
+    opacity: 1;
+}
+
+
+
 img.logo{
     display: inline-block;
     vertical-align: middle;
+}
+
+header#title_bar{
+    /* background-color:white; */
+    height: 70%;
+    font-size:30px;
 }
 
 #link_demo{
@@ -25,13 +54,36 @@ img.logo{
     width: 80%;
     margin: 0 auto;
 }
+
+
+div.row2{
+    display:inline;
+    float:right;
+    margin-right: 15%;
+}
+div.row2 a{
+    text-decoration:none;
+    color: gray;
+    -webkit-text-stroke: 0.5px black;
+    font-size: medium;
+}
+
+
 div.showblock{
     text-align: left;
-    background-color:white;
+    background-color:rgb(242, 231, 231);
     position:relative;
     width: 900px;
     margin-top: 10%;
     margin-bottom: 10%;
+    border-radius: 25px;
+    margin: 0 auto;
+}
+div.showtext{
+    text-align: left;
+    background-color:rgb(242, 231, 231);
+    position: relative;
+    width: 900px;
     border-radius: 25px;
     margin: 0 auto;
 }
@@ -48,14 +100,6 @@ div.showoutput{
     flex-direction: column;
 }
 
-div.showtext{
-    text-align: left;
-    background-color:white;
-    position: relative;
-    width: 900px;
-    border-radius: 25px;
-    margin: 0 auto;
-}
 
 p{
     color:#003072;
@@ -84,16 +128,18 @@ textarea.textin{
     height: 100px;
     margin-left: 5%;
     border-radius:10px;
+    background-color: white;
+    resize:vertical;
 }
 
 textarea.textout{
     block-size: fit-content;
-    /* float: left; */
+    background-color: white;
     width: 600px;
     height: 100px;
     margin-left: 5%;
     border-radius:10px;
-    /* resize:none; */
+    resize:vertical;
 }
 
 
@@ -102,7 +148,7 @@ textarea{
 }
 
 button{
-    margin-left: 5%;
+    margin: 1%;
     position: absolute;
     bottom:   10%;
     font-size: 14pt;
@@ -114,14 +160,10 @@ button{
 button#submit_btn{
     height: 25pt;
     width: 7%;
-    background-color: blue;
+    background-color: rgb(64, 52, 65);
 }
 
-header#title_bar{
-    background-color:white;
-    height: 70%;
-    font-size:30px;
-}
+
 p{
     margin: left;
     margin-top:5%;
@@ -134,7 +176,7 @@ div.f_d{
 }
 div.foot_bar{
     display:inline;
-    background-color:rgb(224, 232, 247);
+    /* background-color:rgb(224, 232, 247); */
     margin-top: 5%;
     margin-bottom: 1%;
 }
@@ -147,16 +189,6 @@ div.connect_option{
 div.row1{
     font-weight:bold;
     display:inline;
-}
-div.row2{
-    display:inline;
-    float:right;
-    margin-right: 15%;
-}
-div.row2 a{
-    text-decoration:none;
-    color: gray;
-    font-size: medium;
 }
 
 div.f_ckip{

@@ -1,0 +1,42 @@
+{
+    "好_15": [
+        {
+            "pair": [
+                10,
+                [
+                    15
+                ]
+            ],
+            "diPath": [
+                [
+                    15,
+                    10,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "10 - 滷味 Na --> 15 - 好 VH"
+            ],
+            "polarity": "positive"
+        },
+        {
+            "pair": [
+                13,
+                [
+                    15
+                ]
+            ],
+            "diPath": [
+                [
+                    15,
+                    13,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "13 - 生意 Na --> 15 - 好 VH"
+            ],
+            "polarity": "positive"
+        }
+    ]
+}
