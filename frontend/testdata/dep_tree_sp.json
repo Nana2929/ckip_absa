@@ -1,1 +1,371 @@
-{}
+{
+    "沒辦法_13": [
+        {
+            "pair": [
+                16,
+                [
+                    13
+                ]
+            ],
+            "diPath": [
+                [
+                    14,
+                    16,
+                    "ccomp"
+                ],
+                [
+                    14,
+                    13,
+                    "conj"
+                ]
+            ],
+            "treePath": [
+                "16 - 如何 VH --> 14 - 評論 VC",
+                "14 - 評論 VC --> 13 - 沒辦法 VI"
+            ],
+            "polarity": "neutral"
+        }
+    ],
+    "特別_20": [
+        {
+            "pair": [
+                19,
+                [
+                    20
+                ]
+            ],
+            "diPath": [
+                [
+                    21,
+                    19,
+                    "nsubj"
+                ],
+                [
+                    21,
+                    20,
+                    "advmod"
+                ]
+            ],
+            "treePath": [
+                "19 - 店家 Na --> 21 - 強調 VE",
+                "21 - 強調 VE --> 20 - 特別 VH"
+            ],
+            "polarity": "neutral"
+        }
+    ],
+    "重視_23": [
+        {
+            "pair": [
+                24,
+                [
+                    23
+                ]
+            ],
+            "diPath": [
+                [
+                    23,
+                    24,
+                    "dobj"
+                ]
+            ],
+            "treePath": [
+                "24 - 傳統 Na --> 23 - 重視 VJ"
+            ],
+            "polarity": "neutral"
+        },
+        {
+            "pair": [
+                22,
+                [
+                    23
+                ]
+            ],
+            "diPath": [
+                [
+                    23,
+                    22,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "22 - 他們 Nh --> 23 - 重視 VJ"
+            ],
+            "polarity": "neutral"
+        }
+    ],
+    "道地_29": [
+        {
+            "pair": [
+                19,
+                [
+                    29
+                ]
+            ],
+            "diPath": [
+                [
+                    21,
+                    19,
+                    "nsubj"
+                ],
+                [
+                    21,
+                    29,
+                    "conj"
+                ]
+            ],
+            "treePath": [
+                "19 - 店家 Na --> 21 - 強調 VE",
+                "21 - 強調 VE --> 29 - 道地 VH"
+            ],
+            "polarity": "positive"
+        }
+    ],
+    "習慣_41": [
+        {
+            "pair": [
+                38,
+                [
+                    41
+                ]
+            ],
+            "diPath": [
+                [
+                    41,
+                    38,
+                    "assmod"
+                ]
+            ],
+            "treePath": [
+                "38 - 個人 Nh --> 41 - 習慣 Na"
+            ],
+            "polarity": "neutral"
+        },
+        {
+            "pair": [
+                40,
+                [
+                    41
+                ]
+            ],
+            "diPath": [
+                [
+                    41,
+                    40,
+                    "nn"
+                ]
+            ],
+            "treePath": [
+                "40 - 飲食 Na --> 41 - 習慣 Na"
+            ],
+            "polarity": "neutral"
+        }
+    ],
+    "用心_53": [
+        {
+            "pair": [
+                48,
+                [
+                    53
+                ]
+            ],
+            "diPath": [
+                [
+                    53,
+                    48,
+                    "nn"
+                ]
+            ],
+            "treePath": [
+                "48 - 店家 Na --> 53 - 用心 Na"
+            ],
+            "polarity": "positive"
+        }
+    ],
+    "喜歡_60": [
+        {
+            "pair": [
+                64,
+                [
+                    60
+                ]
+            ],
+            "diPath": [
+                [
+                    60,
+                    64,
+                    "dobj"
+                ]
+            ],
+            "treePath": [
+                "64 - 食物 Na --> 60 - 喜歡 VK"
+            ],
+            "polarity": "positive"
+        },
+        {
+            "pair": [
+                57,
+                [
+                    60
+                ]
+            ],
+            "diPath": [
+                [
+                    60,
+                    57,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "57 - 我 Nh --> 60 - 喜歡 VK"
+            ],
+            "polarity": "positive"
+        }
+    ],
+    "喜歡_70": [
+        {
+            "pair": [
+                78,
+                [
+                    70
+                ]
+            ],
+            "diPath": [
+                [
+                    72,
+                    78,
+                    "attr"
+                ],
+                [
+                    72,
+                    70,
+                    "top"
+                ]
+            ],
+            "treePath": [
+                "78 - 提拉米蘇 Na --> 72 - 是 SHI",
+                "72 - 是 SHI --> 70 - 喜歡 VK"
+            ],
+            "polarity": "positive"
+        }
+    ],
+    "親切_84": [
+        {
+            "pair": [
+                80,
+                [
+                    84
+                ]
+            ],
+            "diPath": [
+                [
+                    84,
+                    80,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "80 - 店員 Na --> 84 - 親切 VH"
+            ],
+            "polarity": "positive"
+        },
+        {
+            "pair": [
+                80,
+                [
+                    84
+                ]
+            ],
+            "diPath": [
+                [
+                    84,
+                    80,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "80 - 店員 Na --> 84 - 親切 VH"
+            ],
+            "polarity": "positive"
+        }
+    ],
+    "重_99": [
+        {
+            "pair": [
+                101,
+                [
+                    99
+                ]
+            ],
+            "diPath": [
+                [
+                    101,
+                    99,
+                    "rcmod"
+                ]
+            ],
+            "treePath": [
+                "101 - 料理 Na --> 99 - 重 VH"
+            ],
+            "polarity": "negative"
+        },
+        {
+            "pair": [
+                97,
+                [
+                    99
+                ]
+            ],
+            "diPath": [
+                [
+                    99,
+                    97,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "97 - 肉味 Na --> 99 - 重 VH"
+            ],
+            "polarity": "negative"
+        }
+    ],
+    "濃_151": [
+        {
+            "pair": [
+                149,
+                [
+                    151
+                ]
+            ],
+            "diPath": [
+                [
+                    151,
+                    149,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "149 - 味道 Na --> 151 - 濃 VH"
+            ],
+            "polarity": "neutral"
+        },
+        {
+            "pair": [
+                149,
+                [
+                    151
+                ]
+            ],
+            "diPath": [
+                [
+                    151,
+                    149,
+                    "nsubj"
+                ]
+            ],
+            "treePath": [
+                "149 - 味道 Na --> 151 - 濃 VH"
+            ],
+            "polarity": "neutral"
+        }
+    ]
+}
