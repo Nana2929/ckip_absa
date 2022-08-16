@@ -46,7 +46,7 @@ def text_process(test_sent):
         'word_seg': ws,
         'pos': pos, 
         'dependency_parse': deptree}
-    tree = DepTree(r, outdir = outputdir)
+    tree = DepTree(r, outdir = outputdir, logfile = outlog)
     print("Pairing aspects with opinions...")
     D, ws = tree.predict()
     print("Prediction:")
@@ -56,9 +56,14 @@ def text_process(test_sent):
         pred = pred + f'{k}: {v}' + '\n'
     print(f"Span-marking: {ws}") 
     tree.to_image(verbose = False)
+    # open the written logfile 
+    # read the current input's log
+    with open(outlog, 'r') as fh:
+        logstring = fh.readlines() 
+        logstring = ''.join(logstring)#.lstrip('\00')
     print(f"Output success. Check the results under {outputdir}")
-
-    return ws, pred
+    tree.clean_file()
+    return ws, pred, logstring
 
 
 '''Flask'''
@@ -73,33 +78,19 @@ def index():
 @app.route("/forward/", methods=['POST','GET'])
 def move_forward():
     # Moving forward code
-    text_message = request.values['text']
+    user_text = request.values['text']
     url_pre = args.url_pre
     cnt = 0 
     if request.method=='POST':
         
-        cnt += 1
-        print('count:', cnt)
-        
         print('Did user request to show the process?', request.form.get("show_progress"))
-        logging.basicConfig(filename = outlog,
-                    filemode='w',
-                    level=logging.INFO,
-                    format='%(asctime)s.[%(levelname)s] %(message)s',
-                    datefmt='%H:%M:%S')
-        process_output, result_output = text_process(text_message)
+        process_output, result_output, logmsg = text_process(user_text)
         if request.form.get("show_progress"):
-            # open the written logfile 
             sepline = '='*30+'\n'
-            # read the current input's log
-            with open(outlog, 'r') as fh:
-                logstring = fh.readlines() 
-                logstring = ''.join(logstring)#.lstrip('\00')
-                print(logstring)
-            process_output = logstring + sepline + process_output
+            process_output = logmsg + sepline + process_output
+       
         
-        
-        results = [text_message, process_output, result_output]
+        results = [user_text, process_output, result_output]
         return render_template('index.html', 
                                sent = results[0], 
                                process = results[1], 
@@ -121,14 +112,16 @@ if __name__ == '__main__':
     argparser.add_argument("--device_id",'-d', default= 2, type=int, help = 'Gpu device id to run the dep parser on')
     global args
     global outputdir 
+    global outlog 
+    
     outputdir = './testdata'
     args = argparser.parse_args()
-    outlog = f'{outputdir}/ch_absa_usr_log.log'
+    outlog = f'{outputdir}/ch_absa_usr_log.log'    
     # disable Flask logging
-    flasklog = logging.getLogger('werkzeug')
-    flasklog.setLevel(logging.ERROR)
+    # flasklog = logging.getLogger('werkzeug')
+    # flasklog.setLevel(logging.ERROR)
     print('Inititalizing Dependency Parser...') 
     ch_parser = init_parser(args.tagger_port, args.device_id)
     print('Successfully initialized.')
     # if already written, clean the file 
-    app.run(host='0.0.0.0', port=7777, debug = False) # , threaded=True   # running on port 7777
+    app.run(host='0.0.0.0', port=7777, debug = False, threaded=True)  # running on port 7777

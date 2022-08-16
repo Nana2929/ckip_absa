@@ -37,10 +37,19 @@ class DepTree:
         dG, undG = G, copyG
         return dG, undG
     
-    def __init__(self, row, outdir = './DepTree_out'):
+    def init_logger(self, logfile):
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        self.file_handler = logging.FileHandler(logfile, 'w') # 'w+' or 'w' to overwrite file 
+        formatter  = logging.Formatter('%(asctime)s : %(name)s : %(levelname)s: %(message)s')
+        self.file_handler.setFormatter(formatter)
+        self.logger.addHandler(self.file_handler)
+    
+    def clean_file(self):
+        self.logger.removeHandler(self.file_handler)
+    
+    def __init__(self, row, logfile, outdir = './DepTree_out'):
         '''a dictionary or a pandas row'''
-        
-        
 
         self.row = row
         self.pos = row['pos']
@@ -49,9 +58,11 @@ class DepTree:
         self.dG, self.undG = self.build_graph()
         self.outdir = outdir
         os.makedirs(self.outdir, exist_ok =True)
-        logging.info('======= Dep Tree =======')
-        logging.debug('attrs:    \t .pos, .ws, .depparse, .dG, .undG, .aspects, .opinions')
-        logging.debug('functions:\t predict(), to_image()')
+         
+        self.init_logger(logfile)
+        self.logger.info('======= Dep Tree =======')
+        self.logger.debug('attrs:    \t .pos, .ws, .depparse, .dG, .undG, .aspects, .opinions')
+        self.logger.debug('functions:\t predict(), to_image()')
     
 
     
@@ -60,11 +71,11 @@ class DepTree:
         directory = filedir if directory is None else directory
         availables = ['aspect', 'opinion']
         if lextype not in availables:
-            logging.warning(f'Action abort. Only options in {availables} are supported.')
+            self.logger.warning(f'Action abort. Only options in {availables} are supported.')
             return 
         filepath = os.path.join(directory, lextype+'_lexicon.csv')
         df = pd.read_csv(filepath)
-        logging.info(f'finished loading {lextype} lexicon.')
+        self.logger.info(f'finished loading {lextype} lexicon.')
         return df 
     
     
@@ -113,7 +124,7 @@ class DepTree:
                 opnspan.update(opn)   #['不', '好吃']
                 opnlabel = ''.join(self.node2tok(x) for x in opn)
                 tokenD[asplabel].append((opnlabel, oppol))
-        logging.debug('marking: [] for aspect; <> for opinion')
+        self.logger.debug('marking: [] for aspect; <> for opinion')
         spanned_ws = ''
         for id in range(self.dG.number_of_nodes()):
             token = pos[id][-1].rsplit(' ', 1)[0]
@@ -141,7 +152,7 @@ class DepTree:
                 outs = dG.out_edges(opn)
                 for opn, v in outs:
                     if dG[opn][v]['label'] == DepRelation.NEG:
-                        logging.info(
+                        self.logger.info(
                         f'[Rule 3] Detect negation on {self.node2tok(opn)}; polarity is reversed.')
                         neg_token = v 
                         spD[opnkey][j]['pair'] = asp, [neg_token, opn]
@@ -184,7 +195,7 @@ class DepTree:
                 if asp in conjunctions:
                     partner = conjunctions[asp]
                     partnertok = self.node2tok(partner)
-                    logging.info(
+                    self.logger.info(
                         f'[Rule 2] Detect conjunction between existing aspect {self.node2tok(asp)} and node {partnertok}; new aspect {partnertok} is added.')
                     D[partner].append((opn, oppol))
                 D[asp].append((opn, oppol))
@@ -216,7 +227,7 @@ class DepTree:
         rating = lambda x: 'positive' if x >= 6 else ('neutral' if 6 > x >= 4  else 'negative')
         
         if hasattr(DepTree, 'aspects') and hasattr(DepTree, 'opinions'):
-            logging.info('Aspect and opinion inventories are already detected.')
+            self.logger.info('Aspect and opinion inventories are already detected.')
             return 
         
         self.aspects = []
@@ -232,8 +243,8 @@ class DepTree:
             elif token in asplexicon:
                 foodinfo = {'id':id, 'token': token}
                 self.aspects.append(foodinfo)
-        logging.info(f'[lexicon-based] detected aspects: {self.aspects}')
-        logging.info(f'[lexicon-based] detected opinions: {self.opinions}')
+        self.logger.info(f'[lexicon-based] detected aspects: {self.aspects}')
+        self.logger.info(f'[lexicon-based] detected opinions: {self.opinions}')
     
     
     def process_raw_sp(self, sp):
@@ -308,7 +319,7 @@ class DepTree:
                 if self.node2tok(neighborid).strip() != '':
                     if self.dG[opnid][neighborid]['label'] == DepRelation.NSUBJ and neighborid <= opnid:
                         self.aspects.append({'id':neighborid, 'token':self.node2tok(neighborid)})
-                        logging.info(
+                        self.logger.info(
                             f'[Rule 1] Detect NOUN neighbor in subtree; new aspect {self.node2tok(neighborid)} is added.')
                         directed_path, viewpath, pair = self.process_raw_sp([neighborid, opnid])
                         spD[opnkey].append({'pair': pair, 'diPath': directed_path,
