@@ -32,14 +32,14 @@ def init_parser(port, device_id):
 
 '''main function'''
 def text_process(test_sent):
-
+    
     test_sent = test_sent.replace(' ', '').replace('\n','').replace('\r','')
-
     '''ws & parsing & post-processing'''
     # check input
     print(test_sent) 
     print("Parsing...")
-    ws, pos, deptree = ch_parser.output(test_sent)  
+    
+    ws, pos, deptree = ch_parser.output(test_sent) 
     os.makedirs(outputdir, exist_ok=True)
 
     r = {'sentence': test_sent,
@@ -48,8 +48,6 @@ def text_process(test_sent):
         'dependency_parse': deptree}
     tree = DepTree(r, outdir = outputdir)
     print("Pairing aspects with opinions...")
-    # get outputs under f'{root_path}/testdata/'
-    # logging.info(f"Sentence: {test_sent}")
     D, ws = tree.predict()
     print("Prediction:")
     pred = ''
@@ -77,24 +75,29 @@ def move_forward():
     # Moving forward code
     text_message = request.values['text']
     url_pre = args.url_pre
-    
-    
-    
+    cnt = 0 
     if request.method=='POST':
-        process_output, result_output = text_process(text_message)
-        print('Did user request to show the process?', request.form.get("show_progress"))
         
+        cnt += 1
+        print('count:', cnt)
+        
+        print('Did user request to show the process?', request.form.get("show_progress"))
+        logging.basicConfig(filename = outlog,
+                    filemode='w',
+                    level=logging.INFO,
+                    format='%(asctime)s.[%(levelname)s] %(message)s',
+                    datefmt='%H:%M:%S')
+        process_output, result_output = text_process(text_message)
         if request.form.get("show_progress"):
             # open the written logfile 
             sepline = '='*30+'\n'
             # read the current input's log
             with open(outlog, 'r') as fh:
                 logstring = fh.readlines() 
-                logstring = ''.join(logstring).lstrip('\00')
+                logstring = ''.join(logstring)#.lstrip('\00')
                 print(logstring)
             process_output = logstring + sepline + process_output
-        os.truncate(outlog, 0)  
-
+        
         
         results = [text_message, process_output, result_output]
         return render_template('index.html', 
@@ -124,15 +127,8 @@ if __name__ == '__main__':
     # disable Flask logging
     flasklog = logging.getLogger('werkzeug')
     flasklog.setLevel(logging.ERROR)
-    
-    logging.basicConfig(filename = outlog,
-                filemode='w',
-                level=logging.INFO,
-                format='%(asctime)s.[%(levelname)s] %(message)s',
-                datefmt='%H:%M:%S')
-    
     print('Inititalizing Dependency Parser...') 
     ch_parser = init_parser(args.tagger_port, args.device_id)
     print('Successfully initialized.')
     # if already written, clean the file 
-    app.run(host='0.0.0.0', port=7777, debug = False, threaded=True)   # running on port 7777
+    app.run(host='0.0.0.0', port=7777, debug = False) # , threaded=True   # running on port 7777

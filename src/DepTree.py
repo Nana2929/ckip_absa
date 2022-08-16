@@ -64,7 +64,7 @@ class DepTree:
             return 
         filepath = os.path.join(directory, lextype+'_lexicon.csv')
         df = pd.read_csv(filepath)
-        logging.debug(f'finished loading {lextype} lexicon.')
+        logging.info(f'finished loading {lextype} lexicon.')
         return df 
     
     
@@ -185,7 +185,7 @@ class DepTree:
                     partner = conjunctions[asp]
                     partnertok = self.node2tok(partner)
                     logging.info(
-                        f'[Rule 2] Detect conjunction beween existing aspect {self.node2tok(asp)} and node {partnertok}; new aspect {partnertok} is added.')
+                        f'[Rule 2] Detect conjunction between existing aspect {self.node2tok(asp)} and node {partnertok}; new aspect {partnertok} is added.')
                     D[partner].append((opn, oppol))
                 D[asp].append((opn, oppol))
         return D
@@ -210,8 +210,8 @@ class DepTree:
             opn_lexicon = self._get_lexicon('opinion')
         
         sentpos = self.pos
-        aspectlist = aspect_lexicon['Word'].to_list() 
-        aspectlist = set(aspectlist)
+        asplexicon = aspect_lexicon['Word'].to_list() 
+        asplexicon = set(asplexicon)
         opnlexicon = {r['Word']:r['Valence_Mean'] for rid, r in opn_lexicon.iterrows()}
         rating = lambda x: 'positive' if x >= 6 else ('neutral' if 6 > x >= 4  else 'negative')
         
@@ -229,9 +229,9 @@ class DepTree:
                     score = opnlexicon[token]
                     sentinfo = {'id': id, 'token': token, 'polarity': rating(score)}
                     self.opinions.append(sentinfo)
-                elif token in aspectlist:
-                    foodinfo = {'id':id, 'token': token}
-                    self.aspects.append(foodinfo)
+            elif token in asplexicon:
+                foodinfo = {'id':id, 'token': token}
+                self.aspects.append(foodinfo)
         logging.info(f'[lexicon-based] detected aspects: {self.aspects}')
         logging.info(f'[lexicon-based] detected opinions: {self.opinions}')
     

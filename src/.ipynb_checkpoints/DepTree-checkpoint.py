@@ -42,16 +42,6 @@ class DepTree:
         
         
 
-        logging.basicConfig(level=logging.DEBUG,
-                            format='%(levelname)s %(message)s',
-                            handlers=[logging.FileHandler('./tmp.log'),
-                                      logging.StreamHandler()])
-        logging.debug('This message should go to the log file and to the console')
-        logging.info('So should this')
-        logging.warning('And this, too')
-
-
-        self.logger = logging.getLogger('')
         self.row = row
         self.pos = row['pos']
         self.ws = row['word_seg']
@@ -59,9 +49,9 @@ class DepTree:
         self.dG, self.undG = self.build_graph()
         self.outdir = outdir
         os.makedirs(self.outdir, exist_ok =True)
-        
-        self.logger.debug('attrs:    \t .pos, .ws, .depparse, .dG, .undG, .aspects, .opinions')
-        self.logger.debug('functions:\t predict(), to_image()')
+        logging.info('======= Dep Tree =======')
+        logging.debug('attrs:    \t .pos, .ws, .depparse, .dG, .undG, .aspects, .opinions')
+        logging.debug('functions:\t predict(), to_image()')
     
 
     
@@ -70,21 +60,21 @@ class DepTree:
         directory = filedir if directory is None else directory
         availables = ['aspect', 'opinion']
         if lextype not in availables:
-            self.logger.warning(f'Action abort. Only options in {availables} are supported.')
+            logging.warning(f'Action abort. Only options in {availables} are supported.')
             return 
         filepath = os.path.join(directory, lextype+'_lexicon.csv')
         df = pd.read_csv(filepath)
-        self.logger.debug(f'finished loading {lextype} lexicon.')
+        logging.info(f'finished loading {lextype} lexicon.')
         return df 
     
     
     def node2tok(self, node):
         '''
         Params:
-            node: the node id recorded in {NetworkX Object}.nodes
+            int: node: the node id recorded in {NetworkX Object}.nodes
         =======
         Return: 
-            the label (token tag) of the node
+            str: the label (token tag) of the node
         '''
         return self.dG.nodes[node]['label']
     
@@ -97,7 +87,6 @@ class DepTree:
         procD = self.neg_detect(spD) 
         D = self.conj_detect(procD)
         tokenD, span_marking = self.markspan(D)
-        
         return tokenD, span_marking
     
     def markspan(self, D):
@@ -124,7 +113,7 @@ class DepTree:
                 opnspan.update(opn)   #['不', '好吃']
                 opnlabel = ''.join(self.node2tok(x) for x in opn)
                 tokenD[asplabel].append((opnlabel, oppol))
-        self.logger.debug('marking: [] for aspect; <> for opinion')
+        logging.debug('marking: [] for aspect; <> for opinion')
         spanned_ws = ''
         for id in range(self.dG.number_of_nodes()):
             token = pos[id][-1].rsplit(' ', 1)[0]
@@ -152,7 +141,7 @@ class DepTree:
                 outs = dG.out_edges(opn)
                 for opn, v in outs:
                     if dG[opn][v]['label'] == DepRelation.NEG:
-                        self.logger.info(
+                        logging.info(
                         f'[Rule 3] Detect negation on {self.node2tok(opn)}; polarity is reversed.')
                         neg_token = v 
                         spD[opnkey][j]['pair'] = asp, [neg_token, opn]
@@ -162,7 +151,6 @@ class DepTree:
     def get_conjunctions(self):
         '''
         get CLOSE conjunction
-        
         
         '''
         
@@ -196,8 +184,8 @@ class DepTree:
                 if asp in conjunctions:
                     partner = conjunctions[asp]
                     partnertok = self.node2tok(partner)
-                    self.logger.info(
-                        f'[Rule 2] Detect conjunction beween existing aspect {self.node2tok(asp)} and node {partnertok}; new aspect {partnertok} is added.')
+                    logging.info(
+                        f'[Rule 2] Detect conjunction between existing aspect {self.node2tok(asp)} and node {partnertok}; new aspect {partnertok} is added.')
                     D[partner].append((opn, oppol))
                 D[asp].append((opn, oppol))
         return D
@@ -222,13 +210,13 @@ class DepTree:
             opn_lexicon = self._get_lexicon('opinion')
         
         sentpos = self.pos
-        aspectlist = aspect_lexicon['Word'].to_list() 
-        aspectlist = set(aspectlist)
+        asplexicon = aspect_lexicon['Word'].to_list() 
+        asplexicon = set(asplexicon)
         opnlexicon = {r['Word']:r['Valence_Mean'] for rid, r in opn_lexicon.iterrows()}
         rating = lambda x: 'positive' if x >= 6 else ('neutral' if 6 > x >= 4  else 'negative')
         
         if hasattr(DepTree, 'aspects') and hasattr(DepTree, 'opinions'):
-            self.logger.info('Aspect and opinion inventories are already detected.')
+            logging.info('Aspect and opinion inventories are already detected.')
             return 
         
         self.aspects = []
@@ -241,11 +229,11 @@ class DepTree:
                     score = opnlexicon[token]
                     sentinfo = {'id': id, 'token': token, 'polarity': rating(score)}
                     self.opinions.append(sentinfo)
-                elif token in aspectlist:
-                    foodinfo = {'id':id, 'token': token}
-                    self.aspects.append(foodinfo)
-        self.logger.info(f'[lexicon-based] detected aspects: {self.aspects}')
-        self.logger.info(f'[lexicon-based] detected opinions: {self.opinions}')
+            elif token in asplexicon:
+                foodinfo = {'id':id, 'token': token}
+                self.aspects.append(foodinfo)
+        logging.info(f'[lexicon-based] detected aspects: {self.aspects}')
+        logging.info(f'[lexicon-based] detected opinions: {self.opinions}')
     
     
     def process_raw_sp(self, sp):
@@ -320,7 +308,7 @@ class DepTree:
                 if self.node2tok(neighborid).strip() != '':
                     if self.dG[opnid][neighborid]['label'] == DepRelation.NSUBJ and neighborid <= opnid:
                         self.aspects.append({'id':neighborid, 'token':self.node2tok(neighborid)})
-                        self.logger.info(
+                        logging.info(
                             f'[Rule 1] Detect NOUN neighbor in subtree; new aspect {self.node2tok(neighborid)} is added.')
                         directed_path, viewpath, pair = self.process_raw_sp([neighborid, opnid])
                         spD[opnkey].append({'pair': pair, 'diPath': directed_path,

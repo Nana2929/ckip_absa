@@ -1,82 +1,12 @@
-13:16:48.[WARNING]  * Running on all addresses.
-   WARNING: This is a development server. Do not use it in a production deployment.
-13:16:48.[INFO]  * Running on http://140.109.19.49:7777/ (Press CTRL+C to quit)
-13:17:13.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:13] "GET / HTTP/1.0" 200 -
-13:17:14.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:14] "GET /static/styles.css HTTP/1.0" 200 -
-13:17:14.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:14] "GET /static/ckip_logo.svg HTTP/1.0" 200 -
-13:17:14.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:14] "[33mGET /images/Restaurant-Guy-Savoy.jpeg HTTP/1.0[0m" 404 -
-13:17:33.[INFO] ======= Dep Tree =======
-13:17:34.[INFO] [lexicon-based] detected aspects: []
-13:17:34.[INFO] [lexicon-based] detected opinions: [{'id': 1, 'token': '媽的', 'polarity': 'negative'}, {'id': 3, 'token': '漂亮', 'polarity': 'positive'}]
-13:17:35.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:35] "POST /forward/ HTTP/1.0" 200 -
-13:17:35.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:35] "[36mGET /static/styles.css HTTP/1.0[0m" 304 -
-13:17:35.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:35] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:17:55.[INFO] ======= Dep Tree =======
-13:17:56.[INFO] [lexicon-based] detected aspects: []
-13:17:56.[INFO] [lexicon-based] detected opinions: [{'id': 10, 'token': '好吃', 'polarity': 'positive'}]
-13:17:56.[INFO] ======= Dep Tree =======
-13:17:56.[INFO] [lexicon-based] detected aspects: []
-13:17:56.[INFO] [lexicon-based] detected opinions: [{'id': 10, 'token': '好吃', 'polarity': 'positive'}]
-13:17:58.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:58] "POST /forward/ HTTP/1.0" 200 -
-13:17:58.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:58] "POST /forward/ HTTP/1.0" 200 -
-13:17:58.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:58] "[36mGET /static/styles.css HTTP/1.0[0m" 304 -
-13:17:58.[INFO] 140.109.16.219 - - [15/Aug/2022 13:17:58] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:18:10.[INFO] ======= Dep Tree =======
-13:18:11.[INFO] [lexicon-based] detected aspects: []
-13:18:11.[INFO] [lexicon-based] detected opinions: [{'id': 3, 'token': '好吃', 'polarity': 'positive'}]
-13:18:11.[INFO] 140.109.16.219 - - [15/Aug/2022 13:18:11] "POST /forward/ HTTP/1.0" 200 -
-13:18:11.[INFO] 140.109.16.219 - - [15/Aug/2022 13:18:11] "[36mGET /static/styles.css HTTP/1.0[0m" 304 -
-13:18:11.[INFO] 140.109.16.219 - - [15/Aug/2022 13:18:11] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:18:36.[INFO] 140.109.16.219 - - [15/Aug/2022 13:18:36] "GET /static/styles.css HTTP/1.0" 200 -
-13:18:36.[INFO] 140.109.16.219 - - [15/Aug/2022 13:18:36] "GET /static/ckip_logo.svg HTTP/1.0" 200 -
-13:18:36.[INFO] 140.109.16.219 - - [15/Aug/2022 13:18:36] "[33mGET /images/Restaurant-Guy-Savoy.jpeg HTTP/1.0[0m" 404 -
-13:19:30.[INFO] 140.109.16.219 - - [15/Aug/2022 13:19:30] "[36mGET /static/styles.css HTTP/1.0[0m" 304 -
-13:19:30.[INFO] 140.109.16.219 - - [15/Aug/2022 13:19:30] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:20:33.[INFO] ======= Dep Tree =======
-13:20:34.[INFO] [lexicon-based] detected aspects: []
-13:20:34.[INFO] [lexicon-based] detected opinions: [{'id': 3, 'token': '好吃', 'polarity': 'positive'}]
-13:20:34.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 牛肉麵 is added.
-13:20:34.[INFO] 140.109.16.219 - - [15/Aug/2022 13:20:34] "POST /forward/ HTTP/1.0" 200 -
-13:20:34.[INFO] 140.109.16.219 - - [15/Aug/2022 13:20:34] "GET /static/styles.css HTTP/1.0" 200 -
-13:20:34.[INFO] 140.109.16.219 - - [15/Aug/2022 13:20:34] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:20:34.[INFO] 140.109.16.219 - - [15/Aug/2022 13:20:34] "GET /static/Restaurant-Guy-Savoy.jpeg HTTP/1.0" 200 -
-13:20:52.[INFO] 140.109.16.219 - - [15/Aug/2022 13:20:52] "[33mGET /images/Restaurant-Guy-Savoy.jpeg HTTP/1.0[0m" 404 -
-13:20:53.[INFO] 140.109.16.219 - - [15/Aug/2022 13:20:53] "GET /static/styles.css HTTP/1.0" 200 -
-13:20:53.[INFO] 140.109.16.219 - - [15/Aug/2022 13:20:53] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:20:53.[INFO] 140.109.16.219 - - [15/Aug/2022 13:20:53] "GET /static/Restaurant-Guy-Savoy.jpeg HTTP/1.0" 200 -
-13:21:29.[INFO] ======= Dep Tree =======
-13:21:30.[INFO] [lexicon-based] detected aspects: []
-13:21:30.[INFO] [lexicon-based] detected opinions: [{'id': 5, 'token': '多', 'polarity': 'neutral'}, {'id': 9, 'token': '親民', 'polarity': 'positive'}, {'id': 14, 'token': '特別', 'polarity': 'neutral'}, {'id': 16, 'token': '好吃', 'polarity': 'positive'}, {'id': 23, 'token': '好吃', 'polarity': 'positive'}, {'id': 28, 'token': '好', 'polarity': 'positive'}, {'id': 40, 'token': '推薦', 'polarity': 'positive'}]
-13:21:30.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 位置 is added.
-13:21:30.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 價格 is added.
-13:21:30.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 味道 is added.
-13:21:30.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 肉 is added.
-13:21:30.[INFO] [Rule 3] Detect negation on 推薦; polarity is reversed.
-13:21:31.[INFO] 140.109.16.219 - - [15/Aug/2022 13:21:31] "POST /forward/ HTTP/1.0" 200 -
-13:21:31.[INFO] 140.109.16.219 - - [15/Aug/2022 13:21:31] "[36mGET /static/styles.css HTTP/1.0[0m" 304 -
-13:21:31.[INFO] 140.109.16.219 - - [15/Aug/2022 13:21:31] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:21:31.[INFO] 140.109.16.219 - - [15/Aug/2022 13:21:31] "[36mGET /static/Restaurant-Guy-Savoy.jpeg HTTP/1.0[0m" 304 -
-13:21:38.[INFO] ======= Dep Tree =======
-13:21:39.[INFO] [lexicon-based] detected aspects: []
-13:21:39.[INFO] [lexicon-based] detected opinions: [{'id': 5, 'token': '多', 'polarity': 'neutral'}, {'id': 9, 'token': '親民', 'polarity': 'positive'}, {'id': 14, 'token': '特別', 'polarity': 'neutral'}, {'id': 16, 'token': '好吃', 'polarity': 'positive'}, {'id': 23, 'token': '好吃', 'polarity': 'positive'}, {'id': 28, 'token': '好', 'polarity': 'positive'}, {'id': 40, 'token': '推薦', 'polarity': 'positive'}]
-13:21:39.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 位置 is added.
-13:21:39.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 價格 is added.
-13:21:39.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 味道 is added.
-13:21:39.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 肉 is added.
-13:21:39.[INFO] [Rule 3] Detect negation on 推薦; polarity is reversed.
-13:21:40.[INFO] 140.109.16.219 - - [15/Aug/2022 13:21:40] "POST /forward/ HTTP/1.0" 200 -
-13:21:40.[INFO] 140.109.16.219 - - [15/Aug/2022 13:21:40] "[36mGET /static/styles.css HTTP/1.0[0m" 304 -
-13:21:40.[INFO] 140.109.16.219 - - [15/Aug/2022 13:21:40] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:21:40.[INFO] 140.109.16.219 - - [15/Aug/2022 13:21:40] "[36mGET /static/Restaurant-Guy-Savoy.jpeg HTTP/1.0[0m" 304 -
-13:21:59.[INFO] ======= Dep Tree =======
-13:22:00.[INFO] [lexicon-based] detected aspects: []
-13:22:00.[INFO] [lexicon-based] detected opinions: [{'id': 5, 'token': '多', 'polarity': 'neutral'}, {'id': 9, 'token': '親民', 'polarity': 'positive'}, {'id': 14, 'token': '特別', 'polarity': 'neutral'}, {'id': 16, 'token': '好吃', 'polarity': 'positive'}, {'id': 23, 'token': '好吃', 'polarity': 'positive'}, {'id': 28, 'token': '好', 'polarity': 'positive'}, {'id': 40, 'token': '推薦', 'polarity': 'positive'}]
-13:22:00.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 位置 is added.
-13:22:00.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 價格 is added.
-13:22:00.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 味道 is added.
-13:22:00.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 肉 is added.
-13:22:00.[INFO] [Rule 3] Detect negation on 推薦; polarity is reversed.
-13:22:01.[INFO] 140.109.16.219 - - [15/Aug/2022 13:22:01] "POST /forward/ HTTP/1.0" 200 -
-13:22:01.[INFO] 140.109.16.219 - - [15/Aug/2022 13:22:01] "[36mGET /static/styles.css HTTP/1.0[0m" 304 -
-13:22:01.[INFO] 140.109.16.219 - - [15/Aug/2022 13:22:01] "[36mGET /static/ckip_logo.svg HTTP/1.0[0m" 304 -
-13:22:01.[INFO] 140.109.16.219 - - [15/Aug/2022 13:22:01] "[36mGET /static/Restaurant-Guy-Savoy.jpeg HTTP/1.0[0m" 304 -
+02:44:02.[INFO] ======= Dep Tree =======
+02:44:02.[INFO] finished loading aspect lexicon.
+02:44:02.[INFO] finished loading opinion lexicon.
+02:44:02.[INFO] [lexicon-based] detected aspects: [{'id': 1, 'token': '牛肉麵'}, {'id': 3, 'token': '水餃'}]
+02:44:02.[INFO] [lexicon-based] detected opinions: [{'id': 5, 'token': '好吃', 'polarity': 'positive'}]
+02:44:02.[INFO] [Rule 1] Detect NOUN neighbor in subtree; new aspect 水餃 is added.
+02:44:02.[INFO] [Rule 3] Detect negation on 好吃; polarity is reversed.
+02:44:02.[INFO] [Rule 3] Detect negation on 好吃; polarity is reversed.
+02:44:02.[INFO] [Rule 2] Detect conjunction beween existing aspect 水餃 and node 牛肉麵; new aspect 牛肉麵 is added.
+02:44:02.[INFO] [Rule 2] Detect conjunction beween existing aspect 水餃 and node 牛肉麵; new aspect 牛肉麵 is added.
+02:44:03.[ERROR] Exception on /forward/ [POST]
+

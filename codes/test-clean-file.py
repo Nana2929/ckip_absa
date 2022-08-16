@@ -8,23 +8,24 @@ logging.basicConfig(filename = outlog,
 
 logging.info('==content喵喵')
 logging.info('做事！')
-with open(outlog, 'r') as fh:
+with open(outlog, 'r+') as fh:
     readstring = fh.readlines()
-    print('first read')
+    print('first read:')
     print(''.join(readstring))
-
-os.truncate(outlog, 0)
-
+    fh.truncate(0)
+    fh.seek(0)
+    
 logging.info('喵喵content==')
 logging.info('睡覺！')
 
-with open(outlog, 'r') as fh:
-    readstring = fh.readlines()
-    print('second read after cleaning')
-    print(''.join(readstring))
 
+
+
+print('second read:')
+with open(outlog, 'r+') as fh:
+    readstring = fh.readlines()
+    print(''.join(readstring))
+    fh.truncate(0)
+    fh.seek(0)
 # with open(outlog, 'w') as fh:
 #     pass
-
-
-logging.info('結束')
