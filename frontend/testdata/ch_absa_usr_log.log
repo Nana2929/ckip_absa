@@ -1,13 +1,6 @@
-2022-08-18 17:46:19,943 : DepTree : INFO: ======= Dep Tree =======
-2022-08-18 17:46:19,968 : DepTree : INFO: finished loading aspect lexicon.
-2022-08-18 17:46:19,972 : DepTree : INFO: finished loading opinion lexicon.
-2022-08-18 17:46:20,487 : DepTree : INFO: [lexicon-based] detected aspects: [{'id': 1, 'token': '義大利麵'}, {'id': 3, 'token': '鴨胸'}, {'id': 8, 'token': '提拉米蘇'}, {'id': 9, 'token': '酒味'}, {'id': 15, 'token': '奶酪'}, {'id': 17, 'token': '起司'}, {'id': 31, 'token': '麵包'}, {'id': 42, 'token': '海鮮'}, {'id': 50, 'token': '麵粉'}, {'id': 53, 'token': '牛肚'}]
-2022-08-18 17:46:20,487 : DepTree : INFO: [lexicon-based] detected opinions: [{'id': 6, 'token': '不錯', 'polarity': 'neutral'}, {'id': 11, 'token': '重', 'polarity': 'negative'}, {'id': 13, 'token': '好吃', 'polarity': 'positive'}, {'id': 21, 'token': '不錯', 'polarity': 'neutral'}, {'id': 25, 'token': '東西', 'polarity': 'neutral'}, {'id': 28, 'token': '普通', 'polarity': 'neutral'}, {'id': 32, 'token': '乾硬', 'polarity': 'negative'}, {'id': 34, 'token': '好吃', 'polarity': 'positive'}, {'id': 55, 'token': '中規中矩', 'polarity': 'neutral'}]
-2022-08-18 17:46:20,489 : DepTree : INFO: [Rule 1] Detect NOUN neighbor in subtree; new aspect 義大利麵 is added.
-2022-08-18 17:46:20,489 : DepTree : INFO: [Rule 1] Detect NOUN neighbor in subtree; new aspect 提拉米蘇 is added.
-2022-08-18 17:46:20,489 : DepTree : INFO: [Rule 1] Detect NOUN neighbor in subtree; new aspect 酒味 is added.
-2022-08-18 17:46:20,490 : DepTree : INFO: [Rule 1] Detect NOUN neighbor in subtree; new aspect 起司 is added.
-2022-08-18 17:46:20,490 : DepTree : INFO: [Rule 1] Detect NOUN neighbor in subtree; new aspect 捲 is added.
-2022-08-18 17:46:20,491 : DepTree : INFO: [Rule 1] Detect NOUN neighbor in subtree; new aspect 東西 is added.
-2022-08-18 17:46:20,492 : DepTree : INFO: [Rule 1] Detect NOUN neighbor in subtree; new aspect 麵包 is added.
-2022-08-18 17:46:20,496 : DepTree : INFO: [Rule 2] Detect conjunction between existing aspect 捲 and node 奶酪; new aspect 奶酪 is added.
+2022-08-19 17:51:52,607 : DepTree : INFO: ======= Dep Tree =======
+2022-08-19 17:51:52,633 : DepTree : INFO: finished loading aspect lexicon.
+2022-08-19 17:51:52,637 : DepTree : INFO: finished loading opinion lexicon.
+2022-08-19 17:51:53,155 : DepTree : INFO: [lexicon-based] detected aspects: [{'id': 1, 'token': '牛肉麵'}]
+2022-08-19 17:51:53,155 : DepTree : INFO: [lexicon-based] detected opinions: [{'id': 2, 'token': '好吃', 'polarity': 'positive'}]
+2022-08-19 17:51:53,157 : DepTree : INFO: [Rule 1] Detect NOUN neighbor in subtree; new aspect 牛肉麵 is added.

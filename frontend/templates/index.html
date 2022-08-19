@@ -7,7 +7,7 @@ open for demo rendering: use lone 11, line 21 -->
 <head>
     <meta charset="UTF-8">
     <title>餐廳評論分析系統</title>
-<!--     <link rel="stylesheet" href="../static/styles.css" /> -->
+    <!-- <link rel="stylesheet" href="../static/styles.css" /> -->
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" />
     
 </head>
@@ -16,10 +16,9 @@ open for demo rendering: use lone 11, line 21 -->
         <div class="connect_option">
             <div class="row1">
                 <a id="link_demo" href="https://ckip.iis.sinica.edu.tw/demo">
-                    <!-- <img src="{{url_for('static', filename='ckip_logo.svg')}}" class="logo" width="50pt" height="50pt"> -->
-                    <img src="https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/ckip_logo.svg" class="logo" width="50pt" height="50pt">
-<!--                     <img src="../static/ckip_logo.svg"  class="logo" width="50pt" height="50pt"> -->
-
+                    <img src="{{url_for('static', filename='ckip_logo.svg')}}" class="logo" width="50pt" height="50pt">
+                    <!-- <img src="https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/ckip_logo.svg" class="logo" width="50pt" height="50pt"> -->
+                    <!-- <img src="../static/ckip_logo.svg"  class="logo" width="50pt" height="50pt"> -->
                     <span id="title">CKIP 餐廳評論分析系統&emsp;</span></a>
             </div>
             <div class="row2">
@@ -54,10 +53,14 @@ open for demo rendering: use lone 11, line 21 -->
             <form action="{{url_pre}}/forward/" method="post" id="take-input">
                 <!-- <input type="text" id="take-input" placeholder="牛肉麵很好吃"> -->
         </form>
-        <textarea class="textin" name="text" form="take-input" placeholder="輸入欲分析的餐廳評論，例如：牛肉麵很好吃"></textarea>
-        <button type="submit" id="submit_btn" form="take-input" onclick="clear()">送出</button>
-        <input type="checkbox" id = "show_progress_btn" name="show_progress" form="take-input" values="fuck it">
-        <label for="show_progress_btn" style="color:rgba(1, 1, 5, 0.603); font-size:14px">顯示全部處理過程&emsp;</label>
+        <textarea style="vertical-align: middle; margin-bottom: 8px;" class="textin" name="text" form="take-input" placeholder="輸入欲分析的餐廳評論，例如：牛肉麵很好吃"></textarea>
+        <div style="display: inline-block;">
+            <div style="display: inline-block;">
+                <input type="checkbox" id = "show_progress_btn" name="show_progress" form="take-input" values="fuck it">
+                <label for="show_progress_btn" style="color:rgba(1, 1, 5, 0.603); font-size:14px">顯示全部處理過程&emsp;</label>
+            </div>
+            <button type="submit" id="submit_btn" form="take-input" onclick="clear()">送出</button>
+        </div>
         
 
         </div>
@@ -77,7 +80,9 @@ open for demo rendering: use lone 11, line 21 -->
             <textarea class="textout" readonly>{{process}}</textarea></div>
         <div class="showblock" >
             <p class="output output_2">&emsp;🥨 句法剖析（Dependency Parser）</p>
-            <textarea class="textout" readonly>{{process}}</textarea>
+            {% if img_stream %}
+                <img style="width:200px;margin-left: 3em" src="data:image/png;base64,{{img_stream}}">
+            {% endif %}
         </div>
 
         <!-- <div class="showblock" ></div> -->

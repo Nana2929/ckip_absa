@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 import networkx as nx
@@ -66,8 +65,7 @@ def text_process(test_sent):
             else:
                 polar = '中性'
             pair = pair + f'{t[0]}({polar})' + '、'
-        # remove last ‘、’
-        pair = pair[:-1]
+        pair = pair[:-1] # remove last '、'
         print(f'{k}:{pair}')
         pred = pred + f'{k}' + '：' + f'{pair}' + '\n'
 
@@ -77,12 +75,23 @@ def text_process(test_sent):
     # read the current input's log
     with open(outlog, 'r') as fh:
         logstring = fh.readlines() 
-        logstring = ''.join(logstring)#.lstrip('\00')
+        logstring = ''.join(logstring) #.lstrip('\00')
 
     print(f"Output success. Check the results under {outputdir}")
     tree.clean_file()
     return ws, pred, logstring
 
+'''read image of dependnecy tree'''
+def return_img_stream(img_local_path):
+    import base64
+    img_stream = ''
+
+    with open(img_local_path, 'rb') as img_f:
+        img_stream = img_f.read()
+        img_stream = base64.b64encode(img_stream)
+        # print(img_stream.decode('ascii'))
+
+    return img_stream.decode('ascii')
 
 '''Flask'''
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -107,13 +116,15 @@ def move_forward():
         if request.form.get("show_progress"):
             sepline = '='*30+'\n'
             process_output = logmsg + sepline + process_output
-       
-        
+            img_path = './testdata/dep_tree.png'
+            img_output = return_img_stream(img_path)
+
         results = [user_text, process_output, result_output]
         return render_template('index.html', 
                                sent = results[0], 
                                process = results[1], 
-                               result = results[2])
+                               result = results[2],
+                               img_stream = img_output)
                             #    url_pre = url_pre)
     # return render_template('index.html', url_pre = url_pre)
     return render_template('index.html')
