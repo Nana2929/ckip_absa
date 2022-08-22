@@ -105,6 +105,7 @@ p{
     color:#003072;
     font-family: "LiGothic", "FangSong", 'Times New Roman', serif;
     font-size:18px;
+    font-weight:bold;
     padding:1px;
     text-align:justify;
 }
@@ -115,6 +116,7 @@ p.output{
     /* style="margin: 2em 0.2em;" */
     font-family: "LiGothic", "FangSong", 'Times New Roman', serif;
     font-size:18px;
+    font-weight:bold;
     padding:1px;
     text-align:justify;
 }
@@ -126,10 +128,12 @@ p.output_2{
 textarea.textin{
     width: 600px;
     height: 100px;
+    font-size: 14px;
     margin-left: 5%;
     border-radius:10px;
     background-color: white;
     resize:vertical;
+    line-height:1.5;
 }
 
 textarea.textout{
@@ -137,9 +141,11 @@ textarea.textout{
     background-color: white;
     width: 600px;
     height: 100px;
+    font-size: 14px;
     margin-left: 5%;
     border-radius:10px;
     resize:vertical;
+    line-height:1.5;
 }
 
 
@@ -149,17 +155,15 @@ textarea{
 
 button{
     margin: 1%;
-    position: absolute;
-    bottom:   10%;
     font-size: 14pt;
     color:white;
     display: inline-block;
     border-radius: 5px;
-    border: none
+    border: none;
+    padding: 8px 12px;
 }
 button#submit_btn{
-    height: 25pt;
-    width: 7%;
+    /* height: 25pt; */
     background-color: rgb(64, 52, 65);
 }
 

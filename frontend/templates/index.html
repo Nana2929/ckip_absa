@@ -7,24 +7,21 @@ open for demo rendering: use lone 11, line 21 -->
 <head>
     <meta charset="UTF-8">
     <title>餐廳評論分析系統</title>
-<!--     <link rel="stylesheet" href="../static/styles.css" /> -->
-    <link rel="stylesheet" href="https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/styles.css" />
+    <!-- <link rel="stylesheet" href="../static/styles.css" /> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" />
     
-    <!-- <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" /> -->
 </head>
 <body>
     <header id='title_bar' >
         <div class="connect_option">
             <div class="row1">
                 <a id="link_demo" href="https://ckip.iis.sinica.edu.tw/demo">
-                    <!-- <img src="{{url_for('static', filename='ckip_logo.svg')}}" class="logo" width="50pt" height="50pt"> -->
-                    <img src="https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/ckip_logo.svg" class="logo" width="50pt" height="50pt">
-<!--                     <img src="../static/ckip_logo.svg"  class="logo" width="50pt" height="50pt"> -->
-
+                    <img src="{{url_for('static', filename='ckip_logo.svg')}}" class="logo" width="50pt" height="50pt">
+                    <!-- <img src="https://ckip.iis.sinica.edu.tw/service/restaurant-absa/static/ckip_logo.svg" class="logo" width="50pt" height="50pt"> -->
+                    <!-- <img src="../static/ckip_logo.svg"  class="logo" width="50pt" height="50pt"> -->
                     <span id="title">CKIP 餐廳評論分析系統&emsp;</span></a>
             </div>
             <div class="row2">
-                <!-- <script type="text/javascript" href="{{url_for('static', filename='js/functions.js')}}"></script> -->
                 <script>
                     function turnGray(x){
                         x.style.color = 'gray'
@@ -51,34 +48,43 @@ open for demo rendering: use lone 11, line 21 -->
         <div class = "box">
         <br>
         <div class="showblock" >
-            <p class="output_2">&emsp;🥨 請輸入欲分析的餐廳評論（限繁體中文）：
-            <br>&emsp;&emsp;<span style="color:gray; font-size:12pt">建議句長為30字（以內）</span></p>
+            <p class="output_2">&emsp;🥨 請輸入欲分析的餐廳評論（限繁體中文）
+            <br>&emsp;&emsp;<span style="color:gray; margin-left:10px; font-size:16px">建議句長為30字以內</span></p>
             <form action="{{url_pre}}/forward/" method="post" id="take-input">
                 <!-- <input type="text" id="take-input" placeholder="牛肉麵很好吃"> -->
         </form>
-        <textarea class="textin" name="text" form="take-input" placeholder="輸入欲分析的餐廳評論，例如：牛肉麵很好吃"></textarea>
-        <button type="submit" id="submit_btn" form="take-input" onclick="clear()">送出</button>
-        <input type="checkbox" id = "show_progress_btn" name="show_progress" form="take-input" values="fuck it">
-        <label for="show_progress_btn" style="color:rgba(1, 1, 5, 0.603); font-size:12pt">顯示處理過程&emsp;</label>
+        <textarea style="vertical-align: middle; margin-bottom: 8px;" class="textin" name="text" form="take-input" placeholder="輸入欲分析的餐廳評論，例如：牛肉麵很好吃"></textarea>
+        <div style="display: inline-block;">
+            <div style="display: inline-block;">
+                <input type="checkbox" id = "show_progress_btn" name="show_progress" form="take-input" values="fuck it">
+                <label for="show_progress_btn" style="color:rgba(1, 1, 5, 0.603); font-size:14px">顯示全部處理過程&emsp;</label>
+            </div>
+            <button type="submit" id="submit_btn" form="take-input" onclick="clear()">送出</button>
+        </div>
+        
 
         </div>
         <!-- sentence -->
         <div class="showblock">
             <p class="output output_2">&emsp;🥨 輸入評論：
-                <span style="color:black;font-weight:bold;font-size:14px">{{sent}}</span>
+                <span style="color:black;font-weight:normal;font-size:16px">{{sent}}</span>
             </p>
         </div>
         <!-- 評價pairs -->
         <div class="showblock" >
-            <p class="output output_2">&emsp;🥨 評價對象與評價內容（Aspect and Opinion Pairs）
-                <br>&emsp;&emsp;<span style="color:gray; font-size:12pt">[評價對象], &lt評價內容></span></p>
+            <p class="output output_2">&emsp;🥨 評價對象、評價內容與正負面（Aspect, Opinion and Polarity）
+            <br>&emsp;&emsp;<span style="color:gray; margin-left:10px; font-size:16px">評價對象：評價內容（正負面）</span></p>
+            <textarea class="textout" readonly>{{result}}</textarea></div>
+        <div class="showblock" >
+            <p class="output output_2">&emsp;🥨 處理過程（Process）</p>
             <textarea class="textout" readonly>{{process}}</textarea></div>
         <div class="showblock" >
-            <p class="output output_2">&emsp;🥨 情緒極度判斷（Sentiment Polarity）</p>
-            <textarea class="textout" readonly>{{result}}</textarea>
+            <p class="output output_2">&emsp;🥨 句法剖析（Dependency Parser）</p>
+            {% if img_stream %}
+                <img style="width:200px;margin-left: 3em" src="data:image/png;base64,{{img_stream}}">
+            {% endif %}
         </div>
 
-        <!-- 情緒極度判斷 -->
         <!-- <div class="showblock" ></div> -->
         <div class="foot_bar" >
             <br>
