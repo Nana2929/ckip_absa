@@ -47,9 +47,15 @@ class DepTree:
         '''
         G = nx.DiGraph()
         self.nodes = []
+        self.periods = []
+        
         for x in self.pos:
             id, tokenpos = x
             token, pos = tokenpos.rsplit(' ', 1) # split by 1 WHITESPACE only
+            # RULE 5: DO NOT pair Crossing-boundary 
+            if pos == POS.EXCLAMATIONCATEGORY or pos == POS.PERIODCATEGORY:
+                self.periods.append(id)
+            
             # print(f'token: {token}, pos: {pos}')
             G.add_node(id, label = token, pos = pos)
             self.nodes.append((id, token, pos))
@@ -145,6 +151,7 @@ class DepTree:
         D = self.conj_detect(procD) # removing duplicates
         tokenD, span_marking = self.markspan(D)
         return tokenD, span_marking
+    
     
     def markspan(self, D):
         '''
@@ -355,18 +362,17 @@ class DepTree:
             opn_subT = dfs_tree(self.dG, opnid)
             neighbors = opn_subT.neighbors(opnid)
             
-            
-            # if within the opinion's neighbors (1-step away nodes)
+            # if within the opinion's neighbors
             # a `neighbor` POS is N && its node id is PRIOR to opnid
             # then add this `neighbor` as aspect into self.aspect 
             for neighborid in neighbors:
                 
                 if self.node2tok(neighborid).strip() != '':
-                    # 0823 fixing 「老闆娘人」沒被抓出來的問題
                     if (self.node2pos(neighborid) in POS.Nouns or self.dG[opnid][neighborid]['label'] == DepRelation.NSUBJ) and neighborid <= opnid:
                         self.aspects.append({'id':neighborid, 'token':self.node2tok(neighborid)})
                         self.logger.info(
-                            f'[Rule 1] Detect NOUN neighbor in subtree; new aspect {self.node2tok(neighborid)} is added.')
+                            f'[Rule 1] Detect NOUN neighbor in subtree; \
+                            new aspect {self.node2tok(neighborid)} is added.')
                         directed_path, viewpath, pair = self.process_raw_sp([neighborid, opnid])
                         spD[opnkey].append({'pair': pair, 'diPath': directed_path,
                                 'treePath': viewpath, 'polarity': oppol})
@@ -378,24 +384,27 @@ class DepTree:
                 ## linguistic distance 4 以內才加入
                 # if abs(aspid-opnid) > BOUNDDIST:
                 #     continue
-                
                 sp = nx.shortest_path(self.undG, aspid, opnid)
-                # Supported options: ‘dijkstra’ (default), ‘bellman-ford’.
                 directed_path, viewpath, pair = self.process_raw_sp(sp)
                 currpathdict = {'pair': pair, 'diPath': directed_path,
                             'treePath': viewpath, 'polarity': oppol}
                 currdist = len(directed_path)
+                
                 if currdist < mindist:
+                    if self.isCrossed(aspid = aspid, opnid = opnid):
+                        continue 
                     spD[opnkey] = [currpathdict]
-                elif currdist == mindist: 
-                    spD[opnkey].append(currpathdict)
                 mindist = min(mindist, currdist)
-        # filename = f'{self.outdir}/dep_tree_sp.json'
-        # with open(filename, 'w') as f:
-        #     json.dump(spD, f, indent= 4, 
-        #               ensure_ascii = False)
         return spD
     
+    
+    def isCrossed(self, aspid, opnid):
+        for period_id in self.periods:
+            if aspid < period_id < opnid:
+                self.logger.info(f'[Rule 5] Detected crossing boundary pair {self.node2tok(aspid)} and {self.node2tok(opnid)}, ignore the pair.')
+                return True
+        return False
+                       
     
     def to_image(self, verbose = True):
         p = nx.drawing.nx_pydot.to_pydot(self.dG)

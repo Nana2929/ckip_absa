@@ -32,6 +32,9 @@ class POS():
     Dfb ='Dfb'
     Di ='Di'
     Dk ='Dk'
+    PERIODCATEGORY = 'PERIODCATEGORY'# ['.', '。']
+    COMMACATEGORY = 'COMMACATEGORY' #[',', '，']
+    EXCLAMATIONCATEGORY = 'EXCLAMATIONCATEGORY' #['!','！']
     Nouns = [Na, Nb, Nc, Nd]
     Adverbs =[D, Da, Dfa, Dfb, Di, Dk]
        

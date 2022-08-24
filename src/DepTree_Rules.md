@@ -8,7 +8,7 @@ For defined relations (`DepRealtion`, `POS`...), refer to `src/utils.py`.
 
 ### Rules with Pseudo Code
 
-#### Rule 1: Noun Blocking
+#### <span style="color:#BE4977">Rule 1: Noun Blocking</span>
 
 For a detected opinion, if a noun is detected in the subtree, then the noun is said to be **blocking** the opinion to find its aspect. This noun is promoted to the aspect level ((i.e. this aspect may NOT be in the aspect lexicon, but detected via syntatic relations; this way we can somehow break the lexicon limit). 
 eg. "老闆娘很好。"
@@ -29,7 +29,7 @@ for opn in detected_opinions:
 ```
 
 
-#### Rule 2: Conjunction Detection 
+####  <span style="color:#BE4977"> Rule 2: Conjunction Detection </span>
 
 For a detected aspect`asp`, if there's another word 
 that is linked to it by a conjunction word, then this word is denoted `partner`, and is promoted to aspect level (i.e. this aspect may NOT be in the aspect lexicon, but detected via syntatic relations; this way we can somehow break the lexicon limit). 
@@ -58,7 +58,7 @@ for opn, aspects in detected_opinions:
 
 
 
-#### Rule 3: Polarity Inversion 
+####  <span style="color:#BE4977"> Rule 3: Polarity Inversion </span>
 Reverse Polarity if a negative token is found in the subtree (outedges) of a detected opinion `opn`. 
 eg. "這顆蘋果不好吃"。
 Implemented in `DepTree.neg_detect()`. 
@@ -77,7 +77,7 @@ for opn in detected_opinions:
             opinion expression becomes (neg_token, opn)
      
 ```
-#### Rule 4: POS Exclusion 
+####  <span style="color:#BE4977"> Rule 4: POS Exclusion </span>
 
 In the procedure of detecting aspects and opinions from the lexicons, 
 for opinions, if we exactly match a token as an opinion word, 
@@ -90,3 +90,17 @@ Implemented in `DepTree.detect()`
     
 ##### PsuedoCode
 (skipped)
+
+####  <span style="color:#BE4977"> Rule 5: Period-Blocking</span>
+
+If a A-O pair crosses the boundary (defined as POS.PERIODCATEGORY, POS.EXCLAMATIONCATEGORY), ignore the pair. 
+Because this function is implemented independently, the code snippet is pasted below. 
+
+```
+def isCrossed(self, aspid, opnid):
+    for period_id in self.periods:
+        if aspid < period_id < opnid:
+            self.logger.info(f'[Rule 5] Detected crossing boundary pair {self.node2tok(aspid)} and {self.node2tok(opnid)}, ignore the pair.')
+            return True
+    return False
+```
