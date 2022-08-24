@@ -1,0 +1,10 @@
+2022-08-24 17:40:38,337 : DepTree : INFO: ======= Dep Tree =======
+2022-08-24 17:40:38,366 : DepTree : INFO: finished loading aspect lexicon.
+2022-08-24 17:40:38,370 : DepTree : INFO: finished loading opinion lexicon.
+2022-08-24 17:40:38,917 : DepTree : INFO: [lexicon-based] detected aspects: [{'id': 1, 'token': '飯'}, {'id': 3, 'token': '麵'}, {'id': 5, 'token': '湯'}, {'id': 7, 'token': '燒賣'}]
+2022-08-24 17:40:38,917 : DepTree : INFO: [lexicon-based] detected opinions: []
+2022-08-24 17:40:38,337 : DepTree : INFO: ======= Dep Tree =======
+2022-08-24 17:40:38,366 : DepTree : INFO: finished loading aspect lexicon.
+2022-08-24 17:40:38,370 : DepTree : INFO: finished loading opinion lexicon.
+2022-08-24 17:40:38,917 : DepTree : INFO: [lexicon-based] detected aspects: [{'id': 1, 'token': '飯'}, {'id': 3, 'token': '麵'}, {'id': 5, 'token': '湯'}, {'id': 7, 'token': '燒賣'}]
+2022-08-24 17:40:38,917 : DepTree : INFO: [lexicon-based] detected opinions: []

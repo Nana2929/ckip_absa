@@ -7,11 +7,9 @@ from IPython.display import Image, display
 import logging
 import pandas as pd
 from utils import DepRelation, POS
-from utils import BOUNDDIST, CONJDIST
 import networkx as nx
 from networkx.algorithms.traversal.depth_first_search import dfs_tree
 import re, sys
-
 
 class DepTree:
     
@@ -229,6 +227,8 @@ class DepTree:
             #     conj_edges[u] = v; conj_edges[v] = u
             if depr == DepRelation.CC: #（和）
                 conj_edges[u] = v-1; conj_edges[v-1] = u
+            elif depr == DepRelation.CONJ: # 蛋糕、麵包
+                conj_edges[u] = v; conj_edges[v] = u
         self.conjunctions = conj_edges
         return self.conjunctions
 
