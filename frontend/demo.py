@@ -7,13 +7,13 @@ import sys, os
 import logging
 import argparse
 import json 
-from flask import Flask, jsonify, abort, request, make_response, render_template, url_for
+from flask import Flask, jsonify, abort, request, make_response, render_template
 from flask_cors import CORS
 
 '''paths of modules'''
 # root_path = '/share/home/qwe9887476/'
-root_path = '/share/home/nana2929/'
 # DepTree_path = '/share/home/qwe9887476/absa/ckip_absa/src/'
+root_path = '/share/home/nana2929/'
 DepTree_path = '/share/home/nana2929/repo/src/'
 
 for x in [root_path, DepTree_path]:
@@ -78,7 +78,7 @@ def text_process(test_sent):
         logstring = ''.join(logstring) #.lstrip('\00')
 
     print(f"Output success. Check the results under {outputdir}")
-    tree.clean_file()
+    tree.clean_logging()
     return ws, pred, logstring
 
 '''read image of dependnecy tree'''
@@ -99,35 +99,35 @@ CORS(app)
 @app.route('/', methods=['POST','GET'])
 def index():
     sent = ""
-    # url_pre = args.url_pre
-    # return render_template("index.html", sent = sent, url_pre = url_pre)
-    return render_template("index.html", sent = sent)
+    url_pre = args.url_pre
+    return render_template("index.html", sent = sent, url_pre = url_pre)
 
 @app.route("/forward/", methods=['POST','GET'])
 def move_forward():
     # Moving forward code
     user_text = request.values['text']
-    # url_pre = args.url_pre
+    url_pre = args.url_pre
     cnt = 0 
     if request.method=='POST':
         
         print('Did user request to show the process?', request.form.get("show_progress"))
         process_output, result_output, logmsg = text_process(user_text)
+        img_output = return_img_stream('./testdata/dep_tree.png')
+
         if request.form.get("show_progress"):
             sepline = '='*30+'\n'
             process_output = logmsg + sepline + process_output
-            img_path = './testdata/dep_tree.png'
-            img_output = return_img_stream(img_path)
-
+         
         results = [user_text, process_output, result_output]
         return render_template('index.html', 
-                               sent = results[0], 
-                               process = results[1], 
-                               result = results[2],
-                               img_stream = img_output)
-                            #    url_pre = url_pre)
-    # return render_template('index.html', url_pre = url_pre)
-    return render_template('index.html')
+                            sent = results[0], 
+                            process = results[1], 
+                            result = results[2],
+                            img_stream = img_output,
+                            url_pre = url_pre)
+
+    return render_template('index.html', url_pre = url_pre)
+    
 
 
 if __name__ == '__main__':
@@ -139,7 +139,7 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser(prog='') 
     argparser.add_argument('--tagger_port', '-tgp', default = 2022, type = int, required = False, 
                         help = 'At which port you wish to run your dependency parser\'s associated module (ckip tagger)')
-    # argparser.add_argument("--url_pre",'-u', default= URLLINK, type=str, help = 'The url you wish to run your Flask App on')
+    argparser.add_argument("--url_pre",'-u', default= URLLINK, type=str, help = 'The url you wish to run your Flask App on')
     argparser.add_argument("--device_id",'-d', default= 2, type=int, help = 'Gpu device id to run the dep parser on')
     global args
     global outputdir 
@@ -155,4 +155,5 @@ if __name__ == '__main__':
     ch_parser = init_parser(args.tagger_port, args.device_id)
     print('Successfully initialized.')
     # if already written, clean the file 
-    app.run(host='0.0.0.0', port=7778, debug = False, threaded=True)  # running on port 7777
+    # running on port 7777
+    app.run(host='0.0.0.0', port=7777, debug = False, threaded=True)
