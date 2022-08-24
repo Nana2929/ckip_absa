@@ -18,9 +18,6 @@ with open(outlog, 'r+') as fh:
 logging.info('喵喵content==')
 logging.info('睡覺！')
 
-
-
-
 print('second read:')
 with open(outlog, 'r+') as fh:
     readstring = fh.readlines()

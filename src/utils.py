@@ -12,6 +12,7 @@ class DepRelation():
     CONJUNCTIONs = [CONJ, CC]
     NEG = 'neg'
     NSUBJ = 'nsubj'
+    NN = 'nn'
     NSUBJPASS = 'nsubjpass'
     POBJ = 'pobj'
     DOBJ = 'dobj'
@@ -27,16 +28,16 @@ class POS():
     Nd = 'Nd'
     D = 'D'
     Da = 'Da'
-    Dfa='Dfa'
-    Dfb='Dfb'
-    Di='Di'
-    Dk='Dk'
+    Dfa ='Dfa'
+    Dfb ='Dfb'
+    Di ='Di'
+    Dk ='Dk'
     Nouns = [Na, Nb, Nc, Nd]
     Adverbs =[D, Da, Dfa, Dfb, Di, Dk]
        
 BOUNDDIST = 5
 CONJDIST = 2
 transition_list = ['但','但是',
-'只是','不過','美中不足',
-'可惜','遺憾','雖然','其他','只怪', '然而', '卻','反而']
+                    '只是','不過','美中不足',
+                    '可惜','遺憾','雖然','其他','只怪', '然而', '卻','反而']
 

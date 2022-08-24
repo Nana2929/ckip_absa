@@ -15,7 +15,36 @@ import re, sys
 
 class DepTree:
     
+    def __init__(self, row, 
+                 logfile='./DepTree_out/DepTree.log', 
+                 outdir = './DepTree_out'):
+        
+        '''
+        Params:
+            row: a dictionary or a pandas row
+            logfile: the file name that logging messages go into
+            outdir: directory that output image/data go to 
+        '''
+
+        self.row = row
+        self.pos = row['pos']
+        self.ws = row['word_seg']
+        self.depparse = row['dependency_parse']
+        self.dG, self.undG = self.build_graph()
+        self.outdir = outdir
+        os.makedirs(self.outdir, exist_ok =True)
+         
+        self.init_logger(logfile)
+        self.logger.info('======= Dep Tree =======')
+    
     def build_graph(self):
+        '''
+        Params:
+        (None) using self.pos, self.depparse
+        ========
+        Return:
+            nxGraph: dependency graph(directed/undirected)
+        '''
         G = nx.DiGraph()
         self.nodes = []
         for x in self.pos:
@@ -38,34 +67,41 @@ class DepTree:
         return dG, undG
     
     def init_logger(self, logfile):
+        '''
+        Params:
+            str: path to the log file 
+        =======
+        Return: 
+            (None)initializing module-specific logger  
+        '''
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
-        self.file_handler = logging.FileHandler(logfile, 'w') # 'w+' or 'w' to overwrite file 
-        formatter  = logging.Formatter('%(asctime)s : %(name)s : %(levelname)s: %(message)s')
-        self.file_handler.setFormatter(formatter)
-        self.logger.addHandler(self.file_handler)
-    
-    def clean_file(self):
-        self.logger.removeHandler(self.file_handler)
-    
-    def __init__(self, row, logfile, outdir = './DepTree_out'):
-        '''a dictionary or a pandas row'''
+        
+        # initialize handlers 
+        stream_handler = logging.StreamHandler()
+        file_handler = logging.FileHandler(logfile, 'w') # 'w+' or 'w' to overwrite file 
 
-        self.row = row
-        self.pos = row['pos']
-        self.ws = row['word_seg']
-        self.depparse = row['dependency_parse']
-        self.dG, self.undG = self.build_graph()
-        self.outdir = outdir
-        os.makedirs(self.outdir, exist_ok =True)
-         
-        self.init_logger(logfile)
-        self.logger.info('======= Dep Tree =======')
-        self.logger.debug('attrs:    \t .pos, .ws, .depparse, .dG, .undG, .aspects, .opinions')
-        self.logger.debug('functions:\t predict(), to_image()')
+        # formatters
+        stream_formatter = logging.Formatter('%(name)s|%(message)s')
+        file_formatter = logging.Formatter('%(message)s') # cleaner 
+        stream_handler.setFormatter(stream_formatter)
+        file_handler.setFormatter(file_formatter)
+        
+        # add handlers 
+        self.logger.addHandler(file_handler)
+        self.logger.addHandler(stream_handler)
+        
+    
+    def clean_logging(self):
+        '''
+        Cleaning logger handlers, 
+        s.t. it cleans the previous logging messages to avoid logging messages for different user inputs to be mixed 
+        '''
+        self.logger.handlers = []
+        print(f'{len(self.logger.handlers)} remaining handlers.')
+    
     
 
-    
     def _get_lexicon(self, lextype, directory = None):
         filedir = os.path.join(os.path.dirname(__file__), './lexicons')
         directory = filedir if directory is None else directory
@@ -90,27 +126,33 @@ class DepTree:
         return self.dG.nodes[node]['label']
     
     def node2pos(self, node):
+        '''
+        Params:
+            int: node: the node id recorded in {NetworkX Object}.nodes
+        =======
+        Return: 
+            str: the pos tag of the node
+        '''
         return self.dG.nodes[node]["pos"]
     
     
     def predict(self):
+        '''
+        MAIN FUNCTION 
+        '''
         spD = self.get_pairing()
         procD = self.neg_detect(spD) 
-        D = self.conj_detect(procD)
+        D = self.conj_detect(procD) # removing duplicates
         tokenD, span_marking = self.markspan(D)
         return tokenD, span_marking
     
     def markspan(self, D):
         '''
-        
-        Params:
-        
-        
-        =========
-        Return:
-        
-        
-        
+        Return: 
+            defaultdict: tokenD: 
+                key: str: aspect_label, 
+                value: list of tuples: (str: opinion, str: polarity)
+            str: spanned_ws: tagged user-input sequence 
         '''
         tokenD = defaultdict(list)
         pos = self.pos
@@ -137,8 +179,7 @@ class DepTree:
         
         return tokenD, spanned_ws
             
-    
-    
+
     def neg_detect(self, spD):
         '''
         if a detected opinion is negated,
@@ -149,16 +190,17 @@ class DepTree:
             for j in range(len(spD[opnkey])):
                 pol = spD[opnkey][j]['polarity']
                 asp, opn = spD[opnkey][j]['pair']
+                print(f'!neg_detect opn: {opn}')
                 outs = dG.out_edges(opn)
                 for opn, v in outs:
                     if dG[opn][v]['label'] == DepRelation.NEG:
                         self.logger.info(
                         f'[Rule 3] Detect negation on {self.node2tok(opn)}; polarity is reversed.')
                         neg_token = v 
-                        spD[opnkey][j]['pair'] = asp, [neg_token, opn]
+                        spD[opnkey][j]['pair'] = asp, (neg_token, opn)
                         spD[opnkey][j]['polarity'] = 'positive' if pol == 'negative' else 'negative'
         return spD
-                    
+
     def get_conjunctions(self):
         '''
         get CLOSE conjunction
@@ -188,7 +230,8 @@ class DepTree:
         conjunctions = self.get_conjunctions()
         for opnkey, sps in spD.items(): 
             for sp in sps:
-                asp, opn = sp['pair']
+                asp, opn = sp['pair'] # 
+                
                 oppol = sp['polarity']
                 # dG.nodes[sp[-1]]['label']
                 # opn = self.node2tok(opn) if not isinstance(opn, list) else ''.join(self.node2tok(x) for x in opn)
@@ -197,8 +240,10 @@ class DepTree:
                     partnertok = self.node2tok(partner)
                     self.logger.info(
                         f'[Rule 2] Detect conjunction between existing aspect {self.node2tok(asp)} and node {partnertok}; new aspect {partnertok} is added.')
-                    D[partner].append((opn, oppol))
-                D[asp].append((opn, oppol))
+                    if (opn, oppol) not in D[partner]:
+                        D[partner].append((opn, oppol))
+                if (opn, oppol) not in D[asp]:
+                    D[asp].append((opn, oppol))
         return D
     
     
@@ -282,8 +327,8 @@ class DepTree:
             ustring = f'{u} - {self.node2tok(u)} {self.node2pos(u)}'
             vstring = f'{v} - {self.node2tok(v)} {self.node2pos(v)}'
             viewpath.append(f'{ustring} --> {vstring}')
-        return dirpath, viewpath, (aspect, [opinion])
-            
+        
+        return dirpath, viewpath, [aspect, [opinion]]
     
     def get_pairing(self):
         '''
@@ -315,9 +360,10 @@ class DepTree:
             # a `neighbor` POS is N && its node id is PRIOR to opnid
             # then add this `neighbor` as aspect into self.aspect 
             for neighborid in neighbors:
-                # if self.node2pos(neighborid) in POS.Nouns and neighborid <= opnid:
+                
                 if self.node2tok(neighborid).strip() != '':
-                    if self.dG[opnid][neighborid]['label'] == DepRelation.NSUBJ and neighborid <= opnid:
+                    # 0823 fixing 「老闆娘人」沒被抓出來的問題
+                    if (self.node2pos(neighborid) in POS.Nouns or self.dG[opnid][neighborid]['label'] == DepRelation.NSUBJ) and neighborid <= opnid:
                         self.aspects.append({'id':neighborid, 'token':self.node2tok(neighborid)})
                         self.logger.info(
                             f'[Rule 1] Detect NOUN neighbor in subtree; new aspect {self.node2tok(neighborid)} is added.')
@@ -344,11 +390,10 @@ class DepTree:
                 elif currdist == mindist: 
                     spD[opnkey].append(currpathdict)
                 mindist = min(mindist, currdist)
-        
-        filename = f'{self.outdir}/dep_tree_sp.json'
-        with open(filename, 'w') as f:
-            json.dump(spD, f, indent= 4, 
-                      ensure_ascii = False)
+        # filename = f'{self.outdir}/dep_tree_sp.json'
+        # with open(filename, 'w') as f:
+        #     json.dump(spD, f, indent= 4, 
+        #               ensure_ascii = False)
         return spD
     
     
