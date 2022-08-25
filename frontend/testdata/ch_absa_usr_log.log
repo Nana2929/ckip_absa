@@ -1,20 +1,6 @@
-<<<<<<< HEAD
-2022-08-24 17:40:38,337 : DepTree : INFO: ======= Dep Tree =======
-2022-08-24 17:40:38,366 : DepTree : INFO: finished loading aspect lexicon.
-2022-08-24 17:40:38,370 : DepTree : INFO: finished loading opinion lexicon.
-2022-08-24 17:40:38,917 : DepTree : INFO: [lexicon-based] detected aspects: [{'id': 1, 'token': '飯'}, {'id': 3, 'token': '麵'}, {'id': 5, 'token': '湯'}, {'id': 7, 'token': '燒賣'}]
-2022-08-24 17:40:38,917 : DepTree : INFO: [lexicon-based] detected opinions: []
-2022-08-24 17:40:38,337 : DepTree : INFO: ======= Dep Tree =======
-2022-08-24 17:40:38,366 : DepTree : INFO: finished loading aspect lexicon.
-2022-08-24 17:40:38,370 : DepTree : INFO: finished loading opinion lexicon.
-2022-08-24 17:40:38,917 : DepTree : INFO: [lexicon-based] detected aspects: [{'id': 1, 'token': '飯'}, {'id': 3, 'token': '麵'}, {'id': 5, 'token': '湯'}, {'id': 7, 'token': '燒賣'}]
-2022-08-24 17:40:38,917 : DepTree : INFO: [lexicon-based] detected opinions: []
-=======
 ======= Dep Tree =======
 finished loading aspect lexicon.
 finished loading opinion lexicon.
-[lexicon-based] detected aspects: [{'id': 1, 'token': '菜'}, {'id': 7, 'token': '京醬'}, {'id': 11, 'token': '雞丁'}, {'id': 12, 'token': '牛腩'}, {'id': 15, 'token': '醋魚'}, {'id': 17, 'token': '麵衣'}]
-[lexicon-based] detected opinions: [{'id': 19, 'token': '軟', 'polarity': 'neutral'}]
-[Rule 1] Detect NOUN neighbor in subtree;                             new aspect 醋魚 is added.
-[Rule 1] Detect NOUN neighbor in subtree;                             new aspect 麵衣 is added.
->>>>>>> update frontend files
+[lexicon-based] detected aspects: [{'id': 1, 'token': '牛肉麵'}]
+[lexicon-based] detected opinions: [{'id': 2, 'token': '好吃', 'polarity': 'positive'}]
+[Rule 1] Detect NOUN neighbor in subtree;                             new aspect 牛肉麵 is added.
