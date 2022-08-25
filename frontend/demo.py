@@ -6,7 +6,7 @@ from copy import deepcopy
 import sys, os
 import logging
 import argparse
-import json 
+import json
 from flask import Flask, jsonify, abort, request, make_response, render_template
 from flask_cors import CORS
 
@@ -32,19 +32,19 @@ def init_parser(port, device_id):
 
 '''main function'''
 def text_process(test_sent):
-    
+
     test_sent = test_sent.replace(' ', '').replace('\n','').replace('\r','')
     '''ws & parsing & post-processing'''
     # check input
-    print(test_sent) 
+    print(test_sent)
     print("Parsing...")
-    
-    ws, pos, deptree = ch_parser.output(test_sent) 
+
+    ws, pos, deptree = ch_parser.output(test_sent)
     os.makedirs(outputdir, exist_ok=True)
 
     r = {'sentence': test_sent,
         'word_seg': ws,
-        'pos': pos, 
+        'pos': pos,
         'dependency_parse': deptree}
     tree = DepTree(r, outdir = outputdir, logfile = outlog)
 
@@ -69,12 +69,12 @@ def text_process(test_sent):
         print(f'{k}:{pair}')
         pred = pred + f'{k}' + '：' + f'{pair}' + '\n'
 
-    print(f"Span-marking: {ws}") 
+    print(f"Span-marking: {ws}")
     tree.to_image(verbose = False)
-    # open the written logfile 
+    # open the written logfile
     # read the current input's log
     with open(outlog, 'r') as fh:
-        logstring = fh.readlines() 
+        logstring = fh.readlines()
         logstring = ''.join(logstring) #.lstrip('\00')
 
     print(f"Output success. Check the results under {outputdir}")
@@ -107,9 +107,9 @@ def move_forward():
     # Moving forward code
     user_text = request.values['text']
     url_pre = args.url_pre
-    cnt = 0 
+    cnt = 0
     if request.method=='POST':
-        
+
         print('Did user request to show the process?', request.form.get("show_progress"))
         process_output, result_output, logmsg = text_process(user_text)
         img_output = return_img_stream('./testdata/dep_tree.png')
@@ -117,43 +117,43 @@ def move_forward():
         if request.form.get("show_progress"):
             sepline = '='*30+'\n'
             process_output = logmsg + sepline + process_output
-         
+
         results = [user_text, process_output, result_output]
-        return render_template('index.html', 
-                            sent = results[0], 
-                            process = results[1], 
+        return render_template('index.html',
+                            sent = results[0],
+                            process = results[1],
                             result = results[2],
                             img_stream = img_output,
                             url_pre = url_pre)
 
     return render_template('index.html', url_pre = url_pre)
-    
+
 
 
 if __name__ == '__main__':
-    
+
     # do NOT modify this variable
     URLLINK = 'https://ckip.iis.sinica.edu.tw/service/restaurant-absa'
-    
-    
-    argparser = argparse.ArgumentParser(prog='') 
-    argparser.add_argument('--tagger_port', '-tgp', default = 2022, type = int, required = False, 
+
+
+    argparser = argparse.ArgumentParser(prog='')
+    argparser.add_argument('--tagger_port', '-tgp', default = 2022, type = int, required = False,
                         help = 'At which port you wish to run your dependency parser\'s associated module (ckip tagger)')
     argparser.add_argument("--url_pre",'-u', default= URLLINK, type=str, help = 'The url you wish to run your Flask App on')
     argparser.add_argument("--device_id",'-d', default= 2, type=int, help = 'Gpu device id to run the dep parser on')
     global args
-    global outputdir 
-    global outlog 
-    
+    global outputdir
+    global outlog
+
     outputdir = './testdata'
     args = argparser.parse_args()
-    outlog = f'{outputdir}/ch_absa_usr_log.log'    
+    outlog = f'{outputdir}/ch_absa_usr_log.log'
     # disable Flask logging
     # flasklog = logging.getLogger('werkzeug')
     # flasklog.setLevel(logging.ERROR)
-    print('Inititalizing Dependency Parser...') 
+    print('Inititalizing Dependency Parser...')
     ch_parser = init_parser(args.tagger_port, args.device_id)
     print('Successfully initialized.')
-    # if already written, clean the file 
+    # if already written, clean the file
     # running on port 7777
-    app.run(host='0.0.0.0', port=7777, debug = False, threaded=True)
+    app.run(host='0.0.0.0', port=7777, debug = True, threaded=True)

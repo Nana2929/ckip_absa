@@ -9,7 +9,7 @@ open for demo rendering: use lone 11, line 21 -->
     <title>餐廳評論分析系統</title>
     <link rel="stylesheet" href="{{url_pre}}/static/styles.css" />
     <!-- <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}"> -->
-    
+
 </head>
 <body>
     <header id='title_bar' >
@@ -22,15 +22,17 @@ open for demo rendering: use lone 11, line 21 -->
             </div>
             <div class="row2">
                 <script>
+                    var usertext='{{ sent }}'
                     function turnGray(x){
                         x.style.color = 'gray'
                     }
                     function turnBlack(x){
                         x.style.color = 'black'
                     }
-                    function clear(id) {
-                        document.getElementById(id).innerHTML = "";
-                    }
+                    // function show() {
+                    //     document.getElementsById("input_box").value = usertext;
+                    //     // document.getElementById("input_box").innerHTML = usertext;
+                    // }
                 </script>
                 <a href="https://ckip.iis.sinica.edu.tw/" onmouseover='turnBlack(this)'
                 onmouseout='turnGray(this)'>CKIP  LAB&emsp;</a>
@@ -51,7 +53,11 @@ open for demo rendering: use lone 11, line 21 -->
                 <br>&emsp;&emsp;<span style="color:gray; margin-left:10px; font-size:16px">建議句長為30字以內</span></p>
                 <form action="{{url_pre}}/forward/" method="post" id="take-input"></form>
                 <!-- <input type="text" id="take-input" placeholder="牛肉麵很好吃"> -->
-                <textarea style="vertical-align: middle; margin-bottom: 5px;" class="textin" name="text" form="take-input" placeholder="輸入欲分析的餐廳評論，例如：牛肉麵很好吃"></textarea>
+                {% if sent == ""%}
+                <textarea style="vertical-align: middle; margin-bottom: 5px;"class="textin" id="input_box" name="text" form="take-input" placeholder="輸入欲分析的餐廳評論，例如：牛肉麵很好吃"></textarea>
+                {% else %}
+                <textarea style="vertical-align: middle; margin-bottom: 5px;"class="textin" id="input_box" name="text" form="take-input">{{sent}}</textarea>
+                {% endif %}
                 <div style="display: inline-block;">
                     <div style="display: inline-block;">
                         <input type="checkbox" id = "show_progress_btn" name="show_progress" form="take-input" values="fuck it">
@@ -66,7 +72,7 @@ open for demo rendering: use lone 11, line 21 -->
                 <p class="output output_2">&emsp;🥨 輸入評論</p>
                     <div class="input-style">
                         <span>{{sent}}</span>
-                    </div> 
+                    </div>
                 <textarea class="textout" readonly>{{sent}}</textarea></div> -->
             <!-- result -->
             <div class="showblock" >
