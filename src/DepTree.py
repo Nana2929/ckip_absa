@@ -55,7 +55,8 @@ class DepTree:
                 self.periods.append(id)
             
             # print(f'token: {token}, pos: {pos}')
-            G.add_node(id, label = token, pos = pos)
+            G.add_node(id, label = f'<{token}>', pos = pos) 
+            # f'<{token}>': to avoid error of processing into pydot 
             self.nodes.append((id, token, pos))
             
         for dep in self.depparse:
@@ -127,7 +128,9 @@ class DepTree:
         Return: 
             str: the label (token tag) of the node
         '''
-        return self.dG.nodes[node]['label']
+        label = self.dG.nodes[node]['label'][1:-1] 
+        # 去掉 <>
+        return label 
     
     def node2pos(self, node):
         '''

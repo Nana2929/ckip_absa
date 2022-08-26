@@ -1,7 +1,6 @@
 ======= Dep Tree =======
 finished loading aspect lexicon.
 finished loading opinion lexicon.
-[lexicon-based] detected aspects: [{'id': 1, 'token': '鱸魚'}, {'id': 3, 'token': '土司'}, {'id': 5, 'token': '肉'}]
-[lexicon-based] detected opinions: [{'id': 7, 'token': '好吃', 'polarity': 'positive'}]
-[Rule 1] Detect NOUN neighbor in subtree;                             new aspect 肉 is added.
-[Rule 2] Detect conjunction between existing aspect 肉 and node 土司; new aspect 土司 is added.
+[lexicon-based] detected aspects: [{'id': 4, 'token': '牛肉燴飯'}, {'id': 8, 'token': '燴飯'}, {'id': 9, 'token': '湯汁'}, {'id': 19, 'token': '米飯'}, {'id': 23, 'token': '湯汁'}, {'id': 25, 'token': '牛肉'}]
+[lexicon-based] detected opinions: [{'id': 11, 'token': '過多', 'polarity': 'negative'}, {'id': 29, 'token': '大方', 'polarity': 'positive'}, {'id': 31, 'token': '滑嫩', 'polarity': 'positive'}]
+[Rule 1] Detect NOUN neighbor in subtree;                             new aspect 牛肉 is added.

@@ -1,15 +1,10 @@
 ======= Dep Tree =======
 finished loading aspect lexicon.
 finished loading opinion lexicon.
-[lexicon-based] detected aspects: [{'id': 1, 'token': '蛋黃酥'}, {'id': 3, 'token': '蘿蔔糕'}, {'id': 7, 'token': '清蒸鱸魚'}]
-[lexicon-based] detected opinions: [{'id': 5, 'token': '好吃', 'polarity': 'positive'}, {'id': 10, 'token': '新鮮', 'polarity': 'positive'}, {'id': 14, 'token': '好', 'polarity': 'positive'}]
-[Rule 1] Detect NOUN neighbor in subtree;                             new aspect 蘿蔔糕 is added.
+[lexicon-based] detected aspects: [{'id': 1, 'token': '清蒸鱸魚'}]
+[lexicon-based] detected opinions: [{'id': 5, 'token': '新鮮', 'polarity': 'positive'}, {'id': 8, 'token': '糟', 'polarity': 'negative'}, {'id': 12, 'token': '好', 'polarity': 'positive'}]
 [Rule 1] Detect NOUN neighbor in subtree;                             new aspect 清蒸鱸魚 is added.
 [Rule 1] Detect NOUN neighbor in subtree;                             new aspect 老闆娘人 is added.
-[Rule 5] Detected crossing boundary pair 蛋黃酥 and 好, ignore the pair.
-[Rule 5] Detected crossing boundary pair 蘿蔔糕 and 好, ignore the pair.
 [Rule 5] Detected crossing boundary pair 清蒸鱸魚 and 好, ignore the pair.
-[Rule 5] Detected crossing boundary pair 蘿蔔糕 and 好, ignore the pair.
 [Rule 5] Detected crossing boundary pair 清蒸鱸魚 and 好, ignore the pair.
 [Rule 3] Detect negation on 新鮮; polarity is reversed.
-[Rule 2] Detect conjunction between existing aspect 蘿蔔糕 and node 蛋黃酥; new aspect 蛋黃酥 is added.
