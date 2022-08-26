@@ -156,4 +156,4 @@ if __name__ == '__main__':
     print('Successfully initialized.')
     # if already written, clean the file
     # running on port 7777
-    app.run(host='0.0.0.0', port=7777, debug = True, threaded=True)
+    app.run(host='0.0.0.0', port=7777, debug = False, threaded=True)
